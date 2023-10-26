@@ -69,11 +69,11 @@ jobs:
         with:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           ARGS: "-rlgoDzvc -i"
-          SOURCE: "./apps/front/dist/"
+          SOURCE: "./dist"
           REMOTE_HOST: ${{ secrets.HOST }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET }}
-          EXCLUDE: "/apps/front/dist/, /node_modules/"
+          EXCLUDE: "./dist/, /node_modules/"
           SCRIPT_BEFORE: |
             whoami
             ls -al
