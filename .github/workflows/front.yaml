@@ -73,7 +73,7 @@ jobs:
           REMOTE_HOST: ${{ secrets.HOST }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET }}
-          EXCLUDE: "./dist/, /node_modules/"
+          EXCLUDE: "/dist/, /node_modules/"
           SCRIPT_BEFORE: |
             whoami
             ls -al
