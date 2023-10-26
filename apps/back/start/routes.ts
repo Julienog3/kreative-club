@@ -21,11 +21,14 @@
 import Route from '@ioc:Adonis/Core/Route'
 import UsersController from '../app/Controllers/Http/UsersController'
 
-
 Route.get('/', async () => {
   return { hello: 'world' }
 })
 
-Route.get('users', async (ctx) => {
-  return new UsersController().index(ctx)
+Route.get('users', async () => {
+  return new UsersController().index()
+})
+
+Route.post('users', async (ctx) => {
+  return new UsersController().create(ctx)
 })
