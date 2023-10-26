@@ -54,8 +54,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Build project
+        run: |
+          pnpm install
+          pnpm run build
+
       - name: Display structure of downloaded files
         run: ls -R
+
+      - name: Download artifact
+        uses: actions/download-artifact@master
+        with:
+          name: bundle
+          path: /dist
 
       - name: Deploy to Staging server
         uses: easingthemes/ssh-deploy@main
