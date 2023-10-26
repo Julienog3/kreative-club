@@ -52,11 +52,15 @@ jobs:
     needs: build
 
     steps:
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: ./apps/front
+
       - name: Download artifact
         uses: actions/download-artifact@master
         with:
           name: bundle
-          path: ./apps/front/dist
+          path: apps/front/dist
 
       - name: Deploy to Staging server
         uses: easingthemes/ssh-deploy@main
