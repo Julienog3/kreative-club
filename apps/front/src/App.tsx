@@ -9,6 +9,7 @@ function App() {
       <Outlet />
       <Link to='/'>Home</Link>
       <Link to='/users'>Users</Link>
+      <Link to='/users/add'>Add user</Link>
     </QueryClientProvider>
   )
 }

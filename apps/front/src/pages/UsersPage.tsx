@@ -5,7 +5,7 @@ import { center, vstack } from "../../styled-system/patterns"
 import { css } from "../../styled-system/css"
 import Button from "../components/utils/Button/Button"
 
-function UsersPage(): JSX.Element {
+export default function UsersPage(): JSX.Element {
   const { data: users } = useQuery({ queryKey: ['users'], queryFn: getUsers })
 
   return (
@@ -22,8 +22,5 @@ function UsersPage(): JSX.Element {
         </div>
       </Card>
     </main>
-    
   )
 }
-
-export default UsersPage

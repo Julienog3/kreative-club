@@ -3,7 +3,7 @@ import { css } from "../../../../styled-system/css";
 
 interface ButtonProps {
   type?: "button" | "submit" | "reset"
-  onClick: () => void
+  onClick?: () => void
 }
 
 const Button = ({ type = 'button', onClick, children }: ButtonProps & PropsWithChildren) => {
