@@ -47,21 +47,17 @@ jobs:
           touch .env
           cat .env
 
+      - name: Download project as artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: bundle
+          path: ./apps/front/dist
+
   deploy:
     runs-on: ubuntu-latest
     needs: build
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
-      - name: Build project
-        run: |
-          pnpm install
-          pnpm run build
-
       - name: Display structure of downloaded files
         run: ls -R
 
