@@ -52,10 +52,6 @@ jobs:
     needs: build
 
     steps:
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: apps/front
-
       - name: Download artifact
         uses: actions/download-artifact@master
         with:
