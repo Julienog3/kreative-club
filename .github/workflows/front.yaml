@@ -20,6 +20,11 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -29,6 +34,11 @@ jobs:
       - name: Download project from git
         uses: actions/checkout@v3
 
+      - name: Build project
+        run: |
+          pnpm install
+          pnpm run build
+
       - name: Testing project
         run: pnpm test
 
@@ -36,11 +46,6 @@ jobs:
         run: |
           touch .env
           cat .env
-
-      - name: Build project
-        run: |
-          pnpm install
-          pnpm run build
 
       - name: Download project as artifact
         uses: actions/upload-artifact@master
