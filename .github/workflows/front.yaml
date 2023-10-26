@@ -1,0 +1,43 @@
+name: Front React CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+defaults:
+  run:
+    working-directory: ./apps/front
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - name: Download project from git
+        uses: actions/checkout@v3
+
+      - name: Testing project
+        run: pnpm test
+
+      - name: Create env file
+        run: |
+          touch .env
+          cat .env
+
+      - name: Build project
+        run: |
+          pnpm install
+          pnpm run build
+
+      - name: Download project as artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: bundle
+          path: ./dist
