@@ -1,4 +1,4 @@
-name: Front React CI
+name: Back Adonis CI
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 defaults:
   run:
-    working-directory: ./apps/front
+    working-directory: ./apps/back
 
 jobs:
   build:
@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -37,23 +37,18 @@ jobs:
       - name: Create env file
         run: |
           touch .env
-          echo VITE_API_URL=${{ vars.API_URL }} >> .env
+          cat .env
 
       - name: Build project
         run: |
           pnpm install
           pnpm run build
-
-      - name: Testing project
-        run: pnpm test
-
      
-
       - name: Download project as artifact
         uses: actions/upload-artifact@master
         with:
           name: bundle
-          path: ./apps/front/dist
+          path: ./apps/back/build
 
   deploy:
     runs-on: ubuntu-latest
@@ -64,18 +59,18 @@ jobs:
         uses: actions/download-artifact@master
         with:
           name: bundle
-          path: ./dist
+          path: ./build
 
       - name: Deploy to Staging server
         uses: easingthemes/ssh-deploy@main
         with:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           ARGS: "-rlgoDzvc -i"
-          SOURCE: "dist/"
+          SOURCE: "build/"
           REMOTE_HOST: ${{ secrets.HOST }}
           REMOTE_USER: ${{ secrets.USERNAME }}
-          TARGET: ${{ secrets.TARGET }}
-          EXCLUDE: "/dist/, /node_modules/"
+          TARGET: ${{ secrets.BACK_TARGET }}
+          EXCLUDE: "/build/, /node_modules/"
           SCRIPT_BEFORE: |
             whoami
             ls -al
@@ -83,3 +78,8 @@ jobs:
             whoami
             ls -al
             echo $RSYNC_STDOUT
+            cp .env.example .env
+            npm install
+            mkdir -p tmp
+            node ace migration:run --force
+            pm2 restart api-kreative-club
