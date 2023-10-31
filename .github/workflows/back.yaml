@@ -78,5 +78,8 @@ jobs:
             whoami
             ls -al
             echo $RSYNC_STDOUT
-            npm ci --production
-            node server.js
+            cp .env.example .env
+            npm install
+            mkdir -p tmp
+            node ace migration:run --force
+            pm2 restart api-kreative-club
