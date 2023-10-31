@@ -6,6 +6,9 @@ const Header = (): JSX.Element => {
   return (
     <header
       className={vstack({
+        position: "fixed",
+        top: 0,
+        width: "full",
         height: 20,
         px: 6,
         justifyContent: "space-between",
