@@ -26,7 +26,7 @@ const userSchema = z.object({
 export default function UserAddingPage(): JSX.Element {
   const queryClient = new QueryClient();
 
-  const { register, handleSubmit, formState: { errors }}= useForm<FieldValues>({ resolver: zodResolver(userSchema)});
+  const { register, handleSubmit }= useForm<FieldValues>({ resolver: zodResolver(userSchema)});
 
   
 
@@ -37,7 +37,7 @@ export default function UserAddingPage(): JSX.Element {
     }
   })
   
-  const onSubmit: SubmitHandler<UserPayload> = (user) => addingUser.mutate(user)
+  const onSubmit: SubmitHandler<FieldValues> = (user) => addingUser.mutate(user as UserPayload)
   
   return (
     <main className={center({ height: '100vh', width: 'full', backgroundColor: '#F9F5F2' })}>
