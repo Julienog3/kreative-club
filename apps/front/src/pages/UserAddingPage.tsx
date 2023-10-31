@@ -1,6 +1,6 @@
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { css } from "../../styled-system/css";
-import { center, hstack, vstack } from "../../styled-system/patterns";
+import { hstack, vstack } from "../../styled-system/patterns";
 import Button from "../components/utils/Button/Button";
 import Card from "../components/utils/Card/Card";
 import Input from "../components/utils/Input/Input";
@@ -44,13 +44,7 @@ export default function UserAddingPage(): JSX.Element {
     addingUser.mutate(user as UserPayload);
 
   return (
-    <main
-      className={center({
-        height: "100vh",
-        width: "full",
-        backgroundColor: "#F9F5F2",
-      })}
-    >
+    <>
       <Card>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -81,6 +75,6 @@ export default function UserAddingPage(): JSX.Element {
           <ButtonWithLink to="/users">Users</ButtonWithLink>
         </div>
       </Card>
-    </main>
+    </>
   );
 }

@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Card from './Card';
+import type { Meta, StoryObj } from "@storybook/react";
+import Card from "./Card";
 
 const meta: Meta<typeof Card> = {
   component: Card,
@@ -9,5 +9,5 @@ export default meta;
 type Story = StoryObj<typeof Card>;
 
 export const primary: Story = {
-  render: () => <Card>Hello !</Card>
+  render: () => <Card>Hello !</Card>,
 };
