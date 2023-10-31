@@ -1,4 +1,3 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import Input, { InputProps } from "./Input";
 import { FieldValues, useForm } from "react-hook-form";
