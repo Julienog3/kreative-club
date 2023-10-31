@@ -12,7 +12,7 @@ export type UserPayload = User & {
 };
 
 const getUsers = async (): Promise<User[]> => {
-  return await fetch(`${import.meta.env.VITE_API_URL}/users`).then((res) =>
+  return await fetch(`${import.meta.env.VITE_API_URL}users`).then((res) =>
     res.json(),
   );
 };
@@ -20,7 +20,7 @@ const getUsers = async (): Promise<User[]> => {
 const createUser = async (user: UserPayload): Promise<void> => {
   const userPayload = parseCamelToSnakeCase(user);
 
-  await fetch(`${import.meta.env.VITE_API_URL}/users`, {
+  await fetch(`${import.meta.env.VITE_API_URL}users`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

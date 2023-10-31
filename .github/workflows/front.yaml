@@ -45,7 +45,7 @@ jobs:
       - name: Create env file
         run: |
           touch .env
-          cat .env
+          echo VITE_API_URL=${{ vars.API_URL }} >> .env
 
       - name: Download project as artifact
         uses: actions/upload-artifact@master
