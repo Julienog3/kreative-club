@@ -34,6 +34,11 @@ jobs:
       - name: Download project from git
         uses: actions/checkout@v3
 
+      - name: Create env file
+        run: |
+          touch .env
+          echo VITE_API_URL=${{ vars.API_URL }} >> .env
+
       - name: Build project
         run: |
           pnpm install
@@ -42,10 +47,7 @@ jobs:
       - name: Testing project
         run: pnpm test
 
-      - name: Create env file
-        run: |
-          touch .env
-          echo VITE_API_URL=${{ vars.API_URL }} >> .env
+     
 
       - name: Download project as artifact
         uses: actions/upload-artifact@master
