@@ -15,7 +15,7 @@ export default class AuthController {
     }
   }
 
-  public async register({ auth, request, response }: HttpContextContract) {
+  public async register({ auth, request }: HttpContextContract) {
     const userSchema = schema.create({
       username: schema.string({ trim: true }, [
         rules.unique({ table: 'users', column: 'username', caseInsensitive: true }),
