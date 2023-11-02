@@ -6,6 +6,7 @@
     "outDir": "build",
     "rootDir": "./",
     "sourceMap": true,
+    "baseUrl": "./",
     "paths": {
       "App/*": ["./app/*"],
       "Config/*": ["./config/*"],
@@ -16,7 +17,8 @@
       "@adonisjs/core",
       "@adonisjs/repl",
       "@japa/preset-adonis/build/adonis-typings",
-      "@adonisjs/lucid"
+      "@adonisjs/lucid",
+      "@adonisjs/auth"
     ]
   },
   "parserOptions": {

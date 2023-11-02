@@ -5,10 +5,11 @@ import Button from "../components/utils/Button/Button";
 import Card from "../components/utils/Card/Card";
 import Input from "../components/utils/Input/Input";
 import { QueryClient, useMutation } from "@tanstack/react-query";
-import { UserPayload, createUser } from "../api/user";
+import { UserPayload } from "../api/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import ButtonWithLink from "../components/utils/ButtonWithLink/ButtonWithLink";
+import { registerUser } from "../api/auth";
 
 const userSchema = z
   .object({
@@ -33,15 +34,15 @@ export default function UserAddingPage(): JSX.Element {
     resolver: zodResolver(userSchema),
   });
 
-  const addingUser = useMutation({
-    mutationFn: createUser,
+  const signUpUser = useMutation({
+    mutationFn: registerUser,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (user) =>
-    addingUser.mutate(user as UserPayload);
+    signUpUser.mutate(user as UserPayload);
 
   return (
     <>
@@ -50,7 +51,7 @@ export default function UserAddingPage(): JSX.Element {
           onSubmit={handleSubmit(onSubmit)}
           className={vstack({ gap: 4, alignItems: "left" })}
         >
-          <h2 className={css({ textStyle: "title" })}>Ajout utilisateur</h2>
+          <h2 className={css({ textStyle: "title" })}>Inscription</h2>
 
           <Input label="username" register={register} required />
           <Input label="email" register={register} required />
@@ -68,7 +69,7 @@ export default function UserAddingPage(): JSX.Element {
               required
             />
           </div>
-          <Button type="submit">Créer</Button>
+          <Button type="submit">S&apos;inscrire</Button>
         </form>
         <div className={hstack()}>
           <ButtonWithLink to="/">Home</ButtonWithLink>
