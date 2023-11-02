@@ -9,7 +9,7 @@ export interface Credentials {
 const registerUser = async (user: UserPayload): Promise<void> => {
   const userPayload = parseCamelToSnakeCase(user);
 
-  await fetch(`${import.meta.env.VITE_API_URL}register`, {
+  await fetch(`${import.meta.env.VITE_API_URL}auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,7 +21,7 @@ const registerUser = async (user: UserPayload): Promise<void> => {
 const loginUser = async ({ email, password }: Credentials): Promise<void> => {
   const loginPayload = parseCamelToSnakeCase({ email, password });
 
-  await fetch(`${import.meta.env.VITE_API_URL}login`, {
+  await fetch(`${import.meta.env.VITE_API_URL}auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
