@@ -13,12 +13,13 @@ export default function UsersPage(): JSX.Element {
       <Card>
         <div className={vstack({ gap: 4, alignItems: "left" })}>
           <h2 className={css({ textStyle: "title" })}>Utilisateurs</h2>
-          <ul>
-            {users &&
-              users.map(({ id, username }) => {
+          {users && users?.length > 0 && (
+            <ul>
+              {users.map(({ id, username }) => {
                 return <li key={id}>{username}</li>;
               })}
-          </ul>
+            </ul>
+          )}
           <div className={hstack()}>
             <ButtonWithLink to="/">Home</ButtonWithLink>
             <ButtonWithLink to="/users/add">Adding user</ButtonWithLink>

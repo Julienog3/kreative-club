@@ -1,4 +1,3 @@
-import { QueryClient, useMutation } from "@tanstack/react-query";
 import { css } from "../../styled-system/css";
 import { vstack } from "../../styled-system/patterns";
 import Button from "../components/utils/Button/Button";
@@ -7,7 +6,8 @@ import Input from "../components/utils/Input/Input";
 import * as z from "zod";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Credentials, loginUser } from "../api/auth";
+import { Credentials } from "../api/auth";
+import { useAuth } from "../hooks/useAuth";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -15,21 +15,14 @@ const loginSchema = z.object({
 });
 
 export default function LoginPage(): JSX.Element {
-  const queryClient = new QueryClient();
-
   const { register, handleSubmit } = useForm<FieldValues>({
     resolver: zodResolver(loginSchema),
   });
 
-  const signInUser = useMutation({
-    mutationFn: loginUser,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-    },
-  });
+  const { login } = useAuth();
 
   const onSubmit: SubmitHandler<FieldValues> = (credentials) =>
-    signInUser.mutate(credentials as Credentials);
+    login(credentials as Credentials);
 
   return (
     <>

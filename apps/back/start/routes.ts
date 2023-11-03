@@ -33,9 +33,8 @@ Route.group(async () => {
   Route.post('/', async (ctx) => {
     return new UsersController().create(ctx)
   })
-})
-  .prefix('users')
-  .middleware(['auth'])
+}).prefix('users')
+// .middleware(['auth'])
 
 Route.group(async () => {
   Route.post('login', async (ctx) => {

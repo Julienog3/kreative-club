@@ -1,9 +1,16 @@
+import { api } from ".";
 import { parseCamelToSnakeCase } from "../helpers/format";
-import { UserPayload } from "./user";
+import { User, UserPayload } from "./user";
+import { z } from "zod";
 
 export interface Credentials {
   email: string;
   password: string;
+}
+
+export interface LoginResponse {
+  token: string;
+  type: string;
 }
 
 const registerUser = async (user: UserPayload): Promise<void> => {
@@ -18,16 +25,35 @@ const registerUser = async (user: UserPayload): Promise<void> => {
   });
 };
 
-const loginUser = async ({ email, password }: Credentials): Promise<void> => {
+const loginUser = async ({
+  email,
+  password,
+}: Credentials): Promise<LoginResponse> => {
   const loginPayload = parseCamelToSnakeCase({ email, password });
 
-  await fetch(`${import.meta.env.VITE_API_URL}auth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(loginPayload),
+  const loginResponseSchema = z.object({
+    token: z.string(),
+    type: z.string(),
   });
+
+  const response = await api
+    .post("auth/login", {
+      json: loginPayload,
+    })
+    .json();
+
+  return loginResponseSchema.parse(response);
 };
 
-export { registerUser, loginUser };
+const getMe = async (): Promise<User> => {
+  const userSchema = z.object({
+    id: z.number(),
+    username: z.string(),
+    email: z.string(),
+  });
+
+  const response = await api.get("me").json();
+  return userSchema.parse(response);
+};
+
+export { registerUser, loginUser, getMe };
