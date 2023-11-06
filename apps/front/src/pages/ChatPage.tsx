@@ -11,12 +11,17 @@ import { useAuth } from "../hooks/useAuth";
 interface SocketUser {
   userID: string;
   username: string;
+  self?: boolean;
+  messages?: string[];
 }
 
 export default function ChatPage(): JSX.Element {
   const { user } = useAuth();
 
   const [users, setUsers] = useState<SocketUser[]>([]);
+  const [selectedUserId, setSelectedUserId] = useState<string>();
+
+  const selectedUser = users.find(({ userID }) => userID === selectedUserId);
 
   const { register: registerMessage, handleSubmit: handleSubmitMessage } =
     useForm<FieldValues>();
@@ -27,23 +32,35 @@ export default function ChatPage(): JSX.Element {
       socket.connect();
     }
 
-    socket.on("users", (data) => {
-      console.log("users", data);
-      setUsers(data);
+    socket.on("users", (data: SocketUser[]) => {
+      const newUsers = data.map((user) => ({
+        ...user,
+        self: user.userID === socket.id,
+      }));
+      setUsers(newUsers);
     });
 
     socket.on("user connected", (user) => {
-      console.log("user", user);
-      setUsers([...users, user]);
+      setUsers((users) => [...users, user]);
     });
 
     return () => {
       socket.off();
     };
-  }, []);
+  }, [user]);
+
+  // useEffect(() => {}, [selectedUser]);
 
   const onSubmitMessage: SubmitHandler<FieldValues> = ({ message }) => {
-    socket.emit("chat", { message });
+    if (selectedUser) {
+      socket.emit("private message", { message, to: selectedUserId });
+      // setSelectedUser(selectedUser => {
+      //   ...selectedUser,
+      //   messages: [
+
+      //   ]
+      // })
+    }
   };
 
   return (
@@ -51,12 +68,21 @@ export default function ChatPage(): JSX.Element {
       <Card>
         <div className={vstack({ gap: 4, alignItems: "left" })}>
           <h2 className={css({ textStyle: "title" })}>Chat</h2>
+          {selectedUser && (
+            <p className={css({ textStyle: "body" })}>
+              {selectedUser.username}
+            </p>
+          )}
           {users && (
             <ul>
-              {users.map((user) => {
+              {users.map(({ userID, username, self }) => {
                 return (
-                  <li className={css({ textStyle: "body" })} key={user.userID}>
-                    {user.userID} : {user.username}
+                  <li
+                    onClick={(): void => setSelectedUserId(userID)}
+                    className={css({ textStyle: "body", cursor: "pointer" })}
+                    key={userID}
+                  >
+                    {userID} : {username} {self && <span>(moi)</span>}
                   </li>
                 );
               })}
