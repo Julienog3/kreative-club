@@ -29,10 +29,12 @@ const Header = (): JSX.Element => {
           alt="Logo Kreative club"
         />
       </Link>
-      <div className={hstack()}>
+      <div className={hstack({ gap: 2 })}>
         {user ? (
           <>
-            <p>Bonjour {user.username}</p>
+            <p className={css({ textStyle: "body", mr: 4 })}>
+              Bonjour {user.username}
+            </p>
             <Button onClick={(): void => logout.mutate()}>
               Se déconnecter
             </Button>
