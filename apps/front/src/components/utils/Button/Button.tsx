@@ -15,7 +15,9 @@ const Button = ({
 }: ButtonProps & PropsWithChildren) => {
   return (
     <button
+      role="button"
       className={css({
+        color: disabled ? "gray.700" : "black",
         padding: 2,
         backgroundColor: disabled ? "gray.300" : "violet.500",
         rounded: "md",

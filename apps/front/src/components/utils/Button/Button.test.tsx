@@ -18,14 +18,16 @@ describe("Button test", () => {
     expect(handleClick).toBeCalledTimes(1);
   });
 
-  test("Should be disabled on fetch pending", () => {
+  test("Should be disabled", () => {
     const handleClick = vi.fn();
 
     render(
       <Button onClick={handleClick} disabled={true}>
-        Click me
+        Disabled button
       </Button>,
     );
-    expect(screen.getByRole("button"));
+
+    fireEvent.click(screen.getByText(/Disabled button/i));
+    expect(handleClick).toBeCalledTimes(0);
   });
 });
