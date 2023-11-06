@@ -1,10 +1,11 @@
+import { api } from ".";
 import { parseCamelToSnakeCase } from "../helpers/format";
 
 export type User = {
   id: number;
   username: string;
   email: string;
-  password: string;
+  password?: string;
 };
 
 export type UserPayload = User & {
@@ -12,9 +13,7 @@ export type UserPayload = User & {
 };
 
 const getUsers = async (): Promise<User[]> => {
-  return await fetch(`${import.meta.env.VITE_API_URL}users`).then((res) =>
-    res.json(),
-  );
+  return await api.get("users").json();
 };
 
 const createUser = async (user: UserPayload): Promise<void> => {

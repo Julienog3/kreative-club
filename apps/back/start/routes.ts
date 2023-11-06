@@ -20,15 +20,36 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 import UsersController from '../app/Controllers/Http/UsersController'
+import AuthController from '../app/Controllers/Http/AuthController'
 
 Route.get('/', async () => {
   return { hello: 'world' }
 })
 
-Route.get('users', async () => {
-  return new UsersController().index()
-})
+Route.group(async () => {
+  Route.get('/', async () => {
+    return new UsersController().index()
+  })
+  Route.post('/', async (ctx) => {
+    return new UsersController().create(ctx)
+  })
+}).prefix('users')
+// .middleware(['auth'])
 
-Route.post('users', async (ctx) => {
-  return new UsersController().create(ctx)
+Route.group(async () => {
+  Route.post('login', async (ctx) => {
+    return new AuthController().login(ctx)
+  })
+
+  Route.post('logout', async (ctx) => {
+    return new AuthController().logout(ctx)
+  })
+
+  Route.post('register', async (ctx) => {
+    return new AuthController().register(ctx)
+  })
+}).prefix('auth')
+
+Route.get('me', async (ctx) => {
+  return new AuthController().getMe(ctx)
 })

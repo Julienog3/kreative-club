@@ -7,8 +7,9 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('username')
-      table.string('email')
-      table.string('password')
+      table.string('email', 255).notNullable().unique()
+      table.string('password', 180).notNullable()
+      table.string('remember_me_token').nullable()
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

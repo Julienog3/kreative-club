@@ -9,5 +9,12 @@ export default meta;
 type Story = StoryObj<typeof Button>;
 
 export const primary: Story = {
-  render: () => <Button onClick={() => {}}>Hello !</Button>,
+  args: {
+    disabled: false,
+    children: "Click me !",
+  },
+  render: (args) => {
+    const { children } = args;
+    return <Button {...args}>{children}</Button>;
+  },
 };
