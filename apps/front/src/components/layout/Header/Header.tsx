@@ -1,8 +1,13 @@
+import { Link } from "react-router-dom";
 import { css } from "../../../../styled-system/css";
-import { vstack } from "../../../../styled-system/patterns";
+import { hstack, vstack } from "../../../../styled-system/patterns";
 import Button from "../../utils/Button/Button";
+import { useAuth } from "../../../hooks/useAuth";
+import ButtonWithLink from "../../utils/ButtonWithLink/ButtonWithLink";
 
 const Header = (): JSX.Element => {
+  const { user, logout } = useAuth();
+
   return (
     <header
       className={vstack({
@@ -17,12 +22,28 @@ const Header = (): JSX.Element => {
         borderBottom: "solid #000 2px",
       })}
     >
-      <img
-        className={css({ width: 24 })}
-        src="/images/kreative-club.svg"
-        alt="Logo Kreative club"
-      />
-      <Button>Go on app</Button>
+      <Link to="/">
+        <img
+          className={css({ width: 24 })}
+          src="/images/kreative-club.svg"
+          alt="Logo Kreative club"
+        />
+      </Link>
+      <div className={hstack()}>
+        {user ? (
+          <>
+            <p>Bonjour {user.username}</p>
+            <Button onClick={(): void => logout.mutate()}>
+              Se déconnecter
+            </Button>
+          </>
+        ) : (
+          <>
+            <ButtonWithLink to="/login">Se connecter</ButtonWithLink>
+            <ButtonWithLink to="/signup">S&apos;inscrire</ButtonWithLink>
+          </>
+        )}
+      </div>
     </header>
   );
 };

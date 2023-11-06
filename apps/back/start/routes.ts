@@ -41,6 +41,10 @@ Route.group(async () => {
     return new AuthController().login(ctx)
   })
 
+  Route.post('logout', async (ctx) => {
+    return new AuthController().logout(ctx)
+  })
+
   Route.post('register', async (ctx) => {
     return new AuthController().register(ctx)
   })

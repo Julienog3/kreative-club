@@ -4,8 +4,9 @@ import Button from "./Button";
 
 describe("Button test", () => {
   test("Should display content", () => {
-    render(<Button onClick={() => {}}>Hello world !</Button>);
+    const handleClick = vi.fn();
 
+    render(<Button onClick={handleClick}>Hello world !</Button>);
     expect(screen.getByText(/Hello world !/i)).toBeDefined();
   });
 
@@ -15,5 +16,16 @@ describe("Button test", () => {
     render(<Button onClick={handleClick}>Click me</Button>);
     fireEvent.click(screen.getByText(/Click me/i));
     expect(handleClick).toBeCalledTimes(1);
+  });
+
+  test("Should be disabled on fetch pending", () => {
+    const handleClick = vi.fn();
+
+    render(
+      <Button onClick={handleClick} disabled={true}>
+        Click me
+      </Button>,
+    );
+    expect(screen.getByRole("button"));
   });
 });

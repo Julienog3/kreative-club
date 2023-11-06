@@ -15,6 +15,13 @@ export default class AuthController {
     }
   }
 
+  public async logout({ auth }: HttpContextContract) {
+    await auth.use('api').revoke()
+    return {
+      revoked: true,
+    }
+  }
+
   public async register({ auth, request }: HttpContextContract) {
     const userSchema = schema.create({
       username: schema.string({ trim: true }, [

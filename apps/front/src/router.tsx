@@ -19,7 +19,7 @@ const router = createBrowserRouter([
         element: <UsersPage />,
       },
       {
-        path: "/users/add",
+        path: "/signup",
         element: <UserAddingPage />,
       },
       {

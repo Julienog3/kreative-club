@@ -19,10 +19,12 @@ export default function LoginPage(): JSX.Element {
     resolver: zodResolver(loginSchema),
   });
 
-  const { login } = useAuth();
+  const { signIn } = useAuth();
+
+  const { isPending } = signIn;
 
   const onSubmit: SubmitHandler<FieldValues> = (credentials) =>
-    login(credentials as Credentials);
+    signIn.mutate(credentials as Credentials);
 
   return (
     <>
@@ -39,7 +41,10 @@ export default function LoginPage(): JSX.Element {
             register={register}
             required
           />
-          <Button type="submit">Se connecter</Button>
+
+          <Button type="submit" disabled={isPending}>
+            Se connecter
+          </Button>
         </form>
       </Card>
     </>

@@ -4,7 +4,7 @@ import { hstack, vstack } from "../../styled-system/patterns";
 import Button from "../components/utils/Button/Button";
 import Card from "../components/utils/Card/Card";
 import Input from "../components/utils/Input/Input";
-import { QueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { UserPayload } from "../api/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -28,7 +28,7 @@ const userSchema = z
   });
 
 export default function UserAddingPage(): JSX.Element {
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
 
   const { register, handleSubmit } = useForm<FieldValues>({
     resolver: zodResolver(userSchema),

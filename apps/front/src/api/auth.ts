@@ -45,6 +45,10 @@ const loginUser = async ({
   return loginResponseSchema.parse(response);
 };
 
+const logoutUser = async (): Promise<void> => {
+  await api.post("auth/logout").json();
+};
+
 const getMe = async (): Promise<User> => {
   const userSchema = z.object({
     id: z.number(),
@@ -56,4 +60,4 @@ const getMe = async (): Promise<User> => {
   return userSchema.parse(response);
 };
 
-export { registerUser, loginUser, getMe };
+export { registerUser, loginUser, logoutUser, getMe };
