@@ -4,8 +4,10 @@ import { hstack, vstack } from "../../../../styled-system/patterns";
 import Button from "../../utils/Button/Button";
 import { useAuth } from "../../../hooks/useAuth";
 import ButtonWithLink from "../../utils/ButtonWithLink/ButtonWithLink";
+import { useTranslation } from "react-i18next";
 
 const Header = (): JSX.Element => {
+  const { t } = useTranslation();
   const { user, logout } = useAuth();
 
   return (
@@ -41,8 +43,12 @@ const Header = (): JSX.Element => {
           </>
         ) : (
           <>
-            <ButtonWithLink to="/login">Se connecter</ButtonWithLink>
-            <ButtonWithLink to="/signup">S&apos;inscrire</ButtonWithLink>
+            <ButtonWithLink to="/login">
+              {t("app.actions.login")}
+            </ButtonWithLink>
+            <ButtonWithLink to="/signup">
+              {t("app.actions.signup")}
+            </ButtonWithLink>
           </>
         )}
       </div>

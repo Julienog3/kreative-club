@@ -24,6 +24,10 @@ const Button = ({
         border: "2px solid #000",
         cursor: "pointer",
         textStyle: "body",
+        transition: "background",
+        _hover: {
+          backgroundColor: disabled ? "gray.400" : "violet.600",
+        },
       })}
       type={type}
       disabled={disabled}
