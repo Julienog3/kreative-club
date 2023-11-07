@@ -1,6 +1,39 @@
 {
+  "app": {
+    "title": "Kreative club",
+    "description": "Freelance platform for graphic designers",
+    "actions": {
+      "login": "Login",
+      "signup": "Sign up"
+    }
+  },
   "form": {
-    "email": "Email",
-    "password": "Password"
+    "login": "Login",
+    "signup": "Sign up",
+    "email": {
+      "label": "Email",
+      "errors": {
+        "required": "Email required",
+        "invalidEmail": "Invalid email"
+      }
+    },
+    "password": {
+      "label": "Password",
+      "errors": {
+        "required": "Password required"
+      }
+    },
+    "passwordConfirmation": {
+      "label": "Password confirmation",
+      "errors": {
+        "required": "Password confirmation required"
+      }
+    },
+    "username": {
+      "label": "Username",
+      "errors": {
+        "required": "Username required"
+      }
+    }
   }
 }
