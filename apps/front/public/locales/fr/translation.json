@@ -24,7 +24,7 @@
       }
     },
     "passwordConfirmation": {
-      "label": "Confirmation de mot de passe",
+      "label": "Confirm. mot de passe",
       "errors": {
         "required": "Confirmation de mot de passe requis"
       }

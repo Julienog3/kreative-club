@@ -15,7 +15,6 @@ function HomePage(): JSX.Element {
           <p className={css({ textStyle: "body" })}>{t("app.description")}</p>
           <div className={hstack()}>
             <ButtonWithLink to="/users">Users</ButtonWithLink>
-            <ButtonWithLink to="/users/add">Add user</ButtonWithLink>
           </div>
         </div>
       </Card>

@@ -3,10 +3,13 @@ import { css } from "../../../../styled-system/css";
 import { hstack, vstack } from "../../../../styled-system/patterns";
 import Button from "../../utils/Button/Button";
 import { useAuth } from "../../../hooks/useAuth";
-import ButtonWithLink from "../../utils/ButtonWithLink/ButtonWithLink";
 import { useTranslation } from "react-i18next";
+import { useStoreAuthModal } from "../../modals/AuthModal/AuthModal.store";
+import { AuthModalType } from "../../modals/AuthModal/AuthModal";
 
 const Header = (): JSX.Element => {
+  const openModal = useStoreAuthModal(({ openModal }) => openModal);
+
   const { t } = useTranslation();
   const { user, logout } = useAuth();
 
@@ -43,12 +46,12 @@ const Header = (): JSX.Element => {
           </>
         ) : (
           <>
-            <ButtonWithLink to="/login">
+            <Button onClick={(): void => openModal(AuthModalType.LOGIN)}>
               {t("app.actions.login")}
-            </ButtonWithLink>
-            <ButtonWithLink to="/signup">
+            </Button>
+            <Button onClick={(): void => openModal(AuthModalType.SIGNUP)}>
               {t("app.actions.signup")}
-            </ButtonWithLink>
+            </Button>
           </>
         )}
       </div>
