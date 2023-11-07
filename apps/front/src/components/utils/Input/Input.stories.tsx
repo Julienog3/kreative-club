@@ -7,10 +7,16 @@ const meta: Meta<typeof Input> = {
 };
 
 const Template = ({ type, label, required }: InputProps) => {
-  const { register } = useForm<FieldValues>();
+  const { register, control } = useForm<FieldValues>();
 
   return (
-    <Input type={type} label={label} required={required} register={register} />
+    <Input
+      type={type}
+      label={label}
+      required={required}
+      register={register}
+      control={control}
+    />
   );
 };
 

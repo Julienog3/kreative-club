@@ -30,7 +30,7 @@ const userSchema = z
 export default function UserAddingPage(): JSX.Element {
   const queryClient = useQueryClient();
 
-  const { register, handleSubmit } = useForm<FieldValues>({
+  const { register, handleSubmit, control } = useForm<FieldValues>({
     resolver: zodResolver(userSchema),
   });
 
@@ -53,12 +53,18 @@ export default function UserAddingPage(): JSX.Element {
         >
           <h2 className={css({ textStyle: "title" })}>Inscription</h2>
 
-          <Input label="username" register={register} required />
-          <Input label="email" register={register} required />
+          <Input
+            label="username"
+            register={register}
+            control={control}
+            required
+          />
+          <Input label="email" register={register} control={control} required />
           <div className={hstack()}>
             <Input
               type="password"
               label="password"
+              control={control}
               register={register}
               required
             />
@@ -66,6 +72,7 @@ export default function UserAddingPage(): JSX.Element {
               type="password"
               label="passwordConfirmation"
               register={register}
+              control={control}
               required
             />
           </div>

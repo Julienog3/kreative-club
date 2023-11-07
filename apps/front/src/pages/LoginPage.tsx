@@ -11,11 +11,11 @@ import { useAuth } from "../hooks/useAuth";
 
 const loginSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(7, { message: "Required" }),
+  password: z.string().min(7, { message: "required" }),
 });
 
 export default function LoginPage(): JSX.Element {
-  const { register, handleSubmit } = useForm<FieldValues>({
+  const { register, handleSubmit, control } = useForm<FieldValues>({
     resolver: zodResolver(loginSchema),
   });
 
@@ -34,10 +34,11 @@ export default function LoginPage(): JSX.Element {
           className={vstack({ gap: 4, alignItems: "left" })}
         >
           <h2 className={css({ textStyle: "title" })}>Connexion</h2>
-          <Input label="email" register={register} required />
+          <Input label="email" control={control} register={register} required />
           <Input
             type="password"
             label="password"
+            control={control}
             register={register}
             required
           />
