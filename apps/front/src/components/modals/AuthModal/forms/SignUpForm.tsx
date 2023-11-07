@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { registerUser } from "../../../../api/auth";
-import { hstack, vstack } from "../../../../../styled-system/patterns";
+import { vstack } from "../../../../../styled-system/patterns";
 import Input from "../../../utils/Input/Input";
 import Button from "../../../utils/Button/Button";
 import { z } from "zod";

@@ -5,7 +5,7 @@ const Page = ({ children }: PropsWithChildren): JSX.Element => {
   return (
     <main
       className={center({
-        height: "100vh",
+        height: "90vh",
         width: "full",
         backgroundColor: "#F9F5F2",
       })}
