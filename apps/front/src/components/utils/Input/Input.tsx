@@ -1,9 +1,10 @@
 import React from "react";
 import {
-  FieldError,
+  Control,
   FieldValues,
   Path,
   UseFormRegister,
+  useController,
 } from "react-hook-form";
 import { css } from "../../../../styled-system/css";
 import { vstack } from "../../../../styled-system/patterns";
@@ -15,7 +16,7 @@ export interface InputProps {
   label: Path<FieldValues>;
   register: UseFormRegister<FieldValues>;
   required?: boolean;
-  error?: FieldError;
+  control?: Control<FieldValues>;
 }
 
 const Input = ({
@@ -23,8 +24,12 @@ const Input = ({
   label,
   register,
   required = false,
-  error,
+  control,
 }: InputProps): JSX.Element => {
+  const {
+    fieldState: { error },
+  } = useController({ name: label, control });
+
   const { t } = useTranslation();
 
   return (
@@ -43,6 +48,7 @@ const Input = ({
           textStyle: "body",
         })}
         type={type}
+        autoComplete={type === "password" ? "new-password" : ""}
         {...register(label, { required })}
       />
       {error && (

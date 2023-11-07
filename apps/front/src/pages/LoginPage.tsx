@@ -15,11 +15,7 @@ const loginSchema = z.object({
 });
 
 export default function LoginPage(): JSX.Element {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FieldValues>({
+  const { register, handleSubmit, control } = useForm<FieldValues>({
     resolver: zodResolver(loginSchema),
   });
 
@@ -38,16 +34,11 @@ export default function LoginPage(): JSX.Element {
           className={vstack({ gap: 4, alignItems: "left" })}
         >
           <h2 className={css({ textStyle: "title" })}>Connexion</h2>
-          <Input
-            label="email"
-            error={errors.email}
-            register={register}
-            required
-          />
+          <Input label="email" control={control} register={register} required />
           <Input
             type="password"
             label="password"
-            error={errors.password}
+            control={control}
             register={register}
             required
           />
