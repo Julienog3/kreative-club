@@ -7,7 +7,8 @@ interface SocketUser {
 }
 
 Ws.io.on('connection', (socket) => {
-  console.log('connection')
+  socket.join(socket.id)
+
   const users: SocketUser[] = []
   for (let [id, socket] of Ws.io.of('/').sockets) {
     users.push({
@@ -17,12 +18,16 @@ Ws.io.on('connection', (socket) => {
   }
   socket.emit('users', users)
 
-  console.log('users', users)
-  
-
   socket.broadcast.emit('user connected', {
     userID: socket.id,
     username: socket.username,
+  })
+
+  socket.on('private message', ({ content, to }) => {
+    socket.to(to).emit('private message', {
+      content,
+      from: socket.id,
+    })
   })
 })
 
@@ -40,7 +45,7 @@ Ws.io.use((socket, next) => {
   //     return next();
   //   }
   // }
-   
+
   socket.username = username
   next()
 })
