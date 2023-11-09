@@ -8,6 +8,9 @@ importers:
 
   apps/back:
     dependencies:
+      '@adonisjs/attachment-lite':
+        specifier: ^1.0.8
+        version: 1.0.8(@adonisjs/core@5.9.0)(@adonisjs/lucid@18.4.2)
       '@adonisjs/auth':
         specifier: ^8.2.3
         version: 8.2.3(@adonisjs/application@5.3.0)(@adonisjs/core@5.9.0)(@adonisjs/lucid@18.4.2)
@@ -352,6 +355,17 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@adonisjs/attachment-lite@1.0.8(@adonisjs/core@5.9.0)(@adonisjs/lucid@18.4.2):
+    resolution: {integrity: sha512-TzUhaSQYM/Id+HUvBEjUZ7oFh1vRI8x1qdi6qADq16nyQ3gAptRjMq17USDaQs4y+fLLonJse4mqCBuNgpv3/Q==}
+    peerDependencies:
+      '@adonisjs/core': ^5.3.0
+      '@adonisjs/lucid': ^17.0.0 || ^18.0.0
+    dependencies:
+      '@adonisjs/core': 5.9.0
+      '@adonisjs/lucid': 18.4.2(@adonisjs/application@5.3.0)(@adonisjs/core@5.9.0)(sqlite3@5.1.6)
+      '@poppinss/utils': 4.0.4
+    dev: false
 
   /@adonisjs/auth@8.2.3(@adonisjs/application@5.3.0)(@adonisjs/core@5.9.0)(@adonisjs/lucid@18.4.2):
     resolution: {integrity: sha512-js9e8AHEsNC/8MGvho6MgL+uXr8SlhTg9MJJDWQBBiqsKkT7+H7NMP/pLbuSzYaaf40t2u/OXfq6wXuIC5ZYvw==}
