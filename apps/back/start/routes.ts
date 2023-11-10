@@ -31,6 +31,10 @@ Route.group(async () => {
   Route.get('/', async () => {
     return new UsersController().index()
   })
+
+  Route.get(':id', async (ctx) => {
+    return new UsersController().show(ctx)
+  })
 }).prefix('users')
 // .middleware(['auth'])
 

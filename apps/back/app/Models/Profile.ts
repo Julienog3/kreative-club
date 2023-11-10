@@ -18,7 +18,7 @@ export default class Profile extends BaseModel {
   @column()
   public lastName: string | null
 
-  @attachment()
+  @attachment({ folder: 'avatars', preComputeUrl: true })
   public avatar: AttachmentContract | null
 
   @column()
