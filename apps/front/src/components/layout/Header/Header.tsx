@@ -1,17 +1,28 @@
 import { Link } from "react-router-dom";
 import { css } from "../../../../styled-system/css";
-import { hstack, vstack } from "../../../../styled-system/patterns";
+import { circle, hstack, vstack } from "../../../../styled-system/patterns";
 import Button from "../../utils/Button/Button";
 import { useAuth } from "../../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
 import { useStoreAuthModal } from "../../modals/AuthModal/AuthModal.store";
 import { AuthModalType } from "../../modals/AuthModal/AuthModal";
+import { useQuery } from "@tanstack/react-query";
+import { getProfileById } from "../../../api/profile";
+import ButtonWithLink from "../../utils/ButtonWithLink/ButtonWithLink";
 
 const Header = (): JSX.Element => {
   const openModal = useStoreAuthModal(({ openModal }) => openModal);
 
   const { t } = useTranslation();
   const { user, logout } = useAuth();
+
+  const { data: profile } = useQuery({
+    queryKey: ["profile"],
+    queryFn: () => {
+      if (user) return getProfileById(user?.id);
+    },
+    enabled: !!user,
+  });
 
   return (
     <header
@@ -35,9 +46,33 @@ const Header = (): JSX.Element => {
       <div className={hstack({ gap: 2 })}>
         {user ? (
           <>
-            <p className={css({ textStyle: "body", mr: 4 })}>
-              Bonjour {user.username}
+            <img
+              className={circle({
+                w: "2.5rem",
+                h: "2.5rem",
+                objectFit: "cover",
+                border: "solid 2px black",
+              })}
+              src={profile?.avatar.url}
+              alt="avatar"
+            />
+            <p
+              className={css({
+                textStyle: "body",
+                textTransform: "capitalize",
+                mr: 4,
+              })}
+            >
+              Bonjour{" "}
+              <span
+                className={css({
+                  fontWeight: "bold",
+                })}
+              >
+                {profile?.firstName} {profile?.lastName}
+              </span>
             </p>
+            <ButtonWithLink to="/profile">Voir profil</ButtonWithLink>
             <Button onClick={(): void => logout.mutate()}>
               Se déconnecter
             </Button>

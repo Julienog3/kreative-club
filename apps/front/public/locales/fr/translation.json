@@ -34,6 +34,18 @@
       "errors": {
         "required": "Nom d'utilisateur requis"
       }
+    },
+    "firstName": {
+      "label": "Prénom",
+      "errors": {
+        "required": "Prénom requis"
+      }
+    },
+    "lastName": {
+      "label": "Nom de famille",
+      "errors": {
+        "required": "Nom de famille requis"
+      }
     }
   }
 }

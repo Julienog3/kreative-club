@@ -35,6 +35,10 @@ Route.group(async () => {
   Route.get(':id', async (ctx) => {
     return new UsersController().show(ctx)
   })
+
+  Route.put('/:id/profile', async (ctx) => {
+    return new UsersController().updateUserProfile(ctx)
+  })
 }).prefix('users')
 // .middleware(['auth'])
 

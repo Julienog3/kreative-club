@@ -1,5 +1,6 @@
 import ky from "ky";
 import { getToken } from "../helpers/localStorage";
+import { responseToCamelCase } from "@alice-health/ky-hooks-change-case";
 
 const api = ky.create({
   prefixUrl: import.meta.env.VITE_API_URL,
@@ -13,6 +14,7 @@ const api = ky.create({
         }
       },
     ],
+    afterResponse: [responseToCamelCase],
   },
 });
 

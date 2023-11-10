@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "text-styles.ts"],
+  "include": ["src", "text-styles.ts", "index.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

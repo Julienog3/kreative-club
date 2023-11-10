@@ -163,6 +163,9 @@ importers:
 
   apps/front:
     dependencies:
+      '@alice-health/ky-hooks-change-case':
+        specifier: ^0.0.3
+        version: 0.0.3
       '@hookform/resolvers':
         specifier: ^3.3.2
         version: 3.3.2(react-hook-form@7.47.0)
@@ -639,6 +642,12 @@ packages:
       normalize-url: 6.1.0
       tmp-cache: 1.1.0
       validator: 13.11.0
+
+  /@alice-health/ky-hooks-change-case@0.0.3:
+    resolution: {integrity: sha512-BX53vFHw8nddwF6a22EoF+rzMN8ywPvGDpBgPDN0B5YSCLv45D2wCpd/Cyc+brQgCCefflLfa6FqEv7YtRK0DA==}
+    dependencies:
+      lodash: 4.17.21
+    dev: false
 
   /@ampproject/remapping@2.2.1:
     resolution: {integrity: sha512-lFMjJTrFL3j7L9yBxwYfCq2k6qqwHyzuUl/XBnif78PWTJYyL/dfowQHWE3sp6U6ZzqWiiIZnpTMO96zhkjwtg==}

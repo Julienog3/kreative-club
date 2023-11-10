@@ -1,5 +1,4 @@
 import { api } from ".";
-import { parseCamelToSnakeCase } from "../helpers/format";
 import { User, UserPayload } from "./user";
 import { z } from "zod";
 
@@ -14,14 +13,12 @@ export interface LoginResponse {
 }
 
 const registerUser = async (user: UserPayload): Promise<void> => {
-  const userPayload = parseCamelToSnakeCase(user);
-
   await fetch(`${import.meta.env.VITE_API_URL}auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(userPayload),
+    body: JSON.stringify(user),
   });
 };
 
@@ -29,8 +26,6 @@ const loginUser = async ({
   email,
   password,
 }: Credentials): Promise<LoginResponse> => {
-  const loginPayload = parseCamelToSnakeCase({ email, password });
-
   const loginResponseSchema = z.object({
     token: z.string(),
     type: z.string(),
@@ -38,7 +33,7 @@ const loginUser = async ({
 
   const response = await api
     .post("auth/login", {
-      json: loginPayload,
+      json: { email, password },
     })
     .json();
 
