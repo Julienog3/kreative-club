@@ -1,6 +1,6 @@
 import { api } from ".";
 
-type Profile = {
+export interface Profile {
   userId: number;
   firstName: string;
   lastName: string;
@@ -8,7 +8,7 @@ type Profile = {
     url: string;
   };
   isProvider: boolean;
-};
+}
 
 export type ProfilePayload = {
   firstName: string;

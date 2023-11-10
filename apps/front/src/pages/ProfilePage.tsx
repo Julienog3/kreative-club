@@ -47,9 +47,18 @@ export default function ProfilePage(): JSX.Element {
 
   const onSubmit: SubmitHandler<FieldValues> = (profileData) => {
     const payload = new FormData();
-    payload.append("firstName", profileData.firstName);
-    payload.append("lastName", profileData.lastName);
-    payload.append("avatar", profileData.avatar[0]);
+
+    if (profileData.firstName) {
+      payload.append("firstName", profileData.firstName);
+    }
+
+    if (profileData.lastName) {
+      payload.append("lastName", profileData.lastName);
+    }
+
+    if (profileData.avatar[0]) {
+      payload.append("avatar", profileData.avatar[0]);
+    }
 
     editProfile.mutate(payload);
   };

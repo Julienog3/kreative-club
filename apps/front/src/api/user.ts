@@ -1,5 +1,6 @@
 import { api } from ".";
 import { parseCamelToSnakeCase } from "../helpers/format";
+import { Profile } from "./profile";
 
 export type User = {
   id: number;
@@ -8,11 +9,13 @@ export type User = {
   password?: string;
 };
 
+type UserWithProfile = User & { profile?: Profile };
+
 export type UserPayload = User & {
   passwordConfirmation: string;
 };
 
-const getUsers = async (): Promise<User[]> => {
+const getUsers = async (): Promise<UserWithProfile[]> => {
   return await api.get("users").json();
 };
 

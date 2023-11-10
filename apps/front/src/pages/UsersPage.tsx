@@ -1,12 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { getUsers } from "../api/user";
 import Card from "../components/utils/Card/Card";
-import { hstack, vstack } from "../../styled-system/patterns";
+import { circle, hstack, vstack } from "../../styled-system/patterns";
 import { css } from "../../styled-system/css";
 import ButtonWithLink from "../components/utils/ButtonWithLink/ButtonWithLink";
 
 export default function UsersPage(): JSX.Element {
-  const { data: users } = useQuery({ queryKey: ["users"], queryFn: getUsers });
+  const { data: users } = useQuery({
+    queryKey: ["users"],
+    queryFn: getUsers,
+  });
 
   return (
     <>
@@ -14,9 +17,49 @@ export default function UsersPage(): JSX.Element {
         <div className={vstack({ gap: 4, alignItems: "left" })}>
           <h2 className={css({ textStyle: "title" })}>Utilisateurs</h2>
           {users && users?.length > 0 && (
-            <ul>
-              {users.map(({ id, username }) => {
-                return <li key={id}>{username}</li>;
+            <ul className={vstack({ gap: "1rem", alignItems: "left" })}>
+              {users.map(({ id, username, profile }) => {
+                return (
+                  <li
+                    className={hstack({
+                      textStyle: "body",
+                      gap: "1rem",
+                      alignItems: "center",
+                    })}
+                    key={id}
+                  >
+                    {profile && (
+                      <img
+                        className={circle({
+                          w: "2.5rem",
+                          h: "2.5rem",
+                          objectFit: "cover",
+                          border: "solid 2px black",
+                        })}
+                        src={
+                          profile.avatar
+                            ? `${
+                                import.meta.env.VITE_API_URL
+                              }${profile?.avatar.url.slice(1)}`
+                            : ""
+                        }
+                        alt="avatar"
+                      />
+                    )}
+                    <div className={vstack({ gap: 0, alignItems: "left" })}>
+                      {profile && (
+                        <span>
+                          {profile?.firstName} {profile?.lastName}
+                        </span>
+                      )}
+                      <span
+                        className={css({ fontWeight: "bold", fontSize: "sm" })}
+                      >
+                        @{username}
+                      </span>
+                    </div>
+                  </li>
+                );
               })}
             </ul>
           )}
