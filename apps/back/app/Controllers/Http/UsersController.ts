@@ -2,11 +2,10 @@ import { Attachment } from '@ioc:Adonis/Addons/AttachmentLite'
 import User from '../../Models/User'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema } from '@ioc:Adonis/Core/Validator'
-import Profile from 'App/Models/Profile'
 
 export default class UsersController {
   public async index() {
-    return await User.all()
+    return await User.query().preload('profile')
   }
 
   public async show({ params }: HttpContextContract) {
@@ -22,12 +21,9 @@ export default class UsersController {
     })
 
     const user = await User.find(params.id)
-
     const [profile] = await user!.related('profile').query()
 
     const { avatar, ...payload } = await request.validate({ schema: profileSchema })
-
-    console.log(avatar)
 
     await profile.merge(payload).save()
 
@@ -35,7 +31,5 @@ export default class UsersController {
       profile.avatar = Attachment.fromFile(avatar)
       await profile.save()
     }
-
-    return profile
   }
 }
