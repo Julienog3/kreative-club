@@ -1,8 +1,10 @@
 import { PropsWithChildren } from "react";
-import { css } from "../../../../styled-system/css";
+import { State } from "..";
+import { button } from "./Button.style";
 
 export interface ButtonProps {
   type?: "button" | "submit" | "reset";
+  variant?: State;
   disabled?: boolean;
   onClick?: () => void;
 }
@@ -10,25 +12,14 @@ export interface ButtonProps {
 const Button = ({
   type = "button",
   disabled = false,
+  variant,
   onClick,
   children,
 }: ButtonProps & PropsWithChildren) => {
   return (
     <button
       role="button"
-      className={css({
-        color: disabled ? "gray.700" : "black",
-        padding: 2,
-        backgroundColor: disabled ? "gray.300" : "violet.500",
-        rounded: "md",
-        border: "2px solid #000",
-        cursor: "pointer",
-        textStyle: "body",
-        transition: "background",
-        _hover: {
-          backgroundColor: disabled ? "gray.400" : "violet.600",
-        },
-      })}
+      className={button({ color: variant })}
       type={type}
       disabled={disabled}
       aria-disabled={disabled}

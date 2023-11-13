@@ -42,9 +42,9 @@ const Input = ({
       </label>
       <input
         className={css({
-          padding: 3,
+          padding: ".5rem",
           border: "#000 solid 2px",
-          rounded: "md",
+          rounded: ".5rem",
           textStyle: "body",
         })}
         type={type}

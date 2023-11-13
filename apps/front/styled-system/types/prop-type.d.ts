@@ -4,6 +4,7 @@ import type { CssProperties } from './system-types';
 import type { Tokens } from '../tokens/index';
 
 interface PropertyValueTypes {
+	color: Tokens["colors"];
 	aspectRatio: "auto" | "square" | "landscape" | "portrait" | "wide" | "ultrawide" | "golden";
 	zIndex: Tokens["zIndex"];
 	top: Tokens["spacing"];
@@ -77,7 +78,6 @@ interface PropertyValueTypes {
 	minBlockSize: "auto" | Tokens["sizes"] | "svh" | "lvh" | "dvh" | "screen" | "1/2" | "1/3" | "2/3" | "1/4" | "2/4" | "3/4" | "1/5" | "2/5" | "3/5" | "4/5" | "1/6" | "2/6" | "3/6" | "4/6" | "5/6";
 	maxHeight: "auto" | Tokens["sizes"] | "svh" | "lvh" | "dvh" | "screen" | "1/2" | "1/3" | "2/3" | "1/4" | "2/4" | "3/4" | "1/5" | "2/5" | "3/5" | "4/5" | "1/6" | "2/6" | "3/6" | "4/6" | "5/6";
 	maxBlockSize: "auto" | Tokens["sizes"] | "svh" | "lvh" | "dvh" | "screen" | "1/2" | "1/3" | "2/3" | "1/4" | "2/4" | "3/4" | "1/5" | "2/5" | "3/5" | "4/5" | "1/6" | "2/6" | "3/6" | "4/6" | "5/6";
-	color: Tokens["colors"];
 	fontFamily: Tokens["fonts"];
 	fontSize: Tokens["fontSizes"];
 	fontWeight: Tokens["fontWeights"];
@@ -202,8 +202,9 @@ interface PropertyValueTypes {
 	stroke: Tokens["colors"];
 	srOnly: boolean;
 	debug: boolean;
-	colorPalette: "rose" | "pink" | "fuchsia" | "purple" | "violet" | "indigo" | "blue" | "sky" | "cyan" | "teal" | "emerald" | "green" | "lime" | "yellow" | "amber" | "orange" | "red" | "neutral" | "stone" | "zinc" | "gray" | "slate";
+	colorPalette: string;
 	textStyle: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl" | "9xl" | "title" | "body";
+	layerStyle: "container";
 }
 
 

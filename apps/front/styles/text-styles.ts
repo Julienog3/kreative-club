@@ -17,7 +17,7 @@ export const textStyles = defineTextStyles({
     value: {
       fontFamily: "Lexend",
       fontWeight: "400",
-      fontSize: "16",
+      fontSize: "16px",
       letterSpacing: "0",
       textDecoration: "None",
       textTransform: "None",

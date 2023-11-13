@@ -29,7 +29,7 @@ const Header = (): JSX.Element => {
       className={vstack({
         width: "100%",
         height: "10vh",
-        px: 6,
+        paddingX: "1rem",
         justifyContent: "space-between",
         flexDirection: "row",
         backgroundColor: "#fff",
@@ -38,18 +38,18 @@ const Header = (): JSX.Element => {
     >
       <Link to="/">
         <img
-          className={css({ width: 24 })}
+          className={css({ width: "5rem" })}
           src="/images/kreative-club.svg"
           alt="Logo Kreative club"
         />
       </Link>
-      <div className={hstack({ gap: 2 })}>
+      <div className={hstack({ gap: 8 })}>
         {user ? (
           <>
             <img
               className={circle({
-                w: "2.5rem",
-                h: "2.5rem",
+                w: "35px",
+                h: "35px",
                 objectFit: "cover",
                 border: "solid 2px black",
               })}
@@ -73,7 +73,7 @@ const Header = (): JSX.Element => {
               </span>
             </p>
             <ButtonWithLink to="/profile">Voir profil</ButtonWithLink>
-            <Button onClick={(): void => logout.mutate()}>
+            <Button variant="danger" onClick={(): void => logout.mutate()}>
               Se déconnecter
             </Button>
           </>

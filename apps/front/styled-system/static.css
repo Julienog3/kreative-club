@@ -1,0 +1,13 @@
+@layer utilities {
+  .text_green {
+    color: var(--colors-green)
+    }
+
+  .text_yellow {
+    color: var(--colors-yellow)
+    }
+
+  .text_red {
+    color: var(--colors-red)
+    }
+}
