@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { css } from "../../../../styled-system/css";
 import { circle, hstack, vstack } from "../../../../styled-system/patterns";
 import Button from "../../utils/Button/Button";
@@ -9,9 +9,14 @@ import { AuthModalType } from "../../modals/AuthModal/AuthModal";
 import { useQuery } from "@tanstack/react-query";
 import { getProfileById } from "../../../api/profile";
 import ButtonWithLink from "../../utils/ButtonWithLink/ButtonWithLink";
+import { useEffect } from "react";
+import { useSnackbarStore } from "../Snackbar/Snackbar.store";
 
 const Header = (): JSX.Element => {
   const openModal = useStoreAuthModal(({ openModal }) => openModal);
+  const addItem = useSnackbarStore(({ addItem }) => addItem);
+
+  const navigate = useNavigate();
 
   const { t } = useTranslation();
   const { user, logout } = useAuth();
@@ -23,6 +28,17 @@ const Header = (): JSX.Element => {
     },
     enabled: !!user,
   });
+
+  const handleLogout = (): void => {
+    navigate("/");
+    addItem({ type: "success", message: "vous etes bien déconnecté" });
+  };
+
+  useEffect(() => {
+    if (logout.isSuccess) {
+      handleLogout();
+    }
+  }, [logout.isSuccess]);
 
   return (
     <header

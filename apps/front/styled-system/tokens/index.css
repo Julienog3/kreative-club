@@ -6,7 +6,8 @@
   --colors-green: #AFFFC1;
   --colors-yellow: #FEFFAB;
   --colors-red: #FFB0B9;
-  --colors-darkred: #e09da5;
+  --colors-darkred: #E09DA5;
+  --colors-gray: #E8E8E8;
   --fonts-body: system-ui, sans-serif;
   --breakpoints-sm: 640px;
   --breakpoints-md: 768px;
@@ -20,7 +21,8 @@
   --sizes-breakpoint-2xl: 1536px;
   --colors-danger: var(--colors-red);
   --colors-warning: var(--colors-yellow);
-  --colors-success: var(--colors-green)
+  --colors-success: var(--colors-green);
+  --colors-disabled: var(--colors-gray)
 }
   }
   

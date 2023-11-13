@@ -9,6 +9,7 @@ export const button = cva({
     padding: ".5rem",
     transition: "background",
     rounded: ".5rem",
+    color: "black",
   },
   variants: {
     size: {
@@ -35,6 +36,7 @@ export const button = cva({
     },
     disabled: {
       true: {
+        backgroundColor: "disabled",
         cursor: "not-allowed",
       },
     },

@@ -19,7 +19,7 @@ const Button = ({
   return (
     <button
       role="button"
-      className={button({ color: variant })}
+      className={button({ color: variant, disabled })}
       type={type}
       disabled={disabled}
       aria-disabled={disabled}

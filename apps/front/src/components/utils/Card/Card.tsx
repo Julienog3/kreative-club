@@ -1,8 +1,15 @@
 import { PropsWithChildren } from "react";
 import { card } from "./Card.style";
 
-const Card = ({ children }: PropsWithChildren): JSX.Element => {
-  return <article className={card()}>{children}</article>;
+interface CardProps {
+  withShadow?: boolean;
+}
+
+const Card = ({
+  withShadow = false,
+  children,
+}: CardProps & PropsWithChildren): JSX.Element => {
+  return <article className={card({ shadow: withShadow })}>{children}</article>;
 };
 
 export default Card;

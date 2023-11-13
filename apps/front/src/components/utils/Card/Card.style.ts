@@ -5,4 +5,11 @@ export const card = cva({
     layerStyle: "container",
     p: "1rem",
   },
+  variants: {
+    shadow: {
+      true: {
+        boxShadow: "4px 4px 0px black",
+      },
+    },
+  },
 });

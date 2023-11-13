@@ -8,6 +8,7 @@ import { useAuth } from "../../../../hooks/useAuth";
 import { z } from "zod";
 import { useStoreModal } from "../../../utils/Modal/Modal.store";
 import { useEffect } from "react";
+import { useSnackbarStore } from "../../../layout/Snackbar/Snackbar.store";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -20,6 +21,7 @@ const LoginForm = () => {
   });
 
   const closeModal = useStoreModal(({ closeModal }) => closeModal);
+  const addItem = useSnackbarStore(({ addItem }) => addItem);
   const { signIn } = useAuth();
 
   const { isPending, isSuccess } = signIn;
@@ -30,6 +32,10 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (isSuccess) {
+      addItem({
+        type: "success",
+        message: "Connecté",
+      });
       closeModal();
     }
   }, [isSuccess]);

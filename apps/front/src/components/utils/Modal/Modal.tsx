@@ -42,7 +42,6 @@ const Modal = ({
   children,
 }: ModalProps & PropsWithChildren): JSX.Element => {
   const { t } = useTranslation();
-  // const closeModal = useStoreModal(({ closeModal }) => closeModal);
 
   return (
     <animated.div

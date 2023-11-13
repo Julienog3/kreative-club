@@ -32,7 +32,8 @@ export default defineConfig({
         green: { value: "#AFFFC1" },
         yellow: { value: "#FEFFAB" },
         red: { value: "#FFB0B9" },
-        darkred: { value: "#e09da5" },
+        darkred: { value: "#E09DA5" },
+        gray: { value: "#E8E8E8" },
       },
       fonts: {
         body: { value: "system-ui, sans-serif" },
@@ -43,6 +44,7 @@ export default defineConfig({
         danger: { value: "{colors.red}" },
         warning: { value: "{colors.yellow}" },
         success: { value: "{colors.green}" },
+        disabled: { value: "{colors.gray}" },
       },
     },
     extend: { textStyles, layerStyles },

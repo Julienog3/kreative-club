@@ -7,6 +7,7 @@ import "./i18n";
 import { modalTransitionConfig } from "./components/utils/Modal/Modal";
 import AuthModal from "./components/modals/AuthModal/AuthModal";
 import { useStoreAuthModal } from "./components/modals/AuthModal/AuthModal.store";
+import Snackbar from "./components/layout/Snackbar/Snackbar";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ function App() {
       {modalTransition((style, isOpened) => (
         <>{isOpened && <AuthModal style={{ ...style }} />}</>
       ))}
+      <Snackbar />
       <Header />
       <Page>
         <Outlet />
