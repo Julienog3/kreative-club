@@ -1,7 +1,7 @@
 /* eslint-disable */
-export type Token = "colors.purple" | "colors.blue" | "colors.cyan" | "colors.green" | "colors.yellow" | "colors.red" | "colors.darkred" | "colors.gray" | "fonts.body" | "breakpoints.sm" | "breakpoints.md" | "breakpoints.lg" | "breakpoints.xl" | "breakpoints.2xl" | "sizes.breakpoint-sm" | "sizes.breakpoint-md" | "sizes.breakpoint-lg" | "sizes.breakpoint-xl" | "sizes.breakpoint-2xl" | "colors.danger" | "colors.warning" | "colors.success" | "colors.disabled"
+export type Token = "colors.purple" | "colors.blue" | "colors.cyan" | "colors.green" | "colors.yellow" | "colors.red" | "colors.darkred" | "colors.gray" | "colors.lightgray" | "fonts.body" | "breakpoints.sm" | "breakpoints.md" | "breakpoints.lg" | "breakpoints.xl" | "breakpoints.2xl" | "sizes.breakpoint-sm" | "sizes.breakpoint-md" | "sizes.breakpoint-lg" | "sizes.breakpoint-xl" | "sizes.breakpoint-2xl" | "colors.danger" | "colors.warning" | "colors.success" | "colors.disabled" | "colors.background"
 
-export type ColorToken = "purple" | "blue" | "cyan" | "green" | "yellow" | "red" | "darkred" | "gray" | "danger" | "warning" | "success" | "disabled"
+export type ColorToken = "purple" | "blue" | "cyan" | "green" | "yellow" | "red" | "darkred" | "gray" | "lightgray" | "danger" | "warning" | "success" | "disabled" | "background"
 
 export type FontToken = "body"
 

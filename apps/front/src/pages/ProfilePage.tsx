@@ -9,6 +9,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getProfileById, updateProfile } from "../api/profile";
 import { css } from "../../styled-system/css";
+import { useSnackbarStore } from "../components/layout/Snackbar/Snackbar.store";
 
 const profileSchema = z.object({
   firstName: z.string().optional(),
@@ -19,6 +20,8 @@ const profileSchema = z.object({
 export default function ProfilePage(): JSX.Element {
   const { user } = useAuth();
   const queryClient = useQueryClient();
+
+  const addItem = useSnackbarStore(({ addItem }) => addItem);
 
   const { data: profile } = useQuery({
     queryKey: ["profile"],
@@ -31,7 +34,11 @@ export default function ProfilePage(): JSX.Element {
   const editProfile = useMutation({
     mutationFn: (payload: FormData) => updateProfile(user!.id, payload),
     onSuccess: () => {
+      addItem({ type: "success", message: "Votre profil a bien été modifié" });
       queryClient.invalidateQueries({ queryKey: ["profile"] });
+    },
+    onError: (error) => {
+      addItem({ type: "danger", message: error.message });
     },
   });
 
@@ -74,7 +81,7 @@ export default function ProfilePage(): JSX.Element {
           <Input label="firstName" control={control} register={register} />
           <Input label="lastName" control={control} register={register} />
           <input type="file" {...register("avatar")} />
-          <Button type="submit" disabled={!isDirty}>
+          <Button type="submit" disabled={!isDirty || editProfile.isPending}>
             Enregistrer
           </Button>
         </form>

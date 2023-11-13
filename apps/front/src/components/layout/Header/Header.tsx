@@ -8,9 +8,11 @@ import { useStoreAuthModal } from "../../modals/AuthModal/AuthModal.store";
 import { AuthModalType } from "../../modals/AuthModal/AuthModal";
 import { useQuery } from "@tanstack/react-query";
 import { getProfileById } from "../../../api/profile";
-import ButtonWithLink from "../../utils/ButtonWithLink/ButtonWithLink";
 import { useEffect } from "react";
 import { useSnackbarStore } from "../Snackbar/Snackbar.store";
+import Dropdown from "../../utils/Dropdown/Dropdown";
+import { BsFillGearFill } from "react-icons/bs";
+import { BiExit, BiSolidBuoy } from "react-icons/bi";
 
 const Header = (): JSX.Element => {
   const openModal = useStoreAuthModal(({ openModal }) => openModal);
@@ -33,6 +35,24 @@ const Header = (): JSX.Element => {
     navigate("/");
     addItem({ type: "success", message: "vous etes bien déconnecté" });
   };
+
+  const dropdownItems = [
+    {
+      label: "Paramètres",
+      icon: <BsFillGearFill />,
+      link: "/profile",
+    },
+    {
+      label: "Support",
+      icon: <BiSolidBuoy />,
+      link: "/profile",
+    },
+    {
+      label: "Se déconnecter",
+      icon: <BiExit />,
+      onClick: () => logout.mutate(),
+    },
+  ];
 
   useEffect(() => {
     if (logout.isSuccess) {
@@ -62,36 +82,43 @@ const Header = (): JSX.Element => {
       <div className={hstack({ gap: 8 })}>
         {user ? (
           <>
-            <img
-              className={circle({
-                w: "35px",
-                h: "35px",
-                objectFit: "cover",
-                border: "solid 2px black",
-              })}
-              src={profile?.avatar.url}
-              alt="avatar"
-            />
-            <p
-              className={css({
-                textStyle: "body",
-                textTransform: "capitalize",
-                mr: 4,
-              })}
-            >
-              Bonjour{" "}
-              <span
-                className={css({
-                  fontWeight: "bold",
+            <Dropdown items={dropdownItems}>
+              <div
+                className={hstack({
+                  border: "2px solid black",
+                  rounded: "10px",
+                  padding: ".5rem",
+                  backgroundColor: "gray",
                 })}
               >
-                {profile?.firstName} {profile?.lastName}
-              </span>
-            </p>
-            <ButtonWithLink to="/profile">Voir profil</ButtonWithLink>
-            <Button variant="danger" onClick={(): void => logout.mutate()}>
-              Se déconnecter
-            </Button>
+                <img
+                  className={circle({
+                    w: "35px",
+                    h: "35px",
+                    objectFit: "cover",
+                    border: "solid 2px black",
+                  })}
+                  src={profile?.avatar.url}
+                  alt="avatar"
+                />
+                <p
+                  className={css({
+                    textStyle: "body",
+                    textTransform: "capitalize",
+                    mr: 4,
+                  })}
+                >
+                  Bonjour{" "}
+                  <span
+                    className={css({
+                      fontWeight: "bold",
+                    })}
+                  >
+                    {profile?.firstName} {profile?.lastName}
+                  </span>
+                </p>
+              </div>
+            </Dropdown>
           </>
         ) : (
           <>

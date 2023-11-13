@@ -31,6 +31,10 @@ const tokens = {
     "value": "#E8E8E8",
     "variable": "var(--colors-gray)"
   },
+  "colors.lightgray": {
+    "value": "#F9F5F2",
+    "variable": "var(--colors-lightgray)"
+  },
   "fonts.body": {
     "value": "system-ui, sans-serif",
     "variable": "var(--fonts-body)"
@@ -90,6 +94,10 @@ const tokens = {
   "colors.disabled": {
     "value": "var(--colors-disabled)",
     "variable": "var(--colors-disabled)"
+  },
+  "colors.background": {
+    "value": "var(--colors-background)",
+    "variable": "var(--colors-background)"
   }
 }
 

@@ -8,6 +8,7 @@
   --colors-red: #FFB0B9;
   --colors-darkred: #E09DA5;
   --colors-gray: #E8E8E8;
+  --colors-lightgray: #F9F5F2;
   --fonts-body: system-ui, sans-serif;
   --breakpoints-sm: 640px;
   --breakpoints-md: 768px;
@@ -22,7 +23,8 @@
   --colors-danger: var(--colors-red);
   --colors-warning: var(--colors-yellow);
   --colors-success: var(--colors-green);
-  --colors-disabled: var(--colors-gray)
+  --colors-disabled: var(--colors-gray);
+  --colors-background: var(--colors-lightgray)
 }
   }
   

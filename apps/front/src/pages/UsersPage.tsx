@@ -4,12 +4,24 @@ import Card from "../components/utils/Card/Card";
 import { circle, hstack, vstack } from "../../styled-system/patterns";
 import { css } from "../../styled-system/css";
 import ButtonWithLink from "../components/utils/ButtonWithLink/ButtonWithLink";
+import { useEffect } from "react";
+import { useSnackbarStore } from "../components/layout/Snackbar/Snackbar.store";
 
 export default function UsersPage(): JSX.Element {
-  const { data: users } = useQuery({
+  const addItem = useSnackbarStore(({ addItem }) => addItem);
+  const { data: users, error } = useQuery({
     queryKey: ["users"],
     queryFn: getUsers,
   });
+
+  useEffect(() => {
+    if (error) {
+      addItem({
+        type: "danger",
+        message: error.message,
+      });
+    }
+  }, [error]);
 
   return (
     <>
