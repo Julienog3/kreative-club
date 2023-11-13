@@ -1,22 +1,11 @@
-import { AiOutlineCheckCircle, AiOutlineClose } from "react-icons/ai";
-import { PiWarningCircleBold } from "react-icons/pi";
-import { MdOutlineDangerous } from "react-icons/md";
 import { css } from "../../../../styled-system/css";
-import { center, hstack, vstack } from "../../../../styled-system/patterns";
+import { vstack } from "../../../../styled-system/patterns";
 import { useSnackbarStore } from "./Snackbar.store";
-import { useCallback } from "react";
 import { useTransition } from "@react-spring/web";
-import { animated } from "@react-spring/web";
+import SnackbarItem from "./SnackbarItem";
 
 const Snackbar = (): JSX.Element => {
-  const { items, removeItem } = useSnackbarStore(({ items, removeItem }) => ({
-    items,
-    removeItem,
-  }));
-
-  const onClose = useCallback((id: string) => {
-    removeItem(id);
-  }, []);
+  const items = useSnackbarStore(({ items }) => items);
 
   const transitions = useTransition(items, {
     from: {
@@ -35,12 +24,6 @@ const Snackbar = (): JSX.Element => {
     },
   });
 
-  const icons = {
-    danger: <MdOutlineDangerous />,
-    warning: <PiWarningCircleBold />,
-    success: <AiOutlineCheckCircle />,
-  };
-
   // : Record<State, IconType>
 
   return (
@@ -54,43 +37,8 @@ const Snackbar = (): JSX.Element => {
     >
       {items && (
         <ul className={vstack({ gap: "1rem", alignItems: "end" })}>
-          {transitions((style, { id, message, type }) => (
-            <animated.li
-              style={style}
-              className={hstack({
-                layerStyle: "container",
-                padding: "1rem",
-                alignItems: "center",
-              })}
-              key={id}
-            >
-              <div
-                className={center({
-                  backgroundColor: type,
-                  width: "2rem",
-                  height: "2rem",
-                  border: "2px solid black",
-                  rounded: ".5rem",
-                })}
-              >
-                {icons[type]}
-              </div>
-              <p className={css({ textStyle: "body" })}>{message}</p>
-              <button
-                className={css({
-                  padding: ".5rem",
-                  cursor: "pointer",
-                  rounded: "5px",
-                  transition: "background",
-                  _hover: {
-                    backgroundColor: "gray",
-                  },
-                })}
-                onClick={(): void => onClose(id)}
-              >
-                <AiOutlineClose />
-              </button>
-            </animated.li>
+          {transitions((style, item) => (
+            <SnackbarItem style={style} {...item} />
           ))}
         </ul>
       )}
