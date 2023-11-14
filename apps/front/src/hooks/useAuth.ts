@@ -2,10 +2,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getMe, loginUser, logoutUser } from "../api/auth";
 import { getToken, removeToken, saveToken } from "../helpers/localStorage";
 import { useEffect, useState } from "react";
+import { useSnackbarStore } from "../components/layout/Snackbar/Snackbar.store";
 
 export function useAuth() {
   const queryClient = useQueryClient();
   const [hasToken, setHasToken] = useState<boolean>(false);
+  const addItem = useSnackbarStore(({ addItem }) => addItem);
 
   useEffect(() => {
     const token = getToken();
@@ -15,11 +17,23 @@ export function useAuth() {
     }
   }, []);
 
-  const { data: user } = useQuery({
+  const {
+    data: user,
+    error: userError,
+    status,
+  } = useQuery({
     queryKey: ["user"],
     queryFn: getMe,
     enabled: hasToken,
   });
+
+  useEffect(() => {
+    console.log(status);
+  }, [status]);
+
+  if (userError) {
+    addItem({ type: "danger", message: userError.message });
+  }
 
   const signIn = useMutation({
     mutationFn: loginUser,

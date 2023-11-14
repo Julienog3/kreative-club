@@ -77,6 +77,7 @@ const Dropdown = ({
             <animated.ul
               style={style}
               className={vstack({
+                zIndex: "10",
                 backgroundColor: "white",
                 width: "15rem",
                 alignItems: "left",

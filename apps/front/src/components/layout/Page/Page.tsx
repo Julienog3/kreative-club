@@ -7,7 +7,6 @@ const Page = ({ children }: PropsWithChildren): JSX.Element => {
       className={center({
         height: "90vh",
         width: "full",
-        backgroundColor: "background",
       })}
     >
       {children}

@@ -37,7 +37,7 @@ const Input = ({
       <label className={css({ textStyle: "body" })}>
         {t(`form.${label}.label`)}
         {required && (
-          <span className={css({ color: "violet.600", ml: 1 })}>*</span>
+          <span className={css({ color: "purple", ml: ".25rem" })}>*</span>
         )}
       </label>
       <input

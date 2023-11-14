@@ -8,6 +8,9 @@ import { modalTransitionConfig } from "./components/utils/Modal/Modal";
 import AuthModal from "./components/modals/AuthModal/AuthModal";
 import { useStoreAuthModal } from "./components/modals/AuthModal/AuthModal.store";
 import Snackbar from "./components/layout/Snackbar/Snackbar";
+import Footer from "./components/layout/Footer/Footer";
+import Banner from "./components/layout/Banner/Banner";
+import { css } from "../styled-system/css";
 
 const queryClient = new QueryClient();
 
@@ -20,11 +23,15 @@ function App() {
       {modalTransition((style, isOpened) => (
         <>{isOpened && <AuthModal style={{ ...style }} />}</>
       ))}
-      <Snackbar />
-      <Header />
-      <Page>
-        <Outlet />
-      </Page>
+      <div className={css({ backgroundColor: "background" })}>
+        <Snackbar />
+        <Header />
+        <Banner />
+        <Page>
+          <Outlet />
+        </Page>
+        <Footer />
+      </div>
     </QueryClientProvider>
   );
 }
