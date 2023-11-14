@@ -1,12 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
-// import { Button } from '@kreativeclub/ui';
-import Card from './../components/Card'
+import MyButton from '../components/MyButton'
 import { css } from '../../styled-system/css';
 ---
 
 <main>
 	<div class={css({ fontSize: "2xl", fontWeight: 'bold' })}>Hello !</div>
-	<Card />
+	<MyButton />
 	<!-- <Button client:load label="hello"/> -->
 </main>

@@ -6,6 +6,7 @@ import { css } from "../../styled-system/css";
 import ButtonWithLink from "../components/utils/ButtonWithLink/ButtonWithLink";
 import { useEffect } from "react";
 import { useSnackbarStore } from "../components/layout/Snackbar/Snackbar.store";
+import { Button } from "@kreativeclub/ui";
 
 export default function UsersPage(): JSX.Element {
   const addItem = useSnackbarStore(({ addItem }) => addItem);
@@ -78,6 +79,9 @@ export default function UsersPage(): JSX.Element {
           <div className={hstack()}>
             <ButtonWithLink to="/">Home</ButtonWithLink>
             <ButtonWithLink to="/users/add">Adding user</ButtonWithLink>
+            <Button variant="danger" onClick={() => console.log("clicked")}>
+              Hello !
+            </Button>
           </div>
         </div>
       </Card>
