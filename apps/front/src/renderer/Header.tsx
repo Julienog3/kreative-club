@@ -1,29 +1,29 @@
 import { Link, useNavigate } from "react-router-dom";
-import { css } from "../../../../styled-system/css";
-import { hstack, vstack } from "../../../../styled-system/patterns";
-import Button from "../../utils/Button/Button";
-import { useAuth } from "../../../hooks/useAuth";
+import { css } from "../../styled-system/css";
+import { hstack, vstack } from "../../styled-system/patterns";
+import Button from "../components/utils/Button/Button";
+import { useAuth } from "../hooks/useAuth";
 import { useTranslation } from "react-i18next";
-import { useStoreAuthModal } from "../../modals/AuthModal/AuthModal.store";
-import { AuthModalType } from "../../modals/AuthModal/AuthModal";
+import { useStoreAuthModal } from "../components/modals/AuthModal/AuthModal.store";
+import { AuthModalType } from "../components/modals/AuthModal/AuthModal";
 import { useEffect } from "react";
-import { useSnackbarStore } from "../Snackbar/Snackbar.store";
-import Dropdown from "../../utils/Dropdown/Dropdown";
+import { useSnackbarStore } from "../components/layout/Snackbar/Snackbar.store";
+import Dropdown from "../components/utils/Dropdown/Dropdown";
 import { BsFillGearFill } from "react-icons/bs";
 import { BiExit, BiSolidBuoy } from "react-icons/bi";
-import HeaderProfile from "./HeaderProfile";
+import HeaderProfile from "../components/layout/Header/HeaderProfile";
 
 const Header = (): JSX.Element => {
   const openModal = useStoreAuthModal(({ openModal }) => openModal);
   const addItem = useSnackbarStore(({ addItem }) => addItem);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { t } = useTranslation();
   const { user, logout } = useAuth();
 
   const handleLogout = (): void => {
-    navigate("/");
+    // navigate("/");
     addItem({ type: "success", message: "vous etes bien déconnecté" });
   };
 
@@ -63,13 +63,13 @@ const Header = (): JSX.Element => {
         borderBottom: "solid #000 2px",
       })}
     >
-      <Link to="/">
+      {/* <Link to="/"> */}
         <img
           className={css({ width: "5rem" })}
           src="/images/kreative-club.svg"
           alt="Logo Kreative club"
         />
-      </Link>
+      {/* </Link> */}
       <div className={hstack({ gap: 8 })}>
         {user ? (
           <>
@@ -86,7 +86,7 @@ const Header = (): JSX.Element => {
               {t("app.actions.signup")}
             </Button>
           </>
-        )}
+         )}
       </div>
     </header>
   );

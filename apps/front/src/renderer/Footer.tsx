@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
-import { css } from "../../../../styled-system/css";
-import { hstack, vstack } from "../../../../styled-system/patterns";
+// import { Link } from "react-router-dom";
+import { css } from "../../styled-system/css";
+import { hstack, vstack } from "../../styled-system/patterns";
 
-const Footer = (): JSX.Element => {
+function Footer(): JSX.Element {
   return (
     <footer
       className={hstack({
@@ -38,24 +38,6 @@ const Footer = (): JSX.Element => {
           gap: "1rem",
         })}
       >
-        <h3 className={css({ textStyle: "title" })}>Social</h3>
-        <ul
-          className={vstack({
-            textStyle: "body",
-            fontSize: ".9rem",
-            alignItems: "start",
-          })}
-        >
-          <li>
-            <Link to="/">Instagram</Link>
-          </li>
-          <li>
-            <Link to="/">Youtube</Link>
-          </li>
-          <li>
-            <Link to="/">Linkedin</Link>
-          </li>
-        </ul>
       </div>
       <div
         className={vstack({

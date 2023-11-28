@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Outlet } from "react-router-dom";
-import Header from "./components/layout/Header/Header";
+import Header from "./renderer/Header";
 import Page from "./components/layout/Page/Page";
 import { useTransition } from "@react-spring/web";
 import "./i18n";
@@ -8,7 +8,7 @@ import { modalTransitionConfig } from "./components/utils/Modal/Modal";
 import AuthModal from "./components/modals/AuthModal/AuthModal";
 import { useStoreAuthModal } from "./components/modals/AuthModal/AuthModal.store";
 import Snackbar from "./components/layout/Snackbar/Snackbar";
-import Footer from "./components/layout/Footer/Footer";
+// import Footer from "./renderer/Footer";
 import Banner from "./components/layout/Banner/Banner";
 import { css } from "../styled-system/css";
 
@@ -30,7 +30,7 @@ function App() {
         <Page>
           <Outlet />
         </Page>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </QueryClientProvider>
   );

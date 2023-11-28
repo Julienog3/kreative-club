@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import UsersPage from "./pages/UsersPage";
+import UsersPage from "./pages/users/index.page";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 

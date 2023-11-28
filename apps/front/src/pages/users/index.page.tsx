@@ -1,13 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { getUsers } from "../api/user";
-import Card from "../components/utils/Card/Card";
-import { circle, hstack, vstack } from "../../styled-system/patterns";
-import { css } from "../../styled-system/css";
-import ButtonWithLink from "../components/utils/ButtonWithLink/ButtonWithLink";
+import { getUsers } from "../../api/user";
+import Card from "../../components/utils/Card/Card";
+import { circle, hstack, vstack } from "../../../styled-system/patterns";
+import { css } from "../../../styled-system/css";
+import ButtonWithLink from "../../components/utils/ButtonWithLink/ButtonWithLink";
 import { useEffect } from "react";
-import { useSnackbarStore } from "../components/layout/Snackbar/Snackbar.store";
+import { useSnackbarStore } from "../../components/layout/Snackbar/Snackbar.store";
 
-export default function UsersPage(): JSX.Element {
+export { UsersPage }
+
+function UsersPage(): JSX.Element {
   const addItem = useSnackbarStore(({ addItem }) => addItem);
   const { data: users, error } = useQuery({
     queryKey: ["users"],
@@ -76,8 +78,8 @@ export default function UsersPage(): JSX.Element {
             </ul>
           )}
           <div className={hstack()}>
-            <ButtonWithLink to="/">Home</ButtonWithLink>
-            <ButtonWithLink to="/users/add">Adding user</ButtonWithLink>
+            {/* <ButtonWithLink to="/">Home</ButtonWithLink>
+            <ButtonWithLink to="/users/add">Adding user</ButtonWithLink> */}
           </div>
         </div>
       </Card>
