@@ -1,9 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
+"use client";
+
 import { css } from "../../../../styled-system/css";
 import { hstack, vstack } from "../../../../styled-system/patterns";
 import Button from "../../utils/Button/Button";
 import { useAuth } from "../../../hooks/useAuth";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 import { useStoreAuthModal } from "../../modals/AuthModal/AuthModal.store";
 import { AuthModalType } from "../../modals/AuthModal/AuthModal";
 import { useEffect } from "react";
@@ -12,18 +13,19 @@ import Dropdown from "../../utils/Dropdown/Dropdown";
 import { BsFillGearFill } from "react-icons/bs";
 import { BiExit, BiSolidBuoy } from "react-icons/bi";
 import HeaderProfile from "./HeaderProfile";
+import Link from "next/link";
 
 const Header = (): JSX.Element => {
   const openModal = useStoreAuthModal(({ openModal }) => openModal);
   const addItem = useSnackbarStore(({ addItem }) => addItem);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { t } = useTranslation();
   const { user, logout } = useAuth();
 
   const handleLogout = (): void => {
-    navigate("/");
+    // navigate("/");
     addItem({ type: "success", message: "vous etes bien déconnecté" });
   };
 
@@ -63,7 +65,7 @@ const Header = (): JSX.Element => {
         borderBottom: "solid #000 2px",
       })}
     >
-      <Link to="/">
+      <Link href="/">
         <img
           className={css({ width: "5rem" })}
           src="/images/kreative-club.svg"

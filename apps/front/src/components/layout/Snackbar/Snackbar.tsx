@@ -1,3 +1,5 @@
+"use client"
+
 import { css } from "../../../../styled-system/css";
 import { vstack } from "../../../../styled-system/patterns";
 import { useSnackbarStore } from "./Snackbar.store";

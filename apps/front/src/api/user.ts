@@ -22,7 +22,7 @@ const getUsers = async (): Promise<UserWithProfile[]> => {
 const createUser = async (user: UserPayload): Promise<void> => {
   const userPayload = parseCamelToSnakeCase(user);
 
-  await fetch(`${import.meta.env.VITE_API_URL}users`, {
+  await fetch(`${process.env.NEXT_API_URL}users`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

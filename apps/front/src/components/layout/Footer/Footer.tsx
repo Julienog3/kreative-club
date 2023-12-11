@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import { css } from "../../../../styled-system/css";
 import { hstack, vstack } from "../../../../styled-system/patterns";
+import logo from "../../../../public/images/kreative-club.svg"
 
 const Footer = (): JSX.Element => {
   return (
@@ -24,38 +24,12 @@ const Footer = (): JSX.Element => {
       >
         <img
           className={css({ width: "7.5rem" })}
-          src="/images/kreative-club.svg"
+          src={logo.src}
           alt="Logo Kreative club"
         />
         <p className={css({ textStyle: "body", w: "75%", fontSize: ".9rem" })}>
           La plateforme de service de graphisme pour les freelances débutants
         </p>
-      </div>
-      <div
-        className={vstack({
-          h: "100%",
-          alignItems: "start",
-          gap: "1rem",
-        })}
-      >
-        <h3 className={css({ textStyle: "title" })}>Social</h3>
-        <ul
-          className={vstack({
-            textStyle: "body",
-            fontSize: ".9rem",
-            alignItems: "start",
-          })}
-        >
-          <li>
-            <Link to="/">Instagram</Link>
-          </li>
-          <li>
-            <Link to="/">Youtube</Link>
-          </li>
-          <li>
-            <Link to="/">Linkedin</Link>
-          </li>
-        </ul>
       </div>
       <div
         className={vstack({

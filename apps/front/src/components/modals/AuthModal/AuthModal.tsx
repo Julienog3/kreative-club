@@ -1,3 +1,5 @@
+"use client"
+
 import Button from "../../utils/Button/Button";
 import Modal, { ModalStyle } from "../../utils/Modal/Modal";
 import { useStoreAuthModal } from "./AuthModal.store";

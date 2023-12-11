@@ -12,14 +12,13 @@ import Footer from "./components/layout/Footer/Footer";
 import Banner from "./components/layout/Banner/Banner";
 import { css } from "../styled-system/css";
 
-const queryClient = new QueryClient();
 
 function App() {
   const isShowed = useStoreAuthModal(({ isShowed }) => isShowed);
   const modalTransition = useTransition(isShowed, modalTransitionConfig);
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       {modalTransition((style, isOpened) => (
         <>{isOpened && <AuthModal style={{ ...style }} />}</>
       ))}
@@ -28,11 +27,11 @@ function App() {
         <Header />
         <Banner />
         <Page>
-          <Outlet />
+          {/* <Outlet /> */}
         </Page>
         <Footer />
       </div>
-    </QueryClientProvider>
+    </>
   );
 }
 

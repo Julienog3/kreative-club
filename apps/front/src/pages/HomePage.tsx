@@ -2,7 +2,7 @@ import { hstack, vstack } from "../../styled-system/patterns";
 import { css } from "../../styled-system/css";
 import Card from "../components/utils/Card/Card";
 import ButtonWithLink from "../components/utils/ButtonWithLink/ButtonWithLink";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 import { useSnackbarStore } from "../components/layout/Snackbar/Snackbar.store";
 import Button from "../components/utils/Button/Button";
 

@@ -8,7 +8,7 @@ import {
 } from "react-hook-form";
 import { css } from "../../../../styled-system/css";
 import { vstack } from "../../../../styled-system/patterns";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'next-i18next'
 import { toCamelCase } from "../../../helpers/format";
 
 export interface InputProps {

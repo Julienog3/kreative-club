@@ -1,11 +1,13 @@
+"use client";
+
 import { useQuery } from "@tanstack/react-query";
-import { getUsers } from "../api/user";
-import Card from "../components/utils/Card/Card";
-import { circle, hstack, vstack } from "../../styled-system/patterns";
-import { css } from "../../styled-system/css";
-import ButtonWithLink from "../components/utils/ButtonWithLink/ButtonWithLink";
+import { useSnackbarStore } from "../../components/layout/Snackbar/Snackbar.store";
 import { useEffect } from "react";
-import { useSnackbarStore } from "../components/layout/Snackbar/Snackbar.store";
+import { getUsers } from "../../api/user";
+import Card from "../../components/utils/Card/Card";
+import { circle, hstack, vstack } from "../../../styled-system/patterns";
+import { css } from "../../../styled-system/css";
+import ButtonWithLink from "../../components/utils/ButtonWithLink/ButtonWithLink";
 
 export default function UsersPage(): JSX.Element {
   const addItem = useSnackbarStore(({ addItem }) => addItem);
@@ -13,6 +15,8 @@ export default function UsersPage(): JSX.Element {
     queryKey: ["users"],
     queryFn: getUsers,
   });
+
+  console.log(process.env.NEXT_API_URL);
 
   useEffect(() => {
     if (error) {
@@ -77,7 +81,6 @@ export default function UsersPage(): JSX.Element {
           )}
           <div className={hstack()}>
             <ButtonWithLink to="/">Home</ButtonWithLink>
-            <ButtonWithLink to="/users/add">Adding user</ButtonWithLink>
           </div>
         </div>
       </Card>
