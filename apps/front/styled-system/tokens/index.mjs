@@ -16,7 +16,7 @@ const tokens = {
     "variable": "var(--colors-green)"
   },
   "colors.yellow": {
-    "value": "#FEFFAB",
+    "value": "#FFDE78",
     "variable": "var(--colors-yellow)"
   },
   "colors.red": {

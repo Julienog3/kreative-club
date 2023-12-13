@@ -8,7 +8,6 @@ import {
 } from "react-hook-form";
 import { css } from "../../../../styled-system/css";
 import { vstack } from "../../../../styled-system/patterns";
-import { useTranslation } from 'next-i18next'
 import { toCamelCase } from "../../../helpers/format";
 
 export interface InputProps {
@@ -30,12 +29,10 @@ const Input = ({
     fieldState: { error },
   } = useController({ name: label, control });
 
-  const { t } = useTranslation();
-
   return (
     <div className={vstack({ gap: 1, alignItems: "left" })}>
       <label className={css({ textStyle: "body" })}>
-        {t(`form.${label}.label`)}
+        {label}
         {required && (
           <span className={css({ color: "purple", ml: ".25rem" })}>*</span>
         )}
@@ -56,7 +53,7 @@ const Input = ({
           role="alert"
           className={css({ textStyle: "body", color: "red.400" })}
         >
-          {t(`form.${label}.errors.${toCamelCase(error.message!)}`)}
+          {toCamelCase(error.message!)}
         </p>
       )}
     </div>

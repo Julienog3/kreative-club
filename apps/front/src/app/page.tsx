@@ -1,12 +1,15 @@
-"use server";
+"use client";
 
-import ButtonWithLink from "../components/utils/ButtonWithLink/ButtonWithLink";
-// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import HomePage from "../components/layout/Page/HomePage";
+import LandingPage from "../components/layout/Page/LandingPage";
+import { useAuth } from "../hooks/useAuth";
 
-export default async function Index() {
-  return (
-    <>
-      <ButtonWithLink to="/users">Users</ButtonWithLink>
-    </>
-  );
+export default function Index() {
+  const { user } = useAuth();
+
+  if (user) {
+    return <HomePage user={user} />;
+  } else {
+    return <LandingPage />;
+  }
 }

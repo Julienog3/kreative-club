@@ -16,8 +16,6 @@ export default function UsersPage(): JSX.Element {
     queryFn: getUsers,
   });
 
-  console.log(process.env.NEXT_API_URL);
-
   useEffect(() => {
     if (error) {
       addItem({
@@ -55,8 +53,8 @@ export default function UsersPage(): JSX.Element {
                         src={
                           profile.avatar
                             ? `${
-                                process.env.VITE_API_URL
-                              }${profile?.avatar.url.slice(1)}`
+                                process.env.NEXT_PUBLIC_API_URL
+                              }/${profile?.avatar.url.slice(1)}`
                             : ""
                         }
                         alt="avatar"

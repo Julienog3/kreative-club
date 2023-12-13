@@ -26,7 +26,7 @@ const HeaderProfile = ({ user }: HeaderProfileProps): JSX.Element => {
   const addItem = useSnackbarStore(({ addItem }) => addItem);
 
   useEffect(() => {
-    console.log(status);
+    console.log("profile", profile);
     if (status === "error") {
       console.log("error");
       addItem({ type: "danger", message: error.message });

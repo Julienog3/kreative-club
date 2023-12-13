@@ -1,12 +1,12 @@
 import { PropsWithChildren } from "react";
-import { center } from "../../../../styled-system/patterns";
+import { css } from "../../../../styled-system/css";
 
 const Page = ({ children }: PropsWithChildren): JSX.Element => {
   return (
     <main
-      className={center({
-        height: "90vh",
-        width: "full",
+      className={css({
+        minHeight: "100vh",
+        // width: "full",
       })}
     >
       {children}

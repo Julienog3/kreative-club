@@ -30,7 +30,7 @@ export default defineConfig({
         blue: { value: "#778DFF" },
         cyan: { value: "#ACD7FF" },
         green: { value: "#AFFFC1" },
-        yellow: { value: "#FEFFAB" },
+        yellow: { value: "#FFDE78" },
         red: { value: "#FFB0B9" },
         darkred: { value: "#E09DA5" },
         gray: { value: "#E8E8E8" },

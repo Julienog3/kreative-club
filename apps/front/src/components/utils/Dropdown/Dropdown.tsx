@@ -1,9 +1,9 @@
 import { PropsWithChildren, useEffect, useRef, useState } from "react";
 import { css } from "../../../../styled-system/css";
-import { Link } from "react-router-dom";
 import { hstack, vstack } from "../../../../styled-system/patterns";
 import { useTransition } from "@react-spring/web";
 import { animated } from "@react-spring/web";
+import Link from "next/link";
 
 type DropdownItem = {
   label: string;
@@ -103,7 +103,7 @@ const Dropdown = ({
                       className={hstack({
                         padding: ".75rem",
                       })}
-                      to={link ?? ""}
+                      href={link ?? ""}
                     >
                       {icon} {label}
                     </Link>

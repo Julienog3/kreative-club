@@ -20,9 +20,14 @@ export type ProfilePayload = {
 export const getProfileById = async (id: number): Promise<Profile> => {
   const profile = (await api.get(`profiles/${id}`).json()) as Profile;
 
-  profile.avatar.url = `${process.env.VITE_API_URL}${profile?.avatar.url.slice(
-    1,
-  )}`;
+  console.log(
+    "url",
+    `${process.env.NEXT_PUBLIC_API_URL}/${profile?.avatar.url.slice(1)}`,
+  );
+
+  profile.avatar.url = `${
+    process.env.NEXT_PUBLIC_API_URL
+  }/${profile?.avatar.url.slice(1)}`;
 
   return profile;
 };

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Button from "../../utils/Button/Button";
 import Modal, { ModalStyle } from "../../utils/Modal/Modal";
@@ -26,10 +26,10 @@ const AuthModal = ({ style }: AuthModalProps) => {
 
   if (type === AuthModalType.LOGIN) {
     return (
-      <Modal onClose={closeModal} style={{ ...style }} title="form.login">
+      <Modal onClose={closeModal} style={{ ...style }} title="Connexion">
         <LoginForm />
         <Button onClick={(): void => changeModalType(AuthModalType.SIGNUP)}>
-          Sign up
+          S&apos;inscrire
         </Button>
       </Modal>
     );
@@ -37,10 +37,10 @@ const AuthModal = ({ style }: AuthModalProps) => {
 
   if (type === AuthModalType.SIGNUP) {
     return (
-      <Modal onClose={closeModal} style={{ ...style }} title="form.signup">
+      <Modal onClose={closeModal} style={{ ...style }} title="Inscription">
         <SignUpForm />
         <Button onClick={(): void => changeModalType(AuthModalType.LOGIN)}>
-          Login
+          Se connecter
         </Button>
       </Modal>
     );

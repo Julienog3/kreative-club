@@ -1,15 +1,18 @@
+"use client";
+
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import Card from "../components/utils/Card/Card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { vstack } from "../../styled-system/patterns";
-import Button from "../components/utils/Button/Button";
-import Input from "../components/utils/Input/Input";
-import { useAuth } from "../hooks/useAuth";
+
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getProfileById, updateProfile } from "../api/profile";
-import { css } from "../../styled-system/css";
-import { useSnackbarStore } from "../components/layout/Snackbar/Snackbar.store";
+import { useAuth } from "../../hooks/useAuth";
+import { useSnackbarStore } from "../../components/layout/Snackbar/Snackbar.store";
+import { getProfileById, updateProfile } from "../../api/profile";
+import { vstack } from "../../../styled-system/patterns";
+import Card from "../../components/utils/Card/Card";
+import Input from "../../components/utils/Input/Input";
+import { css } from "../../../styled-system/css";
+import Button from "../../components/utils/Button/Button";
 
 const profileSchema = z.object({
   firstName: z.string().optional(),
