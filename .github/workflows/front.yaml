@@ -3,6 +3,8 @@ name: Front React CI
 on:
   push:
     branches: ["develop"]
+  merge_request:
+    branches: ["develop"]
 
 defaults:
   run:
@@ -14,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -34,8 +36,8 @@ jobs:
 
       - name: Create env file
         run: |
-          touch .env
-          echo VITE_API_URL=${{ vars.API_URL }} >> .env
+          touch .env.local
+          echo NEXT_PUBLIC_API_URL=${{ vars.API_URL }} >> .env.local
 
       - name: Build project
         run: |
@@ -44,8 +46,6 @@ jobs:
 
       - name: Testing project
         run: pnpm test
-
-     
 
       - name: Download project as artifact
         uses: actions/upload-artifact@master
