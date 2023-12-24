@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { AiOutlineCheckCircle, AiOutlineClose } from "react-icons/ai";
 import { css } from "../../../../styled-system/css";

@@ -8,6 +8,6 @@ const meta: Meta<typeof Card> = {
 export default meta;
 type Story = StoryObj<typeof Card>;
 
-export const primary: Story = {
+export const Primary: Story = {
   render: () => <Card>Hello !</Card>,
 };

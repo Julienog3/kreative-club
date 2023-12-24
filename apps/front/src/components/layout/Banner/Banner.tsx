@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { center, hstack } from "../../../../styled-system/patterns";
 import { AiOutlineClose } from "react-icons/ai";

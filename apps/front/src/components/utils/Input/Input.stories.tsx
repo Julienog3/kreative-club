@@ -23,7 +23,7 @@ const Template = ({ type, label, required }: InputProps) => {
 export default meta;
 type Story = StoryObj<typeof Input>;
 
-export const primary: Story = {
+export const Primary: Story = {
   args: {
     type: "text",
     label: "Input",

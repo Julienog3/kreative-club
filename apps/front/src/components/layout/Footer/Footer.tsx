@@ -1,6 +1,6 @@
 import { css } from "../../../../styled-system/css";
 import { hstack, vstack } from "../../../../styled-system/patterns";
-import logo from "../../../../public/images/kreative-club.svg"
+import logo from "../../../../public/images/kreative-club.svg";
 
 const Footer = (): JSX.Element => {
   return (

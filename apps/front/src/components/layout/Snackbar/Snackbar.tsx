@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { css } from "../../../../styled-system/css";
 import { vstack } from "../../../../styled-system/patterns";

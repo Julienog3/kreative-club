@@ -8,7 +8,7 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const primary: Story = {
+export const Primary: Story = {
   args: {
     disabled: false,
     children: "Click me !",
