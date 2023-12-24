@@ -3,7 +3,7 @@ name: Front React CI
 on:
   push:
     branches: ["develop"]
-  merge_request:
+  pull_request:
     branches: ["develop"]
 
 defaults:
