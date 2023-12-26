@@ -51,7 +51,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: bundle
-          path: ./apps/front/dist
+          path: ./apps/front
 
   deploy:
     runs-on: ubuntu-latest
