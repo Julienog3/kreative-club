@@ -1,15 +1,15 @@
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import Card from "../components/utils/Card/Card";
+import Card from "../../components/utils/Card/Card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { vstack } from "../../styled-system/patterns";
-import Button from "../components/utils/Button/Button";
-import Input from "../components/utils/Input/Input";
-import { useAuth } from "../hooks/useAuth";
+import { vstack } from "../../../styled-system/patterns";
+import Button from "../../components/utils/Button/Button";
+import Input from "../../components/utils/Input/Input";
+import { useAuth } from "../../hooks/useAuth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getProfileById, updateProfile } from "../api/profile";
-import { css } from "../../styled-system/css";
-import { useSnackbarStore } from "../components/layout/Snackbar/Snackbar.store";
+import { getProfileById, updateProfile } from "../../api/profile";
+import { css } from "../../../styled-system/css";
+import { useSnackbarStore } from "../../components/layout/Snackbar/Snackbar.store";
 
 const profileSchema = z.object({
   firstName: z.string().optional(),

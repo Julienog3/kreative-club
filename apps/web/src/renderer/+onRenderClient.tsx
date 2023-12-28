@@ -5,6 +5,7 @@ import PageShell from "./PageShell";
 import { hydrateRoot } from "react-dom/client";
 
 async function onRenderClient(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pageContext: any,
 ): ReturnType<OnRenderClientAsync> {
   const { Page, pageProps } = pageContext;

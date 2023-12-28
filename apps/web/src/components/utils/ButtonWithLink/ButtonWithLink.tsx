@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import Button, { ButtonProps } from "../Button/Button";
-import { Link } from "react-router-dom";
+import { Link } from "../../../renderer/Link";
 
 interface ButtonWithLinkProps extends ButtonProps {
   to: string;
@@ -12,7 +12,7 @@ const ButtonWithLink = ({
   ...props
 }: ButtonWithLinkProps & PropsWithChildren): JSX.Element => {
   return (
-    <Link to={to}>
+    <Link href={to}>
       <Button {...props}>{children}</Button>
     </Link>
   );

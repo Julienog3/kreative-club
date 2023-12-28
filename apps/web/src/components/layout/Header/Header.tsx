@@ -11,11 +11,11 @@ import Dropdown from "../../utils/Dropdown/Dropdown";
 import { BsFillGearFill } from "react-icons/bs";
 import { BiExit, BiSolidBuoy } from "react-icons/bi";
 import HeaderProfile from "./HeaderProfile";
+import { Link } from "../../../renderer/Link";
 
 const Header = (): JSX.Element => {
   const openModal = useStoreAuthModal(({ openModal }) => openModal);
   const addItem = useSnackbarStore(({ addItem }) => addItem);
-
   // const navigate = useNavigate();
 
   const { t } = useTranslation();
@@ -62,11 +62,13 @@ const Header = (): JSX.Element => {
         borderBottom: "solid #000 2px",
       })}
     >
-      <img
-        className={css({ width: "5rem" })}
-        src="/images/kreative-club.svg"
-        alt="Logo Kreative club"
-      />
+      <Link href="/">
+        <img
+          className={css({ width: "5rem" })}
+          src="/images/kreative-club.svg"
+          alt="Logo Kreative club"
+        />
+      </Link>
       <div className={hstack({ gap: 8 })}>
         {user ? (
           <>

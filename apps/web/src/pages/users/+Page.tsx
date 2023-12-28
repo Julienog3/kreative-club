@@ -5,7 +5,7 @@ import { getUsers } from "../../api/user";
 import Card from "../../components/utils/Card/Card";
 import { circle, hstack, vstack } from "../../../styled-system/patterns";
 import { css } from "../../../styled-system/css";
-// import ButtonWithLink from "../../components/utils/ButtonWithLink/ButtonWithLink";
+import ButtonWithLink from "../../components/utils/ButtonWithLink/ButtonWithLink";
 import { useEffect } from "react";
 import { useSnackbarStore } from "../../components/layout/Snackbar/Snackbar.store";
 
@@ -78,8 +78,7 @@ function Page(): JSX.Element {
             </ul>
           )}
           <div className={hstack()}>
-            {/* <ButtonWithLink to="/">Home</ButtonWithLink>
-            <ButtonWithLink to="/users/add">Adding user</ButtonWithLink> */}
+            <ButtonWithLink to="/">Home</ButtonWithLink>
           </div>
         </div>
       </Card>

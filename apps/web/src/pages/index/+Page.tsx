@@ -5,6 +5,7 @@ import { useSnackbarStore } from "../../components/layout/Snackbar/Snackbar.stor
 import Button from "../../components/utils/Button/Button";
 // import ButtonWithLink from "../../components/utils/ButtonWithLink/ButtonWithLink";
 import Card from "../../components/utils/Card/Card";
+import ButtonWithLink from "../../components/utils/ButtonWithLink/ButtonWithLink";
 
 export { Page };
 
@@ -19,7 +20,7 @@ function Page() {
           <h1 className={css({ textStyle: "title" })}>{t("app.title")}</h1>
           <p className={css({ textStyle: "body" })}>{t("app.description")}</p>
           <div className={hstack()}>
-            <Button>Users</Button>
+            <ButtonWithLink to="/users">Users</ButtonWithLink>
             <Button
               variant="danger"
               onClick={() =>
