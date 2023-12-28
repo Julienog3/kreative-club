@@ -4,7 +4,6 @@ import { SpringValue, animated } from "@react-spring/web";
 import { hstack, vstack } from "../../../../styled-system/patterns";
 import { AiOutlineClose } from "react-icons/ai";
 import Button from "../Button/Button";
-import { useTranslation } from "react-i18next";
 
 export interface ModalProps {
   title: string;
@@ -41,8 +40,6 @@ const Modal = ({
   onClose,
   children,
 }: ModalProps & PropsWithChildren): JSX.Element => {
-  const { t } = useTranslation();
-
   return (
     <animated.div
       style={{ opacity: style.opacity }}
@@ -76,7 +73,7 @@ const Modal = ({
             mb: "1rem",
           })}
         >
-          <h2 className={css({ textStyle: "title" })}>{t(title)}</h2>
+          <h2 className={css({ textStyle: "title" })}>{title}</h2>
           <Button variant="danger" onClick={onClose}>
             <AiOutlineClose />
           </Button>

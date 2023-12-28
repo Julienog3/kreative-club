@@ -2,7 +2,6 @@ import { css } from "../../../../styled-system/css";
 import { hstack, vstack } from "../../../../styled-system/patterns";
 import Button from "../../utils/Button/Button";
 import { useAuth } from "../../../hooks/useAuth";
-import { useTranslation } from "react-i18next";
 import { useStoreAuthModal } from "../../modals/AuthModal/AuthModal.store";
 import { AuthModalType } from "../../modals/AuthModal/AuthModal";
 import { useEffect } from "react";
@@ -18,7 +17,6 @@ const Header = (): JSX.Element => {
   const addItem = useSnackbarStore(({ addItem }) => addItem);
   // const navigate = useNavigate();
 
-  const { t } = useTranslation();
   const { user, logout } = useAuth();
 
   const handleLogout = (): void => {
@@ -79,10 +77,10 @@ const Header = (): JSX.Element => {
         ) : (
           <>
             <Button onClick={(): void => openModal(AuthModalType.LOGIN)}>
-              {t("app.actions.login")}
+              Se connecter
             </Button>
             <Button onClick={(): void => openModal(AuthModalType.SIGNUP)}>
-              {t("app.actions.signup")}
+              S&apos;inscrire
             </Button>
           </>
         )}

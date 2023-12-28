@@ -2,7 +2,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Header from "../components/layout/Header/Header";
 import Page from "../components/layout/Page/Page";
 import { useTransition } from "@react-spring/web";
-// import "./i18n";
 import { modalTransitionConfig } from "./../components/utils/Modal/Modal";
 import AuthModal from "./../components/modals/AuthModal/AuthModal";
 import { useStoreAuthModal } from "./../components/modals/AuthModal/AuthModal.store";
