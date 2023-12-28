@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { css } from "../../../../styled-system/css";
 import { hstack, vstack } from "../../../../styled-system/patterns";
 
@@ -31,7 +30,7 @@ const Footer = (): JSX.Element => {
           La plateforme de service de graphisme pour les freelances débutants
         </p>
       </div>
-      <div
+      {/* <div
         className={vstack({
           h: "100%",
           alignItems: "start",
@@ -56,7 +55,7 @@ const Footer = (): JSX.Element => {
             <Link to="/">Linkedin</Link>
           </li>
         </ul>
-      </div>
+      </div> */}
       <div
         className={vstack({
           h: "100%",

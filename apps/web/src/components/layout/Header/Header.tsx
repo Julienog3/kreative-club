@@ -1,4 +1,3 @@
-import { Link, useNavigate } from "react-router-dom";
 import { css } from "../../../../styled-system/css";
 import { hstack, vstack } from "../../../../styled-system/patterns";
 import Button from "../../utils/Button/Button";
@@ -17,13 +16,13 @@ const Header = (): JSX.Element => {
   const openModal = useStoreAuthModal(({ openModal }) => openModal);
   const addItem = useSnackbarStore(({ addItem }) => addItem);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { t } = useTranslation();
   const { user, logout } = useAuth();
 
   const handleLogout = (): void => {
-    navigate("/");
+    // navigate("/");
     addItem({ type: "success", message: "vous etes bien déconnecté" });
   };
 
@@ -63,13 +62,11 @@ const Header = (): JSX.Element => {
         borderBottom: "solid #000 2px",
       })}
     >
-      <Link to="/">
-        <img
-          className={css({ width: "5rem" })}
-          src="/images/kreative-club.svg"
-          alt="Logo Kreative club"
-        />
-      </Link>
+      <img
+        className={css({ width: "5rem" })}
+        src="/images/kreative-club.svg"
+        alt="Logo Kreative club"
+      />
       <div className={hstack({ gap: 8 })}>
         {user ? (
           <>
