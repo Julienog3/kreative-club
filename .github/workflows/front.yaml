@@ -8,7 +8,7 @@ on:
 
 defaults:
   run:
-    working-directory: ./apps/front
+    working-directory: ./apps/web
 
 jobs:
   build:
