@@ -17,19 +17,11 @@ export function useAuth() {
     }
   }, []);
 
-  const {
-    data: user,
-    error: userError,
-    status,
-  } = useQuery({
+  const { data: user, error: userError } = useQuery({
     queryKey: ["user"],
     queryFn: getMe,
     enabled: hasToken,
   });
-
-  useEffect(() => {
-    console.log(status);
-  }, [status]);
 
   if (userError) {
     addItem({ type: "danger", message: userError.message });

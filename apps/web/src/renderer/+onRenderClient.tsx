@@ -1,9 +1,10 @@
 export { onRenderClient };
 
 import { OnRenderClientAsync } from "vike/types";
-import PageShell from "./PageShell";
-import { hydrateRoot } from "react-dom/client";
+import { PageShell } from "./PageShell";
+import { Root, createRoot, hydrateRoot } from "react-dom/client";
 
+let root: Root;
 async function onRenderClient(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pageContext: any,
@@ -16,14 +17,20 @@ async function onRenderClient(
     );
   }
 
-  const root = document.getElementById("react-root");
-
-  if (!root) throw new Error("DOM element #react-root not found");
-
-  hydrateRoot(
-    root,
+  const page = (
     <PageShell pageContext={pageContext}>
       <Page {...pageProps} />
-    </PageShell>,
+    </PageShell>
   );
+
+  const container = document.getElementById("page-view")!;
+
+  if (pageContext.isHydration) {
+    root = hydrateRoot(container, page);
+  } else {
+    if (!root) {
+      root = createRoot(container);
+    }
+    root.render(page);
+  }
 }

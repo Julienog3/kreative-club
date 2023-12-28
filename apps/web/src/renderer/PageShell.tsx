@@ -21,10 +21,12 @@ interface PageShellProps {
   pageContext: PageContext;
 }
 
-export default function PageShell({
+export { PageShell };
+
+function PageShell({
   children,
   pageContext,
-}: PageShellProps & PropsWithChildren) {
+}: PageShellProps & PropsWithChildren): JSX.Element {
   const isShowed = useStoreAuthModal(({ isShowed }) => isShowed);
   const modalTransition = useTransition(isShowed, modalTransitionConfig);
 

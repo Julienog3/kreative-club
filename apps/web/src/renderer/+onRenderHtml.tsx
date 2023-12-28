@@ -1,7 +1,7 @@
 import { escapeInject, dangerouslySkipEscape } from "vike/server";
 import { renderToString } from "react-dom/server";
 import { OnRenderHtmlAsync } from "vike/types";
-import PageShell from "./PageShell";
+import { PageShell } from "./PageShell";
 
 export { onRenderHtml };
 
@@ -34,7 +34,7 @@ async function onRenderHtml(pageContext: any): ReturnType<OnRenderHtmlAsync> {
         <title>${title}</title>
       </head>
       <body>
-        <div id="react-root">${dangerouslySkipEscape(pageHtml)}</div>
+        <div id="page-view">${dangerouslySkipEscape(pageHtml)}</div>
       </body>
     </html>`;
 
