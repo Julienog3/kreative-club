@@ -1,9 +1,9 @@
 import { center, hstack } from "../../../../styled-system/patterns";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose } from "@react-icons/all-files/ai/AiOutlineClose";
 import { useState } from "react";
 import { animated, useTransition } from "@react-spring/web";
 import { css } from "../../../../styled-system/css";
-import { PiWarningCircleBold } from "react-icons/pi";
+import { IoWarning } from "@react-icons/all-files/io5/IoWarning";
 
 const Banner = (): JSX.Element => {
   const [isClosed, setIsClosed] = useState<boolean>(false);
@@ -44,7 +44,7 @@ const Banner = (): JSX.Element => {
                 rounded: ".5rem",
               })}
             >
-              <PiWarningCircleBold />
+              <IoWarning />
             </div>
             Site en cours de développement
           </div>

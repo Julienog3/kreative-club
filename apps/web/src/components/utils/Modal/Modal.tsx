@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react";
 import { css } from "../../../../styled-system/css";
 import { SpringValue, animated } from "@react-spring/web";
 import { hstack, vstack } from "../../../../styled-system/patterns";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose } from "@react-icons/all-files/ai/AiOutlineClose";
 import Button from "../Button/Button";
 
 export interface ModalProps {

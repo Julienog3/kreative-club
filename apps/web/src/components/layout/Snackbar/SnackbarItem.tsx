@@ -1,12 +1,13 @@
-import { AiOutlineCheckCircle, AiOutlineClose } from "react-icons/ai";
+import { AiOutlineCheckCircle } from "@react-icons/all-files/ai/AiOutlineCheckCircle";
+import { AiOutlineClose } from "@react-icons/all-files/ai/AiOutlineClose";
 import { css } from "../../../../styled-system/css";
 import { center, hstack, vstack } from "../../../../styled-system/patterns";
 import { State } from "../../utils";
 import { SpringValue, animated, useSpring } from "@react-spring/web";
 import { useCallback, useEffect } from "react";
 import { useSnackbarStore } from "./Snackbar.store";
-import { MdOutlineDangerous } from "react-icons/md";
-import { PiWarningCircleBold } from "react-icons/pi";
+import { TiDelete } from "@react-icons/all-files/ti/TiDelete";
+import { IoWarning } from "@react-icons/all-files/io5/IoWarning";
 
 type SnackbarItemStyle = {
   opacity: SpringValue<number>;
@@ -35,8 +36,8 @@ const SnackbarItem = ({
   }, []);
 
   const icons = {
-    danger: <MdOutlineDangerous />,
-    warning: <PiWarningCircleBold />,
+    danger: <TiDelete />,
+    warning: <IoWarning />,
     success: <AiOutlineCheckCircle />,
   };
 

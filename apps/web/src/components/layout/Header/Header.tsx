@@ -7,8 +7,10 @@ import { AuthModalType } from "../../modals/AuthModal/AuthModal";
 import { useEffect } from "react";
 import { useSnackbarStore } from "../Snackbar/Snackbar.store";
 import Dropdown from "../../utils/Dropdown/Dropdown";
-import { BsFillGearFill } from "react-icons/bs";
-import { BiExit, BiSolidBuoy } from "react-icons/bi";
+import { BsFillGearFill } from "@react-icons/all-files/bs/BsFillGearFill";
+import { IoHelpBuoySharp } from "@react-icons/all-files/io5/IoHelpBuoySharp";
+import { BiExit } from "@react-icons/all-files/bi/BiExit";
+
 import HeaderProfile from "./HeaderProfile";
 import { Link } from "../../../renderer/Link";
 
@@ -32,7 +34,7 @@ const Header = (): JSX.Element => {
     },
     {
       label: "Support",
-      icon: <BiSolidBuoy />,
+      icon: <IoHelpBuoySharp />,
       link: "/profile",
     },
     {

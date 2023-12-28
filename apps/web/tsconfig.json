@@ -26,5 +26,13 @@
     "index.d.ts",
     "styles/layer-styles.ts"
   ],
+  "ts-node": {
+    "transpileOnly": true,
+    "esm": true,
+    "compilerOptions": {
+      "module": "Node16",
+      "moduleResolution": "Node16"
+    }
+  },
   "references": [{ "path": "./tsconfig.node.json" }]
 }
