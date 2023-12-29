@@ -2,6 +2,7 @@ import { escapeInject, dangerouslySkipEscape } from "vike/server";
 import { renderToString } from "react-dom/server";
 import { OnRenderHtmlAsync } from "vike/types";
 import { PageShell } from "./PageShell";
+import { getTitle } from "../pages/utils";
 
 export { onRenderHtml };
 
@@ -20,7 +21,7 @@ async function onRenderHtml(pageContext: any): ReturnType<OnRenderHtmlAsync> {
   );
 
   const { documentProps } = pageContext.exports;
-  const title = (documentProps && documentProps.title) || "Kreative club";
+  const title = getTitle(pageContext);
   const description =
     (documentProps && documentProps.description) ||
     "Kreative club est une application";

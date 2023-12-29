@@ -3,6 +3,7 @@ export { onRenderClient };
 import { OnRenderClientAsync } from "vike/types";
 import { PageShell } from "./PageShell";
 import { Root, createRoot, hydrateRoot } from "react-dom/client";
+import { getTitle } from "../pages/utils";
 
 let root: Root;
 async function onRenderClient(
@@ -24,6 +25,7 @@ async function onRenderClient(
   );
 
   const container = document.getElementById("page-view")!;
+  document.title = getTitle(pageContext);
 
   if (pageContext.isHydration) {
     root = hydrateRoot(container, page);
