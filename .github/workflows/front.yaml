@@ -68,20 +68,5 @@ jobs:
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
             pnpm install
+            pmpm build
             pm2 restart kreative-club-web
-
-# SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-#           ARGS: "-rlgoDzvc -i"
-#           SOURCE: "web/"
-#           REMOTE_HOST: ${{ secrets.HOST }}
-#           REMOTE_USER: ${{ secrets.USERNAME }}
-#           TARGET: ${{ secrets.TARGET }}
-#           EXCLUDE: "/node_modules/"
-#           SCRIPT_BEFORE: |
-#             whoami
-#             ls -al
-#           SCRIPT_AFTER: |
-#             whoami
-#             ls -al
-#             echo $RSYNC_STDOUT
-#             npm install
