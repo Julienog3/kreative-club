@@ -65,6 +65,8 @@ jobs:
             cd kreative-club-app
             git fetch
             git pull 
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
             pnpm install
             pm2 restart kreative-club-web
 
