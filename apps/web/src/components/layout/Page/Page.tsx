@@ -1,12 +1,13 @@
 import { PropsWithChildren } from "react";
-import { center } from "../../../../styled-system/patterns";
+import { vstack } from "../../../../styled-system/patterns";
 
 const Page = ({ children }: PropsWithChildren): JSX.Element => {
   return (
     <main
-      className={center({
-        height: "90vh",
+      className={vstack({
+        minHeight: "100vh",
         width: "full",
+        p: "1rem",
       })}
     >
       {children}
