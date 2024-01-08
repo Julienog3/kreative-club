@@ -4,6 +4,7 @@ import Button from "../../../../components/utils/Button/Button";
 import Card from "../../../../components/utils/Card/Card";
 import { IoBookmark } from "@react-icons/all-files/io5/IoBookmark";
 import Chip from "../../../../components/utils/Chip/Chip";
+import ButtonWithLink from "../../../../components/utils/ButtonWithLink/ButtonWithLink";
 
 const CreativeCard = () => {
   return (
@@ -88,7 +89,9 @@ const CreativeCard = () => {
             <Button variant="danger">
               <IoBookmark />
             </Button>
-            <Button>Voir le portfolio</Button>
+            <ButtonWithLink to="/creatives/test">
+              Voir le portfolio
+            </ButtonWithLink>
           </div>
         </div>
       </div>

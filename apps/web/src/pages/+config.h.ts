@@ -6,5 +6,9 @@ export default {
       // Make the value of `title` available on both the server- and client-side
       env: { server: true, client: true },
     },
+    onBeforeRender: {
+      env: { server: true, client: true },
+    },
   },
+  passToClient: ["dehydratedState"],
 } satisfies Config;

@@ -2,9 +2,11 @@ import { Attachment } from '@ioc:Adonis/Addons/AttachmentLite'
 import User from '../../Models/User'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema } from '@ioc:Adonis/Core/Validator'
+import UserFactory from 'Database/factories/UserFactory'
 
 export default class UsersController {
   public async index() {
+    const user = await UserFactory.with('profile').create()
     return await User.query().preload('profile')
   }
 

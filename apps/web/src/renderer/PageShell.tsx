@@ -1,4 +1,8 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  HydrationBoundary,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import Header from "../components/layout/Header/Header";
 import Page from "../components/layout/Page/Page";
 import { useTransition } from "@react-spring/web";
@@ -12,8 +16,7 @@ import { PageContext } from "vike/types";
 import React, { PropsWithChildren } from "react";
 import { PageContextProvider } from "./usePageContext";
 import "../index.css";
-
-const queryClient = new QueryClient();
+import RQProvider from "../providers/RQProvider";
 
 interface PageShellProps {
   pageContext: PageContext;
@@ -28,21 +31,25 @@ function PageShell({
   const isShowed = useStoreAuthModal(({ isShowed }) => isShowed);
   const modalTransition = useTransition(isShowed, modalTransitionConfig);
 
+  const { dehydratedState } = pageContext;
+
   return (
     <React.StrictMode>
       <PageContextProvider pageContext={pageContext}>
-        <QueryClientProvider client={queryClient}>
-          {modalTransition((style, isOpened) => (
-            <>{isOpened && <AuthModal style={{ ...style }} />}</>
-          ))}
-          <div className={css({ backgroundColor: "background" })}>
-            <Snackbar />
-            {/* <Banner /> */}
-            <Header />
-            <Page>{children}</Page>
-            <Footer />
-          </div>
-        </QueryClientProvider>
+        <RQProvider>
+          <HydrationBoundary state={dehydratedState}>
+            {modalTransition((style, isOpened) => (
+              <>{isOpened && <AuthModal style={{ ...style }} />}</>
+            ))}
+            <div className={css({ backgroundColor: "background" })}>
+              <Snackbar />
+              {/* <Banner /> */}
+              <Header />
+              <Page>{children}</Page>
+              <Footer />
+            </div>
+          </HydrationBoundary>
+        </RQProvider>
       </PageContextProvider>
     </React.StrictMode>
   );

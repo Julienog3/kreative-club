@@ -1,5 +1,6 @@
+import User from 'App/Models/User'
 import Factory from '@ioc:Adonis/Lucid/Factory'
-import User from '../../app/Models/User'
+import ProfileFactory from './ProfileFactory'
 
 export default Factory.define(User, ({ faker }) => {
   return {
@@ -7,4 +8,4 @@ export default Factory.define(User, ({ faker }) => {
     email: faker.internet.email(),
     password: faker.internet.password(),
   }
-}).build()
+}).relation('profile', () => ProfileFactory).build()

@@ -1,4 +1,5 @@
 import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
+import UserFactory from 'Database/factories/UserFactory'
 
 export default class AppProvider {
   constructor(protected app: ApplicationContract) {}
