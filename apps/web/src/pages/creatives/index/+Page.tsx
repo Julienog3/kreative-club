@@ -1,6 +1,6 @@
-import { css } from "../../../styled-system/css";
-import { grid, hstack } from "../../../styled-system/patterns";
-import Chip from "../../components/utils/Chip/Chip";
+import { css } from "../../../../styled-system/css";
+import { grid, hstack } from "../../../../styled-system/patterns";
+import Chip from "../../../components/utils/Chip/Chip";
 import CreativeCard from "./CreativeCard/CreativeCard";
 import { BiHomeAlt } from "@react-icons/all-files/bi/BiHomeAlt";
 

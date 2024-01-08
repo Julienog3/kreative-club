@@ -7,7 +7,6 @@ import AuthModal from "./../components/modals/AuthModal/AuthModal";
 import { useStoreAuthModal } from "./../components/modals/AuthModal/AuthModal.store";
 import Snackbar from "../components/layout/Snackbar/Snackbar";
 import Footer from "../components/layout/Footer/Footer";
-import Banner from "../components/layout/Banner/Banner";
 import { css } from "../../styled-system/css";
 import { PageContext } from "vike/types";
 import React, { PropsWithChildren } from "react";
@@ -38,8 +37,8 @@ function PageShell({
           ))}
           <div className={css({ backgroundColor: "background" })}>
             <Snackbar />
+            {/* <Banner /> */}
             <Header />
-            <Banner />
             <Page>{children}</Page>
             <Footer />
           </div>

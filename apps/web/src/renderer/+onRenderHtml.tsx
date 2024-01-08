@@ -8,7 +8,7 @@ export { onRenderHtml };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function onRenderHtml(pageContext: any): ReturnType<OnRenderHtmlAsync> {
-  const { Page, pageProps } = pageContext;
+  const { Page, pageProps, data } = pageContext;
 
   if (!Page) {
     throw new Error("My render() hook expects pageContext.Page to be defined");
@@ -16,7 +16,7 @@ async function onRenderHtml(pageContext: any): ReturnType<OnRenderHtmlAsync> {
 
   const pageHtml = await renderToString(
     <PageShell pageContext={pageContext}>
-      <Page {...pageProps} />
+      <Page {...pageProps} {...data} />
     </PageShell>,
   );
 

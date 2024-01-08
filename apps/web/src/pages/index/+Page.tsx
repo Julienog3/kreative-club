@@ -1,61 +1,59 @@
 import { css } from "../../../styled-system/css";
 import { hstack, vstack } from "../../../styled-system/patterns";
-import { useSnackbarStore } from "../../components/layout/Snackbar/Snackbar.store";
+import { AuthModalType } from "../../components/modals/AuthModal/AuthModal";
+import { useStoreAuthModal } from "../../components/modals/AuthModal/AuthModal.store";
 import Button from "../../components/utils/Button/Button";
-import Card from "../../components/utils/Card/Card";
-import ButtonWithLink from "../../components/utils/ButtonWithLink/ButtonWithLink";
 
 export { Page };
 
 function Page() {
-  const addItem = useSnackbarStore(({ addItem }) => addItem);
+  const openModal = useStoreAuthModal(({ openModal }) => openModal);
 
   return (
-    <>
-      <Card withShadow>
-        <div className={vstack({ gap: 2 })}>
-          <h1 className={css({ textStyle: "title" })}>Kreative club</h1>
-          <p className={css({ textStyle: "body" })}>
-            Plateforme de freelance pour graphiste
+    <div
+      className={vstack({
+        width: "100%",
+        bg: "cyan",
+        position: "relative",
+      })}
+    >
+      <div className={hstack({ maxWidth: "1440px" })}>
+        <div
+          className={vstack({
+            minHeight: "100vh",
+            alignItems: "start",
+            justifyContent: "center",
+          })}
+        >
+          <h1 className={css({ textStyle: "title" })}>
+            Créez votre vision, choisissez votre talent
+          </h1>
+          <p
+            className={css({
+              textStyle: "body",
+            })}
+          >
+            Mauris scelerisque, lectus nec egestas cursus, est erat tempor
+            lorem, ac tristique ipsum odio et felis. Suspendisse ac vulputate
+            ligula. Nulla id arcu accumsan, vulputate nisl sed, consequat odio.
           </p>
-          <div className={hstack()}>
-            <ButtonWithLink to="/users">Users</ButtonWithLink>
-            <Button
-              variant="danger"
-              onClick={() =>
-                addItem({
-                  type: "danger",
-                  message: "Je suis une longue notification",
-                })
-              }
-            >
-              Add snackbar item
-            </Button>
-            <Button
-              variant="success"
-              onClick={() =>
-                addItem({
-                  type: "success",
-                  message: "Je suis une longue notification",
-                })
-              }
-            >
-              Add snackbar item
-            </Button>
-            <Button
-              variant="warning"
-              onClick={() =>
-                addItem({
-                  type: "warning",
-                  message: "Je suis une longue notification",
-                })
-              }
-            >
-              Add snackbar item
-            </Button>
-          </div>
+
+          <Button onClick={() => openModal(AuthModalType.SIGNUP)}>
+            <p className={css({ textStyle: "body", fontSize: "1.25rem" })}>
+              Rejoindre le club
+            </p>
+          </Button>
         </div>
-      </Card>
-    </>
+        <img
+          className={css({
+            // position: "absolute",
+            width: "40%",
+            // height: "0%",
+          })}
+          src="/images/mascot.png"
+          alt=""
+        />
+      </div>
+    </div>
   );
 }

@@ -6,8 +6,7 @@ const Page = ({ children }: PropsWithChildren): JSX.Element => {
     <main
       className={vstack({
         minHeight: "100vh",
-        width: "full",
-        p: "1rem",
+        width: "100%",
       })}
     >
       {children}

@@ -33,6 +33,7 @@ const Snackbar = (): JSX.Element => {
         bottom: 0,
         right: 0,
         padding: "2rem",
+        zIndex: 50,
       })}
     >
       {items && (

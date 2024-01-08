@@ -20,6 +20,7 @@ const Banner = (): JSX.Element => {
         position: "sticky",
         left: "0",
         top: "0",
+        zIndex: 10,
       })}
     >
       {!isClosed && (

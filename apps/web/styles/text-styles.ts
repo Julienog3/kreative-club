@@ -7,6 +7,7 @@ export const textStyles = defineTextStyles({
       fontFamily: "Lexend Mega",
       fontWeight: "700",
       fontSize: "2.5rem",
+      lineHeight: "2.75rem",
       letterSpacing: "-.5rem",
       textDecoration: "None",
       textTransform: "None",

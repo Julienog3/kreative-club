@@ -10,7 +10,7 @@ async function onRenderClient(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pageContext: any,
 ): ReturnType<OnRenderClientAsync> {
-  const { Page, pageProps } = pageContext;
+  const { Page, pageProps, data } = pageContext;
 
   if (!Page) {
     throw new Error(
@@ -20,7 +20,7 @@ async function onRenderClient(
 
   const page = (
     <PageShell pageContext={pageContext}>
-      <Page {...pageProps} />
+      <Page {...pageProps} {...data} />
     </PageShell>
   );
 

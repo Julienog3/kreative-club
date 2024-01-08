@@ -44,7 +44,7 @@ const Modal = ({
     <animated.div
       style={{ opacity: style.opacity }}
       className={css({
-        zIndex: 10,
+        zIndex: 50,
         w: "100%",
         minHeight: "screen",
         backgroundColor: "rgba(0, 0, 0, 0.4)",

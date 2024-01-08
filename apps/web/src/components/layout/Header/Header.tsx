@@ -69,7 +69,7 @@ const Header = (): JSX.Element => {
           alt="Logo Kreative club"
         />
       </Link>
-      <div className={hstack({ gap: 8 })}>
+      <div className={hstack({ gap: "1.5rem" })}>
         {user ? (
           <>
             <Dropdown items={dropdownItems}>
@@ -78,11 +78,15 @@ const Header = (): JSX.Element => {
           </>
         ) : (
           <>
-            <Button onClick={(): void => openModal(AuthModalType.LOGIN)}>
+            <span
+              role="button"
+              className={css({ textStyle: "body", cursor: "pointer" })}
+              onClick={(): void => openModal(AuthModalType.LOGIN)}
+            >
               Se connecter
-            </Button>
+            </span>
             <Button onClick={(): void => openModal(AuthModalType.SIGNUP)}>
-              S&apos;inscrire
+              Rejoindre le club
             </Button>
           </>
         )}
