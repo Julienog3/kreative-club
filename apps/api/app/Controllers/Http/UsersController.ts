@@ -4,10 +4,25 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema } from '@ioc:Adonis/Core/Validator'
 import UserFactory from 'Database/factories/UserFactory'
 
+const LIMIT = 20;
+
 export default class UsersController {
-  public async index() {
-    const user = await UserFactory.with('profile').create()
-    return await User.query().preload('profile')
+  public async index({ request }: HttpContextContract) {
+    const { isProvider, limit } = request.qs()
+     
+    const users = await User.query()
+      .if(isProvider, (query) => {
+        query.whereHas('profile', (query) => {
+          query.where('isProvider', Boolean(isProvider))
+        })
+      })
+      .limit(limit ? Number(limit) : LIMIT)
+      .preload('profile')
+   
+
+    return users
+    // const user = await UserFactory.with('profile').create()
+    
   }
 
   public async show({ params }: HttpContextContract) {

@@ -28,8 +28,8 @@ Route.get('/', async () => {
 })
 
 Route.group(async () => {
-  Route.get('/', async () => {
-    return new UsersController().index()
+  Route.get('/', async (ctx) => {
+    return new UsersController().index(ctx)
   })
 
   Route.get(':id', async (ctx) => {
