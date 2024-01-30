@@ -1,15 +1,16 @@
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import Card from "../../components/utils/Card/Card";
+import Card from "../../../components/utils/Card/Card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { vstack } from "../../../styled-system/patterns";
-import Button from "../../components/utils/Button/Button";
-import Input from "../../components/utils/Input/Input";
-import { useAuth } from "../../hooks/useAuth";
+import { vstack } from "../../../../styled-system/patterns";
+import Button from "../../../components/utils/Button/Button";
+import Input from "../../../components/utils/Input/Input";
+import { useAuth } from "../../../hooks/useAuth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getProfileById, updateProfile } from "../../api/profile";
-import { css } from "../../../styled-system/css";
-import { useSnackbarStore } from "../../components/layout/Snackbar/Snackbar.store";
+import { getProfileById, updateProfile } from "../../../api/profile";
+import { css } from "../../../../styled-system/css";
+import { useSnackbarStore } from "../../../components/layout/Snackbar/Snackbar.store";
+import { PreferencesLayout } from "../../../components/layout/PreferencesLayout/PreferencesLayout";
 
 const profileSchema = z.object({
   firstName: z.string().optional(),
@@ -17,7 +18,7 @@ const profileSchema = z.object({
   avatar: z.any().optional(),
 });
 
-export default function ProfilePage(): JSX.Element {
+export default function PortfolioPage(): JSX.Element {
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
@@ -72,20 +73,34 @@ export default function ProfilePage(): JSX.Element {
 
   return (
     <>
-      <Card>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className={vstack({ gap: 4, alignItems: "left" })}
-        >
-          <h2 className={css({ textStyle: "title" })}>Profil</h2>
-          <Input label="firstName" control={control} register={register} />
-          <Input label="lastName" control={control} register={register} />
-          <input type="file" {...register("avatar")} />
-          <Button type="submit" disabled={!isDirty || editProfile.isPending}>
-            Enregistrer
-          </Button>
-        </form>
-      </Card>
+      <PreferencesLayout>
+        <Card css={{ width: "100%", height: "100%" }}>
+          <div
+            className={vstack({
+              w: "100%",
+              alignItems: "flex-start",
+              p: "1rem",
+              height: "100%",
+            })}
+          >
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className={vstack({ gap: 4, alignItems: "left" })}
+            >
+              <h2 className={css({ textStyle: "title" })}>Profil</h2>
+              <Input label="firstName" control={control} register={register} />
+              <Input label="lastName" control={control} register={register} />
+              <input type="file" {...register("avatar")} />
+              <Button
+                type="submit"
+                disabled={!isDirty || editProfile.isPending}
+              >
+                Enregistrer
+              </Button>
+            </form>
+          </div>
+        </Card>
+      </PreferencesLayout>
     </>
   );
 }

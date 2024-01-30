@@ -6,7 +6,7 @@ import UserFactory from 'Database/factories/UserFactory'
 
 export default class UsersController {
   public async index() {
-    const user = await UserFactory.with('profile').create()
+    // const user = await UserFactory.with('profile').create()
     return await User.query().preload('profile')
   }
 

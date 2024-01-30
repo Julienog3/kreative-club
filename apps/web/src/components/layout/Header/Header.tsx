@@ -30,7 +30,7 @@ const Header = (): JSX.Element => {
     {
       label: "Paramètres",
       icon: <BsFillGearFill />,
-      link: "/profile",
+      link: "/preferences/profile",
     },
     {
       label: "Support",
