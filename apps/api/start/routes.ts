@@ -21,7 +21,6 @@
 import Route from '@ioc:Adonis/Core/Route'
 import UsersController from '../app/Controllers/Http/UsersController'
 import AuthController from '../app/Controllers/Http/AuthController'
-import ProfilesController from 'App/Controllers/Http/ProfilesController'
 
 Route.get('/', async () => {
   return { hello: 'world' }
@@ -37,7 +36,7 @@ Route.group(async () => {
   })
 
   Route.put('/:id/profile', async (ctx) => {
-    return new UsersController().updateUserProfile(ctx)
+    // return new UsersController().updateUserProfile(ctx)
   })
 }).prefix('users')
 // .middleware(['auth'])
@@ -58,12 +57,4 @@ Route.group(async () => {
 
 Route.get('me', async (ctx) => {
   return new AuthController().getMe(ctx)
-})
-
-Route.get('profiles/:id', async ({ params }) => {
-  return new ProfilesController().show(params.id)
-})
-
-Route.put('profiles/:id', async (ctx) => {
-  return new ProfilesController().update(ctx)
 })
