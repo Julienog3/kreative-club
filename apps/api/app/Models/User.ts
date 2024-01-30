@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, HasOne, beforeSave, column, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, beforeCreate, beforeSave, column } from '@ioc:Adonis/Lucid/Orm'
 import Hash from '@ioc:Adonis/Core/Hash'
-import Profile from './Profile'
+import { v4 as uuid } from 'uuid'
+import { AttachmentContract, attachment } from '@ioc:Adonis/Addons/AttachmentLite'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -20,16 +21,24 @@ export default class User extends BaseModel {
   public rememberMeToken: string
 
   @column()
-  public avatarUrl: string | null
+  public firstName: string | null
 
-  @hasOne(() => Profile)
-  public profile: HasOne<typeof Profile>
+  @column()
+  public lastName: string | null
+
+  @attachment({ folder: 'avatars', preComputeUrl: true })
+  public avatar: AttachmentContract | null
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @beforeCreate()
+  public static async createUUID(user: User) {
+    user.id = uuid()
+  } 
 
   @beforeSave()
   public static async hashPassword(user: User) {

@@ -37,7 +37,7 @@ export default class AuthController {
     const userPayload = await request.validate({ schema: userSchema })
     const user = await User.create(userPayload)
 
-    await user.related('profile').create({ isProvider: false })
+    // await user.related('profile').create({ isProvider: false })
 
     await auth.login(user)
   }
