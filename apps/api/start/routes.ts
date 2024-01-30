@@ -27,21 +27,6 @@ Route.get('/', async () => {
 })
 
 Route.group(async () => {
-  Route.get('/', async (ctx) => {
-    return new UsersController().index(ctx)
-  })
-
-  Route.get(':id', async (ctx) => {
-    return new UsersController().show(ctx)
-  })
-
-  Route.put('/:id/profile', async (ctx) => {
-    // return new UsersController().updateUserProfile(ctx)
-  })
-}).prefix('users')
-// .middleware(['auth'])
-
-Route.group(async () => {
   Route.post('login', async (ctx) => {
     return new AuthController().login(ctx)
   })
@@ -54,6 +39,23 @@ Route.group(async () => {
     return new AuthController().register(ctx)
   })
 }).prefix('auth')
+
+
+Route.group(async () => {
+  Route.get('/', async (ctx) => {
+    return new UsersController().index()
+  })
+
+  Route.get(':id', async (ctx) => {
+    return new UsersController().show(ctx)
+  })
+
+  Route.put('/:id/profile', async (ctx) => {
+    // return new UsersController().updateUserProfile(ctx)
+  })
+}).prefix('users')
+// .middleware(['auth'])
+
 
 Route.get('me', async (ctx) => {
   return new AuthController().getMe(ctx)

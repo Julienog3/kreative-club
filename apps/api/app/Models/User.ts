@@ -5,8 +5,10 @@ import { v4 as uuid } from 'uuid'
 import { AttachmentContract, attachment } from '@ioc:Adonis/Addons/AttachmentLite'
 
 export default class User extends BaseModel {
+  public static selfAssignPrimaryKey = true
+
   @column({ isPrimary: true })
-  public id: number
+  public id: string
 
   @column()
   public username: string
@@ -28,6 +30,9 @@ export default class User extends BaseModel {
 
   @attachment({ folder: 'avatars', preComputeUrl: true })
   public avatar: AttachmentContract | null
+
+  @column()
+  public isFreelance: boolean
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
