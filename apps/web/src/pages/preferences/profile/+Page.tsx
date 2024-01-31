@@ -6,11 +6,11 @@ import { vstack } from "../../../../styled-system/patterns";
 import Button from "../../../components/utils/Button/Button";
 import Input from "../../../components/utils/Input/Input";
 import { useAuth } from "../../../hooks/useAuth";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getProfileById, updateProfile } from "../../../api/profile";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { css } from "../../../../styled-system/css";
 import { useSnackbarStore } from "../../../components/layout/Snackbar/Snackbar.store";
 import { PreferencesLayout } from "../../../components/layout/PreferencesLayout/PreferencesLayout";
+import { updateUser } from "../../../api/user";
 
 const profileSchema = z.object({
   firstName: z.string().optional(),
@@ -22,21 +22,15 @@ export default function PortfolioPage(): JSX.Element {
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
+  console.log({ user });
+
   const addItem = useSnackbarStore(({ addItem }) => addItem);
 
-  const { data: profile } = useQuery({
-    queryKey: ["profile"],
-    queryFn: () => {
-      if (user) return getProfileById(user?.id);
-    },
-    enabled: !!user,
-  });
-
   const editProfile = useMutation({
-    mutationFn: (payload: FormData) => updateProfile(user!.id, payload),
+    mutationFn: (payload: FormData) => updateUser(user!.id, payload),
     onSuccess: () => {
       addItem({ type: "success", message: "Votre profil a bien été modifié" });
-      queryClient.invalidateQueries({ queryKey: ["profile"] });
+      queryClient.invalidateQueries({ queryKey: ["user"] });
     },
     onError: (error) => {
       addItem({ type: "danger", message: error.message });
@@ -50,7 +44,7 @@ export default function PortfolioPage(): JSX.Element {
     formState: { isDirty },
   } = useForm<FieldValues>({
     resolver: zodResolver(profileSchema),
-    defaultValues: profile,
+    defaultValues: user,
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (profileData) => {

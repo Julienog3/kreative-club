@@ -1,38 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
 import { css } from "../../../../styled-system/css";
 import { circle, hstack } from "../../../../styled-system/patterns";
-import { getProfileById } from "../../../api/profile";
 import { User } from "../../../api/user";
-import { useEffect } from "react";
-import { useSnackbarStore } from "../Snackbar/Snackbar.store";
 
 interface HeaderProfileProps {
   user: User;
 }
 
 const HeaderProfile = ({ user }: HeaderProfileProps): JSX.Element => {
-  const {
-    status,
-    data: profile,
-    error,
-  } = useQuery({
-    queryKey: ["profile"],
-    queryFn: () => {
-      if (user) return getProfileById(user?.id);
-    },
-    enabled: !!user,
-  });
-
-  const addItem = useSnackbarStore(({ addItem }) => addItem);
-
-  useEffect(() => {
-    console.log(status);
-    if (status === "error") {
-      console.log("error");
-      addItem({ type: "danger", message: error.message });
-    }
-  }, [status]);
-
   return (
     <div
       className={hstack({
@@ -49,7 +23,7 @@ const HeaderProfile = ({ user }: HeaderProfileProps): JSX.Element => {
           objectFit: "cover",
           border: "solid 2px black",
         })}
-        src={profile?.avatar.url}
+        src={import.meta.env.VITE_API_URL.slice(0, -1) + user?.avatar?.url}
         alt="avatar"
         loading="lazy"
       />
@@ -66,7 +40,7 @@ const HeaderProfile = ({ user }: HeaderProfileProps): JSX.Element => {
             fontWeight: "bold",
           })}
         >
-          {profile?.firstName} {profile?.lastName}
+          {user?.firstName} {user?.lastName}
         </span>
       </p>
     </div>

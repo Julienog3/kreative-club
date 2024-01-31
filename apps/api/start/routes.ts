@@ -42,7 +42,7 @@ Route.group(async () => {
 
 
 Route.group(async () => {
-  Route.get('/', async (ctx) => {
+  Route.get('/', async () => {
     return new UsersController().index()
   })
 
@@ -50,8 +50,8 @@ Route.group(async () => {
     return new UsersController().show(ctx)
   })
 
-  Route.put('/:id/profile', async (ctx) => {
-    // return new UsersController().updateUserProfile(ctx)
+  Route.put(':id', async (ctx) => {
+    return new UsersController().edit(ctx)
   })
 }).prefix('users')
 // .middleware(['auth'])

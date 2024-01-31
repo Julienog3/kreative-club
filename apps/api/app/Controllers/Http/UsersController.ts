@@ -1,5 +1,7 @@
 import User from '../../Models/User'
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { Attachment } from '@ioc:Adonis/Addons/AttachmentLite';
 
 export default class UsersController {
   public async index() {
@@ -11,20 +13,22 @@ export default class UsersController {
     return await User.find(params.id);
   }
 
-  // public async updateUserProfile({ request, params }: HttpContextContract) {
-  //   const profileSchema = schema.create({
-  //     firstName: schema.string.optional(),
-  //     lastName: schema.string.optional(),
-  //     avatar: schema.file.optional({ size: '2mb', extnames: ['jpg', 'png'] }),
-  //     isProvider: schema.boolean.optional(),
-  //   })
+  public async edit({ request, params }: HttpContextContract) {
+    const userSchema = schema.create({
+      firstName: schema.string.optional(),
+      lastName: schema.string.optional(),
+      avatar: schema.file.optional({ size: '2mb', extnames: ['jpg', 'png'] }),
+      isFreelance: schema.boolean.optional(),
+    })
 
-  //   const user = await User.find(params.id)
+    const user = await User.findOrFail(params.id)
+    const { avatar, ...payload } = await request.validate({ schema: userSchema })
 
-    
-  //   // const [profile] = await user!.related('profile').query()
+    await user.merge(payload).save()
 
-  //   const { avatar, ...payload } = await request.validate({ schema: profileSchema })
-
-  // }
+    if (avatar) {
+      user.avatar = Attachment.fromFile(avatar)
+      await user.save()
+    }
+  }
 }

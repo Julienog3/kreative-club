@@ -49,9 +49,12 @@ const logoutUser = async (): Promise<void> => {
 
 const getMe = async (): Promise<User> => {
   const userSchema = z.object({
-    id: z.number(),
+    id: z.string(),
     username: z.string(),
     email: z.string(),
+    firstName: z.string(),
+    lastName: z.string(),
+    avatar: z.any().optional(),
   });
 
   const response = await api.get("me").json();

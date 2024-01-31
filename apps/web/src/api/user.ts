@@ -1,34 +1,34 @@
 import { api } from ".";
-import { parseCamelToSnakeCase } from "../helpers/format";
-import { Profile } from "./profile";
+// import { parseCamelToSnakeCase } from "../helpers/format";
 
 export type User = {
-  id: number;
+  id: string;
   username: string;
   email: string;
   password?: string;
+  firstName?: string;
+  lastName?: string;
+  avatar?: {
+    url: string;
+  };
 };
-
-type UserWithProfile = User & { profile?: Profile };
 
 export type UserPayload = User & {
   passwordConfirmation: string;
 };
 
-const getUsers = async (): Promise<UserWithProfile[]> => {
+const getUsers = async (): Promise<User[]> => {
   return await api.get("users").json();
 };
 
-const createUser = async (user: UserPayload): Promise<void> => {
-  const userPayload = parseCamelToSnakeCase(user);
+const getUserById = async (id: string): Promise<User> => {
+  return await api.get(`users/${id}`).json();
+};
 
-  await fetch(`${import.meta.env.VITE_API_URL}users`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userPayload),
+const updateUser = async (id: string, userPayload: FormData): Promise<void> => {
+  await api.put(`users/${id}`, {
+    body: userPayload,
   });
 };
 
-export { getUsers, createUser };
+export { getUsers, getUserById, updateUser };
