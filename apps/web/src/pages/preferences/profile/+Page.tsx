@@ -22,8 +22,6 @@ export default function PortfolioPage(): JSX.Element {
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
-  console.log({ user });
-
   const addItem = useSnackbarStore(({ addItem }) => addItem);
 
   const editProfile = useMutation({

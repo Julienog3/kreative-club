@@ -1,3 +1,4 @@
+import ky from "ky";
 import { api } from ".";
 import { parseCamelToSnakeCase } from "../helpers/format";
 import { User, UserPayload } from "./user";
@@ -34,11 +35,15 @@ const loginUser = async ({
     type: z.string(),
   });
 
-  const response = await api
-    .post("auth/login", {
-      json: { email, password },
-    })
+  const response = await ky
+    .post("/_auth/login", { json: { email, password } })
     .json();
+
+  // const response = await api
+  //   .post("auth/login", {
+  //     json: { email, password },
+  //   })
+  //   .json();
 
   return loginResponseSchema.parse(response);
 };

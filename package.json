@@ -1,0 +1,5 @@
+{
+	"dependencies": {
+		"@fastify/formbody": "^7.4.0"
+	}
+}
