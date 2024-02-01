@@ -1,10 +1,12 @@
 import { redirect } from "vike/abort";
-import { PageContext } from "vike/types";
+import { GuardAsync, PageContext } from "vike/types";
 
-export const guard = (pageContext: PageContext) => {
-  const { user } = pageContext;
+export { guard };
 
-  if (!user) {
+const guard: GuardAsync = async (
+  pageContext: PageContext,
+): ReturnType<GuardAsync> => {
+  if (!pageContext.user) {
     throw redirect("/");
   }
 };

@@ -4,11 +4,13 @@ import { Credentials } from "../../../../api/auth";
 import { vstack } from "../../../../../styled-system/patterns";
 import Input from "../../../utils/Input/Input";
 import Button from "../../../utils/Button/Button";
-import { useAuth } from "../../../../hooks/useAuth";
 import { z } from "zod";
 import { useStoreModal } from "../../../utils/Modal/Modal.store";
 import { useEffect } from "react";
 import { useSnackbarStore } from "../../../layout/Snackbar/Snackbar.store";
+import { useAuth } from "../../../../hooks/useAuth";
+import { reload } from "vike/client/router";
+import { useStoreAuthModal } from "../AuthModal.store";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -20,7 +22,7 @@ const LoginForm = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const closeModal = useStoreModal(({ closeModal }) => closeModal);
+  const closeModal = useStoreAuthModal(({ closeModal }) => closeModal);
   const addItem = useSnackbarStore(({ addItem }) => addItem);
   const { signIn } = useAuth();
 
@@ -37,6 +39,7 @@ const LoginForm = () => {
         message: "Connecté",
       });
       closeModal();
+      reload();
     }
   }, [isSuccess]);
 

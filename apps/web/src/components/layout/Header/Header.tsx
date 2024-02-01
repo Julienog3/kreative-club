@@ -13,16 +13,21 @@ import { BiExit } from "@react-icons/all-files/bi/BiExit";
 
 import HeaderProfile from "./HeaderProfile";
 import { Link } from "../../../renderer/Link";
+import { usePageContext } from "../../../renderer/usePageContext";
+import { reload } from "vike/client/router";
 
 const Header = (): JSX.Element => {
   const openModal = useStoreAuthModal(({ openModal }) => openModal);
   const addItem = useSnackbarStore(({ addItem }) => addItem);
   // const navigate = useNavigate();
 
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
+
+  const { user } = usePageContext();
 
   const handleLogout = (): void => {
     // navigate("/");
+    reload();
     addItem({ type: "success", message: "vous etes bien déconnecté" });
   };
 

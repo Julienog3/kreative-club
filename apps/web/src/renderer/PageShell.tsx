@@ -1,8 +1,4 @@
-import {
-  HydrationBoundary,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { HydrationBoundary } from "@tanstack/react-query";
 import Header from "../components/layout/Header/Header";
 import Page from "../components/layout/Page/Page";
 import { useTransition } from "@react-spring/web";

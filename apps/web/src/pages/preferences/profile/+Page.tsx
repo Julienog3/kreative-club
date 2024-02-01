@@ -5,12 +5,12 @@ import { z } from "zod";
 import { vstack } from "../../../../styled-system/patterns";
 import Button from "../../../components/utils/Button/Button";
 import Input from "../../../components/utils/Input/Input";
-import { useAuth } from "../../../hooks/useAuth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { css } from "../../../../styled-system/css";
 import { useSnackbarStore } from "../../../components/layout/Snackbar/Snackbar.store";
 import { PreferencesLayout } from "../../../components/layout/PreferencesLayout/PreferencesLayout";
 import { updateUser } from "../../../api/user";
+import { usePageContext } from "../../../renderer/usePageContext";
 
 const profileSchema = z.object({
   firstName: z.string().optional(),
@@ -18,9 +18,12 @@ const profileSchema = z.object({
   avatar: z.any().optional(),
 });
 
-export default function PortfolioPage(): JSX.Element {
-  const { user } = useAuth();
+export { Page };
+
+function Page(): JSX.Element {
   const queryClient = useQueryClient();
+
+  const { user } = usePageContext();
 
   const addItem = useSnackbarStore(({ addItem }) => addItem);
 

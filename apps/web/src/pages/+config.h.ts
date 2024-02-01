@@ -10,5 +10,5 @@ export default {
       env: { server: true, client: true },
     },
   },
-  passToClient: ["dehydratedState"],
+  passToClient: ["dehydratedState", "user"],
 } satisfies Config;

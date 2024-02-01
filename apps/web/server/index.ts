@@ -2,6 +2,7 @@ import Fastify from "fastify";
 import { renderPage } from "vike/server";
 import { root } from "./root.js";
 // import { api } from "../src/api";
+import { keysToCamel } from "../src/helpers/format.ts";
 import ky from "ky";
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -69,7 +70,11 @@ async function buildServer() {
           },
         })
         .json();
-      user = response;
+      user = keysToCamel(
+        response as {
+          [key: string]: unknown;
+        },
+      );
     }
 
     request.user = user;
@@ -98,10 +103,18 @@ async function buildServer() {
     reply.send(response);
   });
 
-  app.post("/_auth/logout", async (_request, reply) => {
-    await ky.post("http://127.0.0.1:3333/auth/logout").json();
+  app.post("/_auth/logout", async (request, reply) => {
+    const { token } = request.cookies;
 
-    reply.clearCookie("token");
+    await ky
+      .post("http://127.0.0.1:3333/auth/logout", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .json();
+
+    reply.clearCookie("token", { path: "/" });
     reply.send();
   });
 

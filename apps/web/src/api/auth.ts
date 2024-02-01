@@ -45,7 +45,7 @@ const loginUser = async ({
 };
 
 const logoutUser = async (): Promise<void> => {
-  await api.post("auth/logout").json();
+  await ky.post("/_auth/logout").json();
 };
 
 const getMe = async (): Promise<User> => {
