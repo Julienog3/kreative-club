@@ -28,11 +28,11 @@ export default class User extends BaseModel {
   @column()
   public lastName: string | null
 
+  @column()
+  public phoneNumber: string | null
+
   @attachment({ folder: 'avatars', preComputeUrl: true })
   public avatar: AttachmentContract | null
-
-  @column()
-  public isFreelance: boolean
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -1,5 +1,5 @@
 import User from '../../Models/User'
-import { schema, rules } from '@ioc:Adonis/Core/Validator'
+import { schema } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { Attachment } from '@ioc:Adonis/Addons/AttachmentLite';
 
@@ -17,6 +17,7 @@ export default class UsersController {
     const userSchema = schema.create({
       firstName: schema.string.optional(),
       lastName: schema.string.optional(),
+      phoneNumber: schema.string.optional(),
       avatar: schema.file.optional({ size: '2mb', extnames: ['jpg', 'png'] }),
       isFreelance: schema.boolean.optional(),
     })
