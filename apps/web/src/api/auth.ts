@@ -39,11 +39,7 @@ const loginUser = async ({
     .post("/_auth/login", { json: { email, password } })
     .json();
 
-  // const response = await api
-  //   .post("auth/login", {
-  //     json: { email, password },
-  //   })
-  //   .json();
+  console.log({ response });
 
   return loginResponseSchema.parse(response);
 };

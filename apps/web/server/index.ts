@@ -1,13 +1,13 @@
 import Fastify from "fastify";
 import { renderPage } from "vike/server";
 import { root } from "./root.js";
-import { api } from "../src/api";
+// import { api } from "../src/api";
 import ky from "ky";
 
 const isProduction = process.env.NODE_ENV === "production";
 
 const development = {
-  logger: true,
+  logger: false,
 };
 
 const production = {
@@ -56,31 +56,63 @@ async function buildServer() {
     });
   }
 
+  app.addHook("preHandler", async (request) => {
+    const { token } = request.cookies;
+
+    let user: any = null;
+
+    if (token) {
+      const response = await ky
+        .get("http://127.0.0.1:3333/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .json();
+      user = response;
+    }
+
+    request.user = user;
+  });
+
   app.post("/_auth/login", async (request, reply) => {
     const { email, password } = request.body as {
       email: string;
       password: string;
     };
 
-    const user = await ky
+    const response = await ky
       .post("http://127.0.0.1:3333/auth/login", {
         json: { email, password },
       })
       .json();
 
-    if (user) {
-      reply.setCookie("email", email, {
-        maxAge: 24 * 60 * 60 * 1000, // One day
-        httpOnly: true, // Only the server can read the cookie
+    if (response) {
+      reply.setCookie("token", response.token, {
+        maxAge: 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        path: "/",
       });
     }
-    const success = !!user;
-    reply.send({ success });
+
+    reply.send(response);
+  });
+
+  app.post("/_auth/logout", async (_request, reply) => {
+    await ky.post("http://127.0.0.1:3333/auth/logout").json();
+
+    reply.clearCookie("token");
+    reply.send();
   });
 
   app.get("*", async (request, reply) => {
+    const user = request.user;
+
+    // console.log({ request });
+
     const pageContextInit = {
       urlOriginal: request.raw.url || "",
+      user,
     };
     const pageContext = await renderPage(pageContextInit);
     const { httpResponse } = pageContext;
