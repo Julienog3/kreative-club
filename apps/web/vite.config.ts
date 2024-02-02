@@ -10,4 +10,9 @@ export default defineConfig({
   test: {
     environment: "jsdom",
   },
+  resolve: {
+    alias: {
+      "#root": __dirname,
+    },
+  },
 });
