@@ -23,6 +23,7 @@ import app from '@adonisjs/core/services/app'
 import AuthController from '#controllers/auth_controller'
 import UsersController from '#controllers/users_controller'
 import router from '@adonisjs/core/services/router'
+import PortfolioImagesController from '#controllers/portfolio_images_controller'
 
 const PATH_TRAVERSAL_REGEX = /(?:^|[\\/])\.\.(?:[\\/]|$)/
 
@@ -44,6 +45,15 @@ router.group(async () => {
   router.put(':id', [UsersController, 'edit'])
 }).prefix('users')
 // .middleware(['auth'])
+
+router.group(async () => {
+  router.group(async () => {
+    router.get(':userId', [PortfolioImagesController, 'index'])
+    router.get(':userId/:id', [PortfolioImagesController, 'show'])
+    router.post(':userId', [PortfolioImagesController, 'store'])
+    router.delete(':userId/:id', [PortfolioImagesController, 'destroy'])
+  }).prefix('images')
+}).prefix('portfolio')
 
 router.get('/uploads/*', ({ request, response }) => {
   const filePath = request.param('*').join(sep)

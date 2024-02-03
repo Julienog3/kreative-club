@@ -1,9 +1,11 @@
 import { PropsWithChildren } from "react";
 import { css } from "../../../../styled-system/css";
 import { SpringValue, animated } from "@react-spring/web";
-import { hstack, vstack } from "../../../../styled-system/patterns";
+import { center, hstack, vstack } from "../../../../styled-system/patterns";
 import { AiOutlineClose } from "@react-icons/all-files/ai/AiOutlineClose";
 import Button from "../Button/Button";
+import { JSX } from "react/jsx-runtime";
+import { createPortal } from "react-dom";
 
 export interface ModalProps {
   title: string;
@@ -40,18 +42,17 @@ const Modal = ({
   onClose,
   children,
 }: ModalProps & PropsWithChildren): JSX.Element => {
-  return (
+  return createPortal(
     <animated.div
       style={{ opacity: style.opacity }}
-      className={css({
+      className={center({
         zIndex: 50,
         w: "100%",
         minHeight: "screen",
         backgroundColor: "rgba(0, 0, 0, 0.4)",
         position: "fixed",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        top: 0,
+        left: 0,
       })}
     >
       <animated.div
@@ -80,7 +81,8 @@ const Modal = ({
         </div>
         <div className={vstack()}>{children}</div>
       </animated.div>
-    </animated.div>
+    </animated.div>,
+    document.body,
   );
 };
 

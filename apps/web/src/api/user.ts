@@ -1,3 +1,4 @@
+import { PortfolioImage } from "#root/types/portfolio";
 import { api } from ".";
 // import { parseCamelToSnakeCase } from "../helpers/format";
 
@@ -37,4 +38,10 @@ const updateUser = async (id: string, userPayload: FormData): Promise<void> => {
   });
 };
 
-export { getUsers, getUserById, updateUser };
+const getUserPortfolioImages = async (
+  id: string,
+): Promise<PortfolioImage[]> => {
+  return await api.get(`users/${id}/portfolio-images`).json();
+};
+
+export { getUsers, getUserById, updateUser, getUserPortfolioImages };

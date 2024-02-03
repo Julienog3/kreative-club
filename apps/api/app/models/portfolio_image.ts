@@ -1,6 +1,8 @@
 import { DateTime } from 'luxon'
 import { randomUUID } from 'node:crypto'
-import { BaseModel, beforeCreate, column } from '@adonisjs/lucid/orm'
+import { BaseModel, beforeCreate, column, belongsTo } from '@adonisjs/lucid/orm'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import User from '#models/user'
 
 export default class PortfolioImage extends BaseModel {
   public static selfAssignPrimaryKey = true
@@ -16,6 +18,9 @@ export default class PortfolioImage extends BaseModel {
 
   @column()
   public image: string
+  
+  @belongsTo(() => User)
+  public user: BelongsTo<typeof User>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
