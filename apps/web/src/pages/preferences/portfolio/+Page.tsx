@@ -20,6 +20,7 @@ import { PortfolioImageCard } from "./PortfolioImageCard";
 import { useStoreModal } from "#root/src/components/utils/Modal/Modal.store";
 import { deletePortfolioImage } from "#root/src/api/portfolioImage";
 import { useSnackbarStore } from "#root/src/components/layout/Snackbar/Snackbar.store";
+import { useState } from "react";
 
 export { Page };
 
@@ -45,8 +46,28 @@ function Page(): JSX.Element {
     },
   });
 
+  const onDeletePortfolioImage = async (portfolioImageId: string) => {
+    removePortfolioImage.mutate(portfolioImageId);
+    setConfirmationModal((confirmationModal) => ({
+      ...confirmationModal,
+      isShowed: false,
+    }));
+  };
+
   const { isShowed, closeModal, openModal } = useStoreModal((state) => state);
   const modalTransition = useTransition(isShowed, modalTransitionConfig);
+
+  const [confirmationModal, setConfirmationModal] = useState<{
+    isShowed: boolean;
+    portfolioImageId: string | null;
+  }>({
+    isShowed: false,
+    portfolioImageId: null,
+  });
+  const confirmationModalTransition = useTransition(
+    confirmationModal.isShowed,
+    modalTransitionConfig,
+  );
 
   return (
     <>
@@ -61,6 +82,35 @@ function Page(): JSX.Element {
               }}
             >
               <CreatePortfolioForm />
+            </Modal>
+          )}
+        </>
+      ))}
+      {confirmationModalTransition((style, isOpened) => (
+        <>
+          {isOpened && (
+            <Modal
+              title="Supprimer une image"
+              style={{ ...style }}
+              onClose={() => {
+                setConfirmationModal({
+                  isShowed: false,
+                  portfolioImageId: null,
+                });
+              }}
+            >
+              <p>Etes-vous sûr de vouloir supprimer cette image ?</p>
+              <div className={hstack()}>
+                <Button
+                  onClick={() => {
+                    if (!confirmationModal.portfolioImageId) return;
+                    onDeletePortfolioImage(confirmationModal.portfolioImageId);
+                  }}
+                >
+                  Supprimer
+                </Button>
+                <Button disabled>Annuler</Button>
+              </div>
             </Modal>
           )}
         </>
@@ -86,13 +136,20 @@ function Page(): JSX.Element {
             {portfolioImages && (
               <ul className={grid({ columns: 3, gap: "1rem" })}>
                 {portfolioImages.map((portfolioImage) => (
-                  <li className={gridItem()} key={portfolioImage.id}>
+                  <li
+                    className={(gridItem(), vstack({ textStyle: "body" }))}
+                    key={portfolioImage.id}
+                  >
                     <PortfolioImageCard
                       portfolioImage={portfolioImage}
                       onDelete={() =>
-                        removePortfolioImage.mutate(portfolioImage.id)
+                        setConfirmationModal({
+                          isShowed: true,
+                          portfolioImageId: portfolioImage.id,
+                        })
                       }
                     />
+                    <p>{portfolioImage.title}</p>
                   </li>
                 ))}
               </ul>
