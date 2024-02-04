@@ -3,6 +3,8 @@ import { textStyles } from "./styles/text-styles";
 import { layerStyles } from "./styles/layer-styles";
 
 export default defineConfig({
+  jsxFramework: "react",
+
   // Whether to use css reset
   preflight: true,
   presets: ["@pandacss/preset-base", "@pandacss/preset-panda"],
