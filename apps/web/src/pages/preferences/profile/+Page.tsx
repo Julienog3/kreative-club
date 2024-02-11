@@ -1,8 +1,18 @@
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import {
+  FieldValues,
+  FormProvider,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
 import Card from "../../../components/utils/Card/Card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { vstack } from "../../../../styled-system/patterns";
+import {
+  grid,
+  gridItem,
+  hstack,
+  vstack,
+} from "../../../../styled-system/patterns";
 import Button from "../../../components/utils/Button/Button";
 import Input from "../../../components/utils/Input/Input";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -11,6 +21,9 @@ import { useSnackbarStore } from "../../../components/layout/Snackbar/Snackbar.s
 import { PreferencesLayout } from "../../../components/layout/PreferencesLayout/PreferencesLayout";
 import { updateUser } from "../../../api/user";
 import { usePageContext } from "../../../renderer/usePageContext";
+import { ProfileCard } from "./ProfileCard";
+import { useUpdateUser } from "#root/src/api/user/updateUser";
+import { Dropzone } from "#root/src/components/utils/Dropzone/Dropzone";
 
 const profileSchema = z.object({
   firstName: z.string().optional(),
@@ -21,32 +34,22 @@ const profileSchema = z.object({
 export { Page };
 
 function Page(): JSX.Element {
-  const queryClient = useQueryClient();
-
   const { user } = usePageContext();
 
-  const addItem = useSnackbarStore(({ addItem }) => addItem);
+  const editProfile = useUpdateUser();
 
-  const editProfile = useMutation({
-    mutationFn: (payload: FormData) => updateUser(user!.id, payload),
-    onSuccess: () => {
-      addItem({ type: "success", message: "Votre profil a bien été modifié" });
-      queryClient.invalidateQueries({ queryKey: ["user"] });
-    },
-    onError: (error) => {
-      addItem({ type: "danger", message: error.message });
-    },
+  const methods = useForm<FieldValues>({
+    resolver: zodResolver(profileSchema),
+    defaultValues: user,
   });
 
   const {
     register,
     handleSubmit,
+    reset,
     control,
     formState: { isDirty },
-  } = useForm<FieldValues>({
-    resolver: zodResolver(profileSchema),
-    defaultValues: user,
-  });
+  } = methods;
 
   const onSubmit: SubmitHandler<FieldValues> = (profileData) => {
     const payload = new FormData();
@@ -63,7 +66,7 @@ function Page(): JSX.Element {
       payload.append("avatar", profileData.avatar[0]);
     }
 
-    editProfile.mutate(payload);
+    editProfile.mutate({ id: user.id, payload });
   };
 
   return (
@@ -78,21 +81,47 @@ function Page(): JSX.Element {
               height: "100%",
             })}
           >
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className={vstack({ gap: 4, alignItems: "left" })}
-            >
-              <h2 className={css({ textStyle: "title" })}>Profil</h2>
-              <Input label="firstName" control={control} register={register} />
-              <Input label="lastName" control={control} register={register} />
-              <input type="file" {...register("avatar")} />
-              <Button
-                type="submit"
-                disabled={!isDirty || editProfile.isPending}
+            <h2 className={css({ textStyle: "title" })}>Profil</h2>
+            <ProfileCard user={user} />
+            <FormProvider {...methods}>
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className={grid({ gap: "1rem", columns: 2, w: "100%" })}
               >
-                Enregistrer
-              </Button>
-            </form>
+                <div className={gridItem()}>
+                  <Input
+                    label="firstName"
+                    control={control}
+                    register={register}
+                  />
+                </div>
+                <div className={gridItem()}>
+                  <Input label="phone" control={control} register={register} />
+                </div>
+                <div className={gridItem()}>
+                  <Input label="email" control={control} register={register} />
+                </div>
+                <div className={gridItem()}>
+                  <Input
+                    label="lastName"
+                    control={control}
+                    register={register}
+                  />
+                </div>
+                <div className={gridItem({ colSpan: 2 })}>
+                  <Dropzone label="avatar" />
+                </div>
+                <div className={hstack()}>
+                  <Button
+                    type="submit"
+                    disabled={!isDirty || editProfile.isPending}
+                  >
+                    Enregistrer
+                  </Button>
+                  <Button onClick={(): void => reset()}>Annuler</Button>
+                </div>
+              </form>
+            </FormProvider>
           </div>
         </Card>
       </PreferencesLayout>

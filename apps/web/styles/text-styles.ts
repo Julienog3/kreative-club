@@ -13,6 +13,18 @@ export const textStyles = defineTextStyles({
       textTransform: "None",
     },
   },
+  subtitle: {
+    description: "The body text style - used in paragraphs",
+    value: {
+      fontFamily: "Lexend Mega",
+      fontWeight: "700",
+      fontSize: "1.75rem",
+      lineHeight: "2.75rem",
+      letterSpacing: "-.4rem",
+      textDecoration: "None",
+      textTransform: "None",
+    },
+  },
   body: {
     description: "The body text style - used in paragraphs",
     value: {
