@@ -11,10 +11,9 @@
 | and hence do not rename or move this file to a different location.
 |
 */
+import { Env } from "@adonisjs/core/env";
 
-import Env from '@ioc:Adonis/Core/Env'
-
-export default Env.rules({
+export default await Env.create(new URL("../", import.meta.url), {
   HOST: Env.schema.string({ format: 'host' }),
   PORT: Env.schema.number(),
   APP_KEY: Env.schema.string(),
@@ -22,3 +21,4 @@ export default Env.rules({
   DRIVE_DISK: Env.schema.enum(['local'] as const),
   NODE_ENV: Env.schema.enum(['development', 'production', 'test'] as const),
 })
+

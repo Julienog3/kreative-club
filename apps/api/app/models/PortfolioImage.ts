@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon'
-import { v4 as uuid } from 'uuid'
-import { BaseModel, beforeCreate, column } from '@ioc:Adonis/Lucid/Orm'
-import { AttachmentContract, attachment } from '@ioc:Adonis/Addons/AttachmentLite'
+import { randomUUID } from 'node:crypto'
+import { BaseModel, beforeCreate, column } from '@adonisjs/lucid/orm'
 
 export default class PortfolioImage extends BaseModel {
   public static selfAssignPrimaryKey = true
@@ -27,6 +26,6 @@ export default class PortfolioImage extends BaseModel {
 
   @beforeCreate()
   protected static async createUUID(portfolioImage: PortfolioImage) {
-    portfolioImage.id = uuid()
+    portfolioImage.id = randomUUID()
   } 
 }

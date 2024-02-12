@@ -1,9 +1,9 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { schema, rules } from '@ioc:Adonis/Core/Validator'
-import User from '../../Models/User'
+import type { HttpContext } from '@adonisjs/core/http'
+import { schema, rules } from '@adonisjs/validator'
+import User from '../../models/user.js'
 
 export default class AuthController {
-  public async login({ auth, request, response }: HttpContextContract) {
+  public async login({  request, response }: HttpContext) {
     const email = request.input('email')
     const password = request.input('password')
 
@@ -15,14 +15,14 @@ export default class AuthController {
     }
   }
 
-  public async logout({ auth }: HttpContextContract) {
+  public async logout({ auth }: HttpContext) {
     await auth.use('api').revoke()
     return {
       revoked: true,
     }
   }
 
-  public async register({ auth, request }: HttpContextContract) {
+  public async register({ auth, request }: HttpContext) {
     const userSchema = schema.create({
       username: schema.string({ trim: true }, [
         rules.unique({ table: 'users', column: 'username', caseInsensitive: true }),
@@ -42,7 +42,7 @@ export default class AuthController {
     await auth.login(user)
   }
 
-  public async getMe({ auth, response }: HttpContextContract) {
+  public async getMe({ auth, response }: HttpContext) {
     await auth.use('api').authenticate()
 
     try {

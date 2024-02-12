@@ -1,8 +1,8 @@
-import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
-import UserFactory from 'Database/factories/UserFactory'
+import UserFactory from '#database/factories/UserFactory'
+import { ApplicationService } from "@adonisjs/core/types";
 
 export default class AppProvider {
-  constructor(protected app: ApplicationContract) {}
+  constructor(protected app: ApplicationService) {}
 
   public register() {
     // Register your own bindings
