@@ -1,4 +1,3 @@
-import UserFactory from '#database/factories/UserFactory'
 import { ApplicationService } from "@adonisjs/core/types";
 
 export default class AppProvider {
