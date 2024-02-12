@@ -31,8 +31,8 @@ export default class User extends BaseModel {
   @column()
   public phoneNumber: string | null
 
-  @attachment({ folder: 'avatars', preComputeUrl: true })
-  public avatar: AttachmentContract | null
+  @column()
+  public avatar: string | null
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -1,11 +1,11 @@
 import User from '../../Models/User'
+import Application from '@ioc:Adonis/Core/Application'
 import { schema } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { Attachment } from '@ioc:Adonis/Addons/AttachmentLite';
 
 export default class UsersController {
   public async index() {
-    // const user = await UserFactory.with('profile').create()
     return await User.query();
   }
 
@@ -23,13 +23,13 @@ export default class UsersController {
     })
 
     const user = await User.findOrFail(params.id)
-    const { avatar, ...payload } = await request.validate({ schema: userSchema })
-
-    await user.merge(payload).save()
+    const {  avatar, ...payload } = await request.validate({ schema: userSchema })
 
     if (avatar) {
-      user.avatar = Attachment.fromFile(avatar)
-      await user.save()
+      await avatar.move(Application.tmpPath('uploads', 'avatars'))
+      await user.merge({...payload, avatar: avatar.fileName }).save()
     }
+    
+    await user.merge(payload).save()
   }
 }

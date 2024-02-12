@@ -62,6 +62,8 @@ function Page(): JSX.Element {
       payload.append("lastName", profileData.lastName);
     }
 
+    console.log({ profileData });
+
     if (profileData.avatar[0]) {
       payload.append("avatar", profileData.avatar[0]);
     }

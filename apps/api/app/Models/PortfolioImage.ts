@@ -9,14 +9,14 @@ export default class PortfolioImage extends BaseModel {
   @column({ isPrimary: true })
   public id: string
 
-  @attachment({ folder: 'portfolio-images', preComputeUrl: true })
-  public image: AttachmentContract
-
   @column()
   public title: string
 
   @column()
   public userId: string
+
+  @column()
+  public image: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

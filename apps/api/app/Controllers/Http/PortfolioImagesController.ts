@@ -1,3 +1,4 @@
+import  Application  from '@ioc:Adonis/Core/Application';
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema } from '@ioc:Adonis/Core/Validator';
 import PortfolioImage from "App/Models/PortfolioImage";
@@ -15,6 +16,11 @@ export default class PortfolioImagesController {
     })
 
     const payload = await request.validate({ schema: portfolioImageSchema })
-    const portfolioImage = await PortfolioImage.create(payload)
+
+    if (payload.image) {
+      await payload.image.move(Application.tmpPath('uploads', 'portfolio-images'))
+    }
+
+    await PortfolioImage.create({...payload, image: payload.image.fileName })
   }
 }
