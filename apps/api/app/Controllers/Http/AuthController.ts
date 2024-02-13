@@ -3,20 +3,19 @@ import { schema, rules } from '@adonisjs/validator'
 import User from '../../models/user.js'
 
 export default class AuthController {
-  public async login({  request, response }: HttpContext) {
-    const email = request.input('email')
-    const password = request.input('password')
+  public async login({ request }: HttpContext) {
+    const { email, password } = request.only(['email', 'password'])
+    
+    const user = await User.verifyCredentials(email, password)
+    const token = await User.accessTokens.create(user)
 
-    try {
-      const token = await auth.use('api').attempt(email, password)
-      return token
-    } catch {
-      return response.unauthorized('Invalid credentials')
-    }
+    return token
   }
 
   public async logout({ auth }: HttpContext) {
-    await auth.use('api').revoke()
+    const user = auth.user
+
+    await User.accessTokens.create(user)
     return {
       revoked: true,
     }
