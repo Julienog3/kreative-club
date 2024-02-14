@@ -52,6 +52,12 @@
       ],
       "#contracts/*": [
         "./contracts/*.js"
+      ],
+      "#policies/*": [
+        "./app/policies/*.js"
+      ],
+      "#abilities/*": [
+        "./app/abilities/*.js"
       ]
     },
     "types": [],

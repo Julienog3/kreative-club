@@ -13,6 +13,7 @@ const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
 
 export default class User extends compose(BaseModel, AuthFinder) {
   public static selfAssignPrimaryKey = true
+  public static currentAccessToken?: AccessToken
 
   @column({ isPrimary: true })
   declare id: string
@@ -25,9 +26,6 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
   @column({ serializeAs: null })
   declare password: string
-
-  @column()
-  declare rememberMeToken: string
 
   @column()
   declare firstName: string | null
@@ -48,8 +46,6 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare updatedAt: DateTime
 
   static accessTokens = DbAccessTokensProvider.forModel(User)
-
-  static currentAccessToken?: AccessToken
 
   @beforeCreate()
   public static async createUUID(user: User) {

@@ -36,6 +36,7 @@ router.group(async () => {
   })
 
   router.post('register', async (ctx) => {
+    console.log('register')
     return new AuthController().register(ctx)
   })
 }).prefix('auth')

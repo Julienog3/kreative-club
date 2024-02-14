@@ -48,6 +48,7 @@
     "@adonisjs/cors": "^2.2.1",
     "@adonisjs/lucid": "^20.1.0",
     "@adonisjs/validator": "^13.0.2",
+    "@vinejs/vine": "^1.7.1",
     "luxon": "^3.4.3",
     "proxy-addr": "^2.0.7",
     "reflect-metadata": "^0.1.13",
@@ -67,6 +68,8 @@
     "#config/*": "./config/*.js",
     "#app/*": "./app/*.js",
     "#database/*": "./database/*.js",
-    "#contracts/*": "./contracts/*.js"
+    "#contracts/*": "./contracts/*.js",
+    "#abilities/*": "./app/abilities/*.js",
+    "#policies/*": "./app/policies/*.js"
   }
 }

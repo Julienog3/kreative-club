@@ -1,6 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import { schema, rules } from '@adonisjs/validator'
 import User from '../../models/user.js'
+import { registerUserValidator } from '#validators/auth'
+import logger from '@adonisjs/core/services/logger'
 
 export default class AuthController {
   public async login({ request }: HttpContext) {
@@ -13,40 +14,28 @@ export default class AuthController {
   }
 
   public async logout({ auth }: HttpContext) {
-    const user = auth.user
-
-    await User.accessTokens.create(user)
+    logger.info('logout')
+    // const { user } = auth
+    // await User.accessTokens.delete(user.id, currentAccessToken.id)
+    
     return {
       revoked: true,
     }
   }
 
-  public async register({ auth, request }: HttpContext) {
-    const userSchema = schema.create({
-      username: schema.string({ trim: true }, [
-        rules.unique({ table: 'users', column: 'username', caseInsensitive: true }),
-      ]),
-      email: schema.string({ trim: true }, [
-        rules.email(),
-        rules.unique({ table: 'users', column: 'email', caseInsensitive: true }),
-      ]),
-      password: schema.string({}, [rules.minLength(7), rules.confirmed()]),
-    })
+  public async register({ request }: HttpContext) {
+    const payload = await request.validateUsing(registerUserValidator)
+    logger.info('register')
+    const user = await User.create(payload)
 
-    const userPayload = await request.validate({ schema: userSchema })
-    const user = await User.create(userPayload)
-
-    // await user.related('profile').create({ isProvider: false })
-
-    await auth.login(user)
+    return user
   }
 
   public async getMe({ auth, response }: HttpContext) {
-    await auth.use('api').authenticate()
+    await auth.authenticate()
 
     try {
-      const user = auth.use('api').user
-      return user
+      return auth.user
     } catch {
       return response.unauthorized('No user connected')
     }
