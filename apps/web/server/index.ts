@@ -105,6 +105,7 @@ async function buildServer() {
 
   app.post("/_auth/logout", async (request, reply) => {
     const { token } = request.cookies;
+    console.log("logout");
 
     await ky
       .post("http://127.0.0.1:3333/auth/logout", {

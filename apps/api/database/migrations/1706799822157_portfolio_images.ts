@@ -1,4 +1,4 @@
-import BaseSchema from '@ioc:Adonis/Lucid/Schema'
+import { BaseSchema } from "@adonisjs/lucid/schema";
 
 export default class extends BaseSchema {
   protected tableName = 'portfolio_images'
@@ -7,7 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.string('id').unique()
       table.string('title').notNullable()
-      table.json('image').notNullable()
+      table.string('image').notNullable()
       table
         .string('user_id')
         .references('users.id')

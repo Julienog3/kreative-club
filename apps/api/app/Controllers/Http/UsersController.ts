@@ -1,19 +1,19 @@
-import User from '../../Models/User'
-import { schema } from '@ioc:Adonis/Core/Validator'
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { Attachment } from '@ioc:Adonis/Addons/AttachmentLite';
+import User from '../../models/user.js'
+import app from '@adonisjs/core/services/app'
+import { schema } from '@adonisjs/validator'
+import type { HttpContext } from '@adonisjs/core/http'
+
 
 export default class UsersController {
   public async index() {
-    // const user = await UserFactory.with('profile').create()
     return await User.query();
   }
 
-  public async show({ params }: HttpContextContract) {
+  public async show({ params }: HttpContext) {
     return await User.find(params.id);
   }
 
-  public async edit({ request, params }: HttpContextContract) {
+  public async edit({ request, params }: HttpContext) {
     const userSchema = schema.create({
       firstName: schema.string.optional(),
       lastName: schema.string.optional(),
@@ -23,13 +23,13 @@ export default class UsersController {
     })
 
     const user = await User.findOrFail(params.id)
-    const { avatar, ...payload } = await request.validate({ schema: userSchema })
-
-    await user.merge(payload).save()
+    const {  avatar, ...payload } = await request.validate({ schema: userSchema })
 
     if (avatar) {
-      user.avatar = Attachment.fromFile(avatar)
-      await user.save()
+      await avatar.move(app.tmpPath('uploads', 'avatars'))
+      await user.merge({...payload, avatar: avatar.fileName }).save()
     }
+    
+    await user.merge(payload).save()
   }
 }

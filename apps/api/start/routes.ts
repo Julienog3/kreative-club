@@ -18,45 +18,46 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
-import UsersController from '../app/Controllers/Http/UsersController'
-import AuthController from '../app/Controllers/Http/AuthController'
+import router from '@adonisjs/core/services/router'
+import UsersController from '../app/Controllers/Http/UsersController.js'
+import AuthController from '../app/Controllers/Http/AuthController.js'
 
-Route.get('/', async () => {
+router.get('/', async () => {
   return { hello: 'world' }
 })
 
-Route.group(async () => {
-  Route.post('login', async (ctx) => {
+router.group(async () => {
+  router.post('login', async (ctx) => {
     return new AuthController().login(ctx)
   })
 
-  Route.post('logout', async (ctx) => {
+  router.post('logout', async (ctx) => {
     return new AuthController().logout(ctx)
   })
 
-  Route.post('register', async (ctx) => {
+  router.post('register', async (ctx) => {
+    console.log('register')
     return new AuthController().register(ctx)
   })
 }).prefix('auth')
 
 
-Route.group(async () => {
-  Route.get('/', async () => {
+router.group(async () => {
+  router.get('/', async () => {
     return new UsersController().index()
   })
 
-  Route.get(':id', async (ctx) => {
+  router.get(':id', async (ctx) => {
     return new UsersController().show(ctx)
   })
 
-  Route.put(':id', async (ctx) => {
+  router.put(':id', async (ctx) => {
     return new UsersController().edit(ctx)
   })
 }).prefix('users')
 // .middleware(['auth'])
 
 
-Route.get('me', async (ctx) => {
+router.get('me', async (ctx) => {
   return new AuthController().getMe(ctx)
 })

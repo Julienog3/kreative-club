@@ -1,4 +1,4 @@
-import BaseSchema from '@ioc:Adonis/Lucid/Schema'
+import { BaseSchema } from "@adonisjs/lucid/schema";
 
 export default class extends BaseSchema {
   protected tableName = 'users'
@@ -9,11 +9,10 @@ export default class extends BaseSchema {
       table.string('username').notNullable().unique()
       table.string('email', 255).notNullable().unique()
       table.string('password', 180).notNullable()
-      table.string('remember_me_token').nullable()
       table.string('first_name').nullable()
       table.string('last_name').nullable()
       table.string('phone_number').nullable()
-      table.json('avatar').nullable()
+      table.string('avatar').nullable()
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
