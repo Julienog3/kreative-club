@@ -57,24 +57,36 @@ async function buildServer() {
     });
   }
 
-  app.addHook("preHandler", async (request) => {
+  app.addHook("onError", (request, reply, error, done) => {
+    console.log({ error });
+    // Some code
+    // reply.clearCookie("token");
+    done();
+  });
+
+  app.addHook("preHandler", async (request, reply) => {
     const { token } = request.cookies;
 
     let user: any = null;
 
     if (token) {
-      const response = await ky
-        .get("http://127.0.0.1:3333/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
+      try {
+        const response = await ky
+          .get("http://127.0.0.1:3333/auth/me", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .json();
+
+        user = keysToCamel(
+          response as {
+            [key: string]: unknown;
           },
-        })
-        .json();
-      user = keysToCamel(
-        response as {
-          [key: string]: unknown;
-        },
-      );
+        );
+      } catch (error) {
+        reply.clearCookie("token");
+      }
     }
 
     request.user = user;

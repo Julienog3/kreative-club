@@ -1,5 +1,5 @@
+import { getUsers } from "#root/src/api/user";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
-import { getUsers } from "../../api/user";
 
 export default async function onBeforeRender() {
   const queryClient = new QueryClient();

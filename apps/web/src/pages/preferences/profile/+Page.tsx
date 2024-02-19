@@ -15,11 +15,8 @@ import {
 } from "../../../../styled-system/patterns";
 import Button from "../../../components/utils/Button/Button";
 import Input from "../../../components/utils/Input/Input";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { css } from "../../../../styled-system/css";
-import { useSnackbarStore } from "../../../components/layout/Snackbar/Snackbar.store";
 import { PreferencesLayout } from "../../../components/layout/PreferencesLayout/PreferencesLayout";
-import { updateUser } from "../../../api/user";
 import { usePageContext } from "../../../renderer/usePageContext";
 import { ProfileCard } from "./ProfileCard";
 import { useUpdateUser } from "#root/src/api/user/updateUser";
@@ -92,7 +89,7 @@ function Page(): JSX.Element {
               >
                 <div className={gridItem()}>
                   <Input
-                    label="firstName"
+                    label="firstname"
                     control={control}
                     register={register}
                   />
@@ -105,7 +102,7 @@ function Page(): JSX.Element {
                 </div>
                 <div className={gridItem()}>
                   <Input
-                    label="lastName"
+                    label="lastname"
                     control={control}
                     register={register}
                   />
