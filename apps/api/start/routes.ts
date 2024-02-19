@@ -18,46 +18,43 @@
 |
 */
 
+import { sep, normalize } from 'node:path'
+import app from '@adonisjs/core/services/app'
+import AuthController from '#controllers/auth_controller'
+import UsersController from '#controllers/users_controller'
 import router from '@adonisjs/core/services/router'
-import UsersController from '../app/Controllers/Http/UsersController.js'
-import AuthController from '../app/Controllers/Http/AuthController.js'
+import logger from '@adonisjs/core/services/logger'
+
+const PATH_TRAVERSAL_REGEX = /(?:^|[\\/])\.\.(?:[\\/]|$)/
 
 router.get('/', async () => {
   return { hello: 'world' }
 })
 
 router.group(async () => {
-  router.post('login', async (ctx) => {
-    return new AuthController().login(ctx)
-  })
-
-  router.post('logout', async (ctx) => {
-    return new AuthController().logout(ctx)
-  })
-
-  router.post('register', async (ctx) => {
-    console.log('register')
-    return new AuthController().register(ctx)
-  })
+  router.post('login', [AuthController, 'login'])
+  router.post('logout', [AuthController, 'logout'])
+  router.post('register', [AuthController, 'register'])
+  router.get('me', [AuthController, 'getMe'])
 }).prefix('auth')
 
 
 router.group(async () => {
-  router.get('/', async () => {
-    return new UsersController().index()
-  })
-
-  router.get(':id', async (ctx) => {
-    return new UsersController().show(ctx)
-  })
-
-  router.put(':id', async (ctx) => {
-    return new UsersController().edit(ctx)
-  })
+  router.get('/', [UsersController, 'index'])
+  router.get(':id', [UsersController, 'show'])
+  router.put(':id', [UsersController, 'edit'])
 }).prefix('users')
 // .middleware(['auth'])
 
+router.get('/uploads/*', ({ request, response }) => {
+  const filePath = request.param('*').join(sep)
+  const normalizedPath = normalize(filePath)
 
-router.get('me', async (ctx) => {
-  return new AuthController().getMe(ctx)
+  
+  if (PATH_TRAVERSAL_REGEX.test(normalizedPath)) {
+    return response.badRequest('Malformed path')
+  }
+  
+  const absolutePath = app.makePath('tmp','uploads', normalizedPath)
+  return response.download(absolutePath)
 })

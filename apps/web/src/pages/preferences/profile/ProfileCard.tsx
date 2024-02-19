@@ -29,7 +29,7 @@ export const ProfileCard = ({ user }: ProfileCardProps) => {
           className={vstack({ textStyle: "body", alignItems: "start", gap: 0 })}
         >
           <p className={css({ textStyle: "subtitle" })}>
-            {user.firstName} {user.lastName}
+            {user.firstname} {user.lastname}
           </p>
           <span className={css({ color: "purple" })}>@{user.username}</span>
         </div>

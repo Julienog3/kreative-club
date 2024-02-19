@@ -23,7 +23,11 @@ const HeaderProfile = ({ user }: HeaderProfileProps): JSX.Element => {
           objectFit: "cover",
           border: "solid 2px black",
         })}
-        src={import.meta.env.VITE_API_URL.slice(0, -1) + user?.avatar?.url}
+        src={
+          import.meta.env.VITE_API_URL.slice(0, -1) +
+          "/uploads/avatars/" +
+          user?.avatar
+        }
         alt="avatar"
         loading="lazy"
       />
@@ -40,7 +44,7 @@ const HeaderProfile = ({ user }: HeaderProfileProps): JSX.Element => {
             fontWeight: "bold",
           })}
         >
-          {user?.firstName} {user?.lastName}
+          {user?.firstname} {user?.lastname}
         </span>
       </p>
     </div>

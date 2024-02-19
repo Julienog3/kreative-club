@@ -1,4 +1,4 @@
-import User from '../../models/user.js'
+import User from '../models/user.js'
 import app from '@adonisjs/core/services/app'
 import { schema } from '@adonisjs/validator'
 import type { HttpContext } from '@adonisjs/core/http'

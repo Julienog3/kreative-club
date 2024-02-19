@@ -1,7 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import User from '../../models/user.js'
+import User from '../models/user.js'
 import { registerUserValidator } from '#validators/auth'
-import logger from '@adonisjs/core/services/logger'
 
 export default class AuthController {
   public async login({ request }: HttpContext) {
@@ -14,7 +13,6 @@ export default class AuthController {
   }
 
   public async logout({ auth }: HttpContext) {
-    logger.info('logout')
     // const { user } = auth
     // await User.accessTokens.delete(user.id, currentAccessToken.id)
     
@@ -25,19 +23,13 @@ export default class AuthController {
 
   public async register({ request }: HttpContext) {
     const payload = await request.validateUsing(registerUserValidator)
-    logger.info('register')
     const user = await User.create(payload)
 
     return user
   }
 
-  public async getMe({ auth, response }: HttpContext) {
-    await auth.authenticate()
-
-    try {
-      return auth.user
-    } catch {
-      return response.unauthorized('No user connected')
-    }
+  public async getMe({ auth }: HttpContext) {
+    const user =  await auth.authenticate()
+    return user
   }
 }

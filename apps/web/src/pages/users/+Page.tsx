@@ -3,7 +3,7 @@ export { Page };
 import { useQuery } from "@tanstack/react-query";
 import { getUsers } from "../../api/user";
 import Card from "../../components/utils/Card/Card";
-import { circle, hstack, vstack } from "../../../styled-system/patterns";
+import { hstack, vstack } from "../../../styled-system/patterns";
 import { css } from "../../../styled-system/css";
 import ButtonWithLink from "../../components/utils/ButtonWithLink/ButtonWithLink";
 import { useEffect } from "react";
@@ -32,7 +32,7 @@ function Page(): JSX.Element {
           <h2 className={css({ textStyle: "title" })}>Utilisateurs</h2>
           {users && users?.length > 0 && (
             <ul className={vstack({ gap: "1rem", alignItems: "left" })}>
-              {users.map(({ id, username, profile }) => {
+              {users.map((user) => {
                 return (
                   <li
                     className={hstack({
@@ -40,38 +40,9 @@ function Page(): JSX.Element {
                       gap: "1rem",
                       alignItems: "center",
                     })}
-                    key={id}
+                    key={user.id}
                   >
-                    {profile && (
-                      <img
-                        className={circle({
-                          w: "2.5rem",
-                          h: "2.5rem",
-                          objectFit: "cover",
-                          border: "solid 2px black",
-                        })}
-                        src={
-                          profile.avatar
-                            ? `${
-                                import.meta.env.VITE_API_URL
-                              }${profile?.avatar.url.slice(1)}`
-                            : ""
-                        }
-                        alt="avatar"
-                      />
-                    )}
-                    <div className={vstack({ gap: 0, alignItems: "left" })}>
-                      {profile && (
-                        <span>
-                          {profile?.firstName} {profile?.lastName}
-                        </span>
-                      )}
-                      <span
-                        className={css({ fontWeight: "bold", fontSize: "sm" })}
-                      >
-                        @{username}
-                      </span>
-                    </div>
+                    {user.email}
                   </li>
                 );
               })}
