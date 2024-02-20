@@ -30,6 +30,7 @@
     "@tanstack/query-sync-storage-persister": "^5.4.3",
     "@tanstack/react-query": "^5.4.3",
     "@tanstack/react-query-persist-client": "^5.4.3",
+    "@tanstack/react-table": "^8.12.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "express": "^4.18.2",

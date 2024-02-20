@@ -2,13 +2,14 @@ import { getUsers } from "#root/src/api/user";
 import { AdminLayout } from "#root/src/components/layout/AdminLayout/AdminLayout";
 import Card from "#root/src/components/utils/Card/Card";
 import { css } from "#root/styled-system/css";
-import { hstack, vstack } from "#root/styled-system/patterns";
+import { vstack } from "#root/styled-system/patterns";
 import { useQuery } from "@tanstack/react-query";
+import { UsersTable } from "./UsersTable";
 
 export { Page };
 
 function Page() {
-  const { data: users, error } = useQuery({
+  const { data: users } = useQuery({
     queryKey: ["users"],
     queryFn: getUsers,
   });
@@ -25,24 +26,7 @@ function Page() {
           })}
         >
           <h2 className={css({ textStyle: "subtitle" })}>Utilisateurs</h2>
-          {users && users?.length > 0 && (
-            <ul className={vstack({ gap: "1rem", alignItems: "left" })}>
-              {users.map((user) => {
-                return (
-                  <li
-                    className={hstack({
-                      textStyle: "body",
-                      gap: "1rem",
-                      alignItems: "center",
-                    })}
-                    key={user.id}
-                  >
-                    {user.email}
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+          {users && <UsersTable data={users} />}
         </div>
       </Card>
     </AdminLayout>
