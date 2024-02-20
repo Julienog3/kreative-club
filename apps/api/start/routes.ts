@@ -23,7 +23,6 @@ import app from '@adonisjs/core/services/app'
 import AuthController from '#controllers/auth_controller'
 import UsersController from '#controllers/users_controller'
 import router from '@adonisjs/core/services/router'
-import logger from '@adonisjs/core/services/logger'
 
 const PATH_TRAVERSAL_REGEX = /(?:^|[\\/])\.\.(?:[\\/]|$)/
 

@@ -1,6 +1,11 @@
-import { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 import Card from "../Card/Card";
 import { hstack, vstack } from "../../../../styled-system/patterns";
+
+interface ListHeaderProps {
+  children: React.ReactNode;
+  bgColor?: string;
+}
 
 interface ListProps {}
 
@@ -12,14 +17,14 @@ const List = ({ children }: ListProps & PropsWithChildren): JSX.Element => {
   return <Card css={{ h: "fit-content" }}>{children}</Card>;
 };
 
-const Header = ({ children }: PropsWithChildren) => {
+const Header = ({ children, bgColor = "yellow" }: ListHeaderProps) => {
   return (
     <div
       className={hstack({
         p: ".75rem",
         borderBottom: "solid 2px black",
         textStyle: "body",
-        bgColor: "yellow",
+        bgColor,
         height: "fit-content",
       })}
     >

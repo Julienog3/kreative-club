@@ -1,8 +1,14 @@
 import { api } from ".";
 // import { parseCamelToSnakeCase } from "../helpers/format";
 
+export enum Role {
+  Admin = "admin",
+  User = "user",
+}
+
 export type User = {
   id: string;
+  role: Role;
   username: string;
   email: string;
   password?: string;

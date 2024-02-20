@@ -1,6 +1,5 @@
 import { HydrationBoundary } from "@tanstack/react-query";
 import Header from "../components/layout/Header/Header";
-import Page from "../components/layout/Page/Page";
 import { useTransition } from "@react-spring/web";
 import { modalTransitionConfig } from "./../components/utils/Modal/Modal";
 import AuthModal from "./../components/modals/AuthModal/AuthModal";
@@ -41,7 +40,7 @@ function PageShell({
               <Snackbar />
               {/* <Banner /> */}
               <Header />
-              <Page>{children}</Page>
+              {children}
               <Footer />
             </div>
           </HydrationBoundary>

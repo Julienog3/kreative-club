@@ -10,11 +10,13 @@ import Dropdown from "../../utils/Dropdown/Dropdown";
 import { BsFillGearFill } from "@react-icons/all-files/bs/BsFillGearFill";
 import { IoHelpBuoySharp } from "@react-icons/all-files/io5/IoHelpBuoySharp";
 import { BiExit } from "@react-icons/all-files/bi/BiExit";
+import { MdDashboard } from "@react-icons/all-files/md/MdDashboard";
 
 import HeaderProfile from "./HeaderProfile";
 import { Link } from "../../../renderer/Link";
 import { usePageContext } from "../../../renderer/usePageContext";
 import { reload } from "vike/client/router";
+import { Role } from "#root/src/api/user";
 
 const Header = (): JSX.Element => {
   const openModal = useStoreAuthModal(({ openModal }) => openModal);
@@ -31,7 +33,7 @@ const Header = (): JSX.Element => {
     addItem({ type: "success", message: "vous etes bien déconnecté" });
   };
 
-  const dropdownItems = [
+  let dropdownItems = [
     {
       label: "Paramètres",
       icon: <BsFillGearFill />,
@@ -48,6 +50,17 @@ const Header = (): JSX.Element => {
       onClick: () => logout.mutate(),
     },
   ];
+
+  if (user && user.role === Role.Admin) {
+    dropdownItems = [
+      ...dropdownItems,
+      {
+        label: "Admin",
+        icon: <MdDashboard />,
+        link: "/admin/general",
+      },
+    ];
+  }
 
   useEffect(() => {
     if (logout.isSuccess) {

@@ -5,7 +5,6 @@ import { vstack } from "../../../../../styled-system/patterns";
 import Input from "../../../utils/Input/Input";
 import Button from "../../../utils/Button/Button";
 import { z } from "zod";
-import { useStoreModal } from "../../../utils/Modal/Modal.store";
 import { useEffect } from "react";
 import { useSnackbarStore } from "../../../layout/Snackbar/Snackbar.store";
 import { useAuth } from "../../../../hooks/useAuth";
@@ -14,7 +13,7 @@ import { useStoreAuthModal } from "../AuthModal.store";
 
 const loginSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(7, { message: "required" }),
+  password: z.string(),
 });
 
 const LoginForm = () => {

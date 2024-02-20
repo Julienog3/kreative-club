@@ -23,8 +23,8 @@ import { useUpdateUser } from "#root/src/api/user/updateUser";
 import { Dropzone } from "#root/src/components/utils/Dropzone/Dropzone";
 
 const profileSchema = z.object({
-  firstName: z.string().optional(),
-  lastName: z.string().optional(),
+  firstname: z.string().optional(),
+  lastname: z.string().optional(),
   avatar: z.any().optional(),
 });
 
@@ -51,19 +51,20 @@ function Page(): JSX.Element {
   const onSubmit: SubmitHandler<FieldValues> = (profileData) => {
     const payload = new FormData();
 
-    if (profileData.firstName) {
-      payload.append("firstName", profileData.firstName);
+    if (profileData.firstname) {
+      payload.append("firstName", profileData.firstname);
     }
 
-    if (profileData.lastName) {
-      payload.append("lastName", profileData.lastName);
+    if (profileData.lastname) {
+      payload.append("lastName", profileData.lastname);
     }
-
-    console.log({ profileData });
 
     if (profileData.avatar[0]) {
       payload.append("avatar", profileData.avatar[0]);
     }
+
+    console.log({ profileData });
+    console.log({ payload });
 
     editProfile.mutate({ id: user.id, payload });
   };

@@ -4,13 +4,11 @@ import { Link } from "../../../renderer/Link";
 import List from "../../utils/List/List";
 import { css } from "../../../../styled-system/css";
 
-interface PreferencesLayoutProps {
+interface AdminLayoutProps {
   children: React.ReactNode;
 }
 
-export function PreferencesLayout({
-  children,
-}: PreferencesLayoutProps): JSX.Element {
+export function AdminLayout({ children }: AdminLayoutProps): JSX.Element {
   return (
     <div
       className={vstack({
@@ -22,7 +20,7 @@ export function PreferencesLayout({
     >
       <div className={grid({ columns: 4, gap: "1rem", w: "100%", p: "1rem" })}>
         <List>
-          <List.Header>Mes préférences</List.Header>
+          <List.Header bgColor="purple">Administration</List.Header>
           <List.Item>
             <Link
               className={css({
@@ -31,35 +29,9 @@ export function PreferencesLayout({
                 h: "100%",
                 display: "block",
               })}
-              href="/preferences/profile"
+              href="/admin/general"
             >
-              Mon profil
-            </Link>
-          </List.Item>
-          <List.Item>
-            <Link
-              className={css({
-                p: "1rem",
-                w: "100%",
-                h: "100%",
-                display: "block",
-              })}
-              href="/preferences/portfolio"
-            >
-              Mon portfolio
-            </Link>
-          </List.Item>
-          <List.Item>
-            <Link
-              className={css({
-                p: "1rem",
-                w: "100%",
-                h: "100%",
-                display: "block",
-              })}
-              href="/preferences/security"
-            >
-              Sécurité
+              Général
             </Link>
           </List.Item>
           <List.Item isLast>
@@ -70,9 +42,9 @@ export function PreferencesLayout({
                 h: "100%",
                 display: "block",
               })}
-              href="/preferences/notifications"
+              href="/admin/users"
             >
-              Notifications
+              Utilisateurs
             </Link>
           </List.Item>
         </List>

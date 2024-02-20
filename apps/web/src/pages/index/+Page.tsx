@@ -17,7 +17,14 @@ function Page() {
         position: "relative",
       })}
     >
-      <div className={hstack({ maxWidth: "1440px" })}>
+      <div
+        className={hstack({
+          minHeight: "100vh",
+          width: "100%",
+          maxWidth: "breakpoint-xl",
+          margin: "0 auto",
+        })}
+      >
         <div
           className={vstack({
             minHeight: "100vh",
