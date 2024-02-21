@@ -1,3 +1,4 @@
+import { PortfolioFolder, PortfolioImage } from "#root/types/portfolio";
 import { api } from ".";
 // import { parseCamelToSnakeCase } from "../helpers/format";
 
@@ -23,18 +24,31 @@ export type UserPayload = User & {
   passwordConfirmation: string;
 };
 
-const getUsers = async (): Promise<User[]> => {
+export const getUsers = async (): Promise<User[]> => {
   return await api.get("users").json();
 };
 
-const getUserById = async (id: string): Promise<User> => {
+export const getUserById = async (id: string): Promise<User> => {
   return await api.get(`users/${id}`).json();
 };
 
-const updateUser = async (id: string, userPayload: FormData): Promise<void> => {
+export const updateUser = async (
+  id: string,
+  userPayload: FormData,
+): Promise<void> => {
   await api.put(`users/${id}`, {
     body: userPayload,
   });
 };
 
-export { getUsers, getUserById, updateUser };
+export const getUserPortfolioImages = async (
+  id: string,
+): Promise<PortfolioImage[]> => {
+  return await api.get(`users/${id}/portfolio/images`).json();
+};
+
+export const getUserPortfolioFolders = async (
+  id: string,
+): Promise<PortfolioFolder[]> => {
+  return await api.get(`users/${id}/portfolio/folders`).json();
+};

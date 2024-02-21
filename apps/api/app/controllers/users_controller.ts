@@ -3,14 +3,13 @@ import app from '@adonisjs/core/services/app'
 import { schema } from '@adonisjs/validator'
 import type { HttpContext } from '@adonisjs/core/http'
 
-
 export default class UsersController {
   public async index() {
     return await User.query();
   }
 
   public async show({ params }: HttpContext) {
-    return await User.find(params.id);
+    return await User.findOrFail(params.id);
   }
 
   public async edit({ request, params }: HttpContext) {
@@ -23,7 +22,7 @@ export default class UsersController {
     })
 
     const user = await User.findOrFail(params.id)
-    const {  avatar, ...payload } = await request.validate({ schema: userSchema })
+    const { avatar, ...payload } = await request.validate({ schema: userSchema })
 
     if (avatar) {
       await avatar.move(app.tmpPath('uploads', 'avatars'))
