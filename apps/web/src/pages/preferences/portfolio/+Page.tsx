@@ -1,122 +1,76 @@
 import Card from "../../../components/utils/Card/Card";
 import { PreferencesLayout } from "../../../components/layout/PreferencesLayout/PreferencesLayout";
 import { css } from "../../../../styled-system/css";
-import {
-  grid,
-  gridItem,
-  hstack,
-  vstack,
-} from "../../../../styled-system/patterns";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getUserPortfolioImages } from "#root/src/api/user";
+import { gridItem, vstack } from "../../../../styled-system/patterns";
 import { usePageContext } from "#root/src/renderer/usePageContext";
 import Modal, {
   modalTransitionConfig,
 } from "#root/src/components/utils/Modal/Modal";
 import { useTransition } from "@react-spring/web";
-import Button from "#root/src/components/utils/Button/Button";
-import { CreatePortfolioForm } from "./CreatePortfolioForm";
-import { PortfolioImageCard } from "./PortfolioImageCard";
+import { PortfolioImageCard } from "./components/PortfolioImageCard";
 import { useStoreModal } from "#root/src/components/utils/Modal/Modal.store";
-import { deletePortfolioImage } from "#root/src/api/portfolioImage";
-import { useSnackbarStore } from "#root/src/components/layout/Snackbar/Snackbar.store";
 import { useState } from "react";
+// import { PortfolioFolderCard } from "./components/PortfolioFolderCard";
+import { PortfolioFolderDetails } from "./components/PortfolioFolderDetails";
+import { PortfolioFolder } from "#root/types/portfolio";
+import { CreatePortfolioItemModal } from "./components/modals/CreatePortfolioItemModal";
+import { FaPlus } from "@react-icons/all-files/fa/FaPlus";
+import { usePortfolioImages } from "#root/src/api/portfolio/getPortfolioImages";
+import { usePortfolioFolders } from "#root/src/api/portfolio/getPortflioFolders";
+import { PortfolioFolderCard } from "./components/PortfolioFolderCard";
 
 export { Page };
 
 function Page(): JSX.Element {
   const { user } = usePageContext();
-  const { addItem } = useSnackbarStore((state) => state);
 
-  const { data: portfolioImages, isLoading } = useQuery({
-    queryKey: ["portfolio", user.id],
-    queryFn: () => getUserPortfolioImages(user.id),
-  });
+  const { data: portfolioImages } = usePortfolioImages(user.id);
+  const { data: portfolioFolders } = usePortfolioFolders(user.id);
 
-  const queryClient = useQueryClient();
-
-  const removePortfolioImage = useMutation({
-    mutationFn: deletePortfolioImage,
-    onSuccess: () => {
-      addItem({
-        type: "success",
-        message: "L'image a bien été supprimé !",
-      });
-      queryClient.invalidateQueries({ queryKey: ["portfolio"] });
-    },
-  });
-
-  const onDeletePortfolioImage = async (portfolioImageId: string) => {
-    removePortfolioImage.mutate(portfolioImageId);
-    setConfirmationModal((confirmationModal) => ({
-      ...confirmationModal,
-      isShowed: false,
-    }));
-  };
+  // const { data: portfolioFolders } = useQuery({
+  //   queryKey: ["portfolio-folders"],
+  //   queryFn: () => getUserPortfolioFolders(user.id),
+  // });
 
   const { isShowed, closeModal, openModal } = useStoreModal((state) => state);
-  const modalTransition = useTransition(isShowed, modalTransitionConfig);
 
-  const [confirmationModal, setConfirmationModal] = useState<{
-    isShowed: boolean;
-    portfolioImageId: string | null;
-  }>({
-    isShowed: false,
-    portfolioImageId: null,
-  });
-  const confirmationModalTransition = useTransition(
-    confirmationModal.isShowed,
+  const [portfolioFolderDetailsModal, setPortfolioFolderDetailsModal] =
+    useState<{
+      isShowed: boolean;
+      portfolioFolder?: PortfolioFolder;
+    }>({
+      isShowed: false,
+      portfolioFolder: undefined,
+    });
+  const portfolioFolderDetailsTransition = useTransition(
+    portfolioFolderDetailsModal.isShowed,
     modalTransitionConfig,
   );
 
   return (
     <>
-      {modalTransition((style, isOpened) => (
+      <CreatePortfolioItemModal isShowed={isShowed} closeModal={closeModal} />
+      {portfolioFolderDetailsTransition((style, isOpened) => (
         <>
           {isOpened && (
             <Modal
-              title="Ajouter une image"
+              title={portfolioFolderDetailsModal.portfolioFolder?.title ?? ""}
               style={{ ...style }}
-              onClose={() => {
-                closeModal();
-              }}
-            >
-              <CreatePortfolioForm />
-            </Modal>
-          )}
-        </>
-      ))}
-      {confirmationModalTransition((style, isOpened) => (
-        <>
-          {isOpened && (
-            <Modal
-              title="Supprimer une image"
-              style={{ ...style }}
-              onClose={() => {
-                setConfirmationModal({
+              onClose={() =>
+                setPortfolioFolderDetailsModal({
                   isShowed: false,
-                  portfolioImageId: null,
-                });
-              }}
+                })
+              }
             >
-              <p>Etes-vous sûr de vouloir supprimer cette image ?</p>
-              <div className={hstack()}>
-                <Button
-                  onClick={() => {
-                    if (!confirmationModal.portfolioImageId) return;
-                    onDeletePortfolioImage(confirmationModal.portfolioImageId);
-                  }}
-                >
-                  Supprimer
-                </Button>
-                <Button disabled>Annuler</Button>
-              </div>
+              <PortfolioFolderDetails
+                portfolioFolder={portfolioFolderDetailsModal.portfolioFolder}
+              />
             </Modal>
           )}
         </>
       ))}
       <PreferencesLayout>
-        <Card css={{ width: "100%", height: "100%" }}>
+        <Card css={{ width: "100%", height: "100%", p: "1.5rem 1rem" }}>
           <div
             className={vstack({
               w: "100%",
@@ -130,31 +84,78 @@ function Page(): JSX.Element {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
               at quam nulla. Nam id leo mauris.
             </p>
-
-            {isLoading && <p>Image portfolio loading</p>}
-
-            {portfolioImages && (
-              <ul className={grid({ columns: 3, gap: "1rem" })}>
-                {portfolioImages.map((portfolioImage) => (
+            <ul
+              className={css({
+                display: "grid",
+                gridTemplateColumns: 1,
+                md: { gridTemplateColumns: 2 },
+                lg: { gridTemplateColumns: 3 },
+                gap: "1rem",
+              })}
+            >
+              <li onClick={() => openModal()}>
+                <Card
+                  css={{
+                    h: "18rem",
+                    pos: "relative",
+                    cursor: "pointer",
+                    w: "100%",
+                    p: "1rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: "1rem",
+                    zIndex: 3,
+                    // borderStyle: "dashed",
+                  }}
+                >
+                  <Card
+                    css={{
+                      h: "12rem",
+                      w: "100%",
+                      backgroundColor: "gray",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderStyle: "dashed",
+                      fontSize: "1.5rem",
+                    }}
+                  >
+                    <FaPlus />
+                  </Card>
+                  <h3 className={css({ textStyle: "body" })}>
+                    Ajouter un élément
+                  </h3>
+                </Card>
+              </li>
+              {portfolioImages &&
+                portfolioImages.map((portfolioImage) => (
                   <li
                     className={(gridItem(), vstack({ textStyle: "body" }))}
                     key={portfolioImage.id}
                   >
-                    <PortfolioImageCard
-                      portfolioImage={portfolioImage}
-                      onDelete={() =>
-                        setConfirmationModal({
-                          isShowed: true,
-                          portfolioImageId: portfolioImage.id,
-                        })
-                      }
-                    />
+                    <PortfolioImageCard portfolioImage={portfolioImage} />
                     <p>{portfolioImage.title}</p>
                   </li>
                 ))}
-              </ul>
-            )}
-            <Button onClick={() => openModal()}>Ajouter un projet</Button>
+              {portfolioFolders &&
+                portfolioFolders.map((portfolioFolder) => (
+                  <li
+                    className={(gridItem(), vstack({ textStyle: "body" }))}
+                    key={portfolioFolder.id}
+                  >
+                    <PortfolioFolderCard
+                      portfolioFolder={portfolioFolder}
+                      onClick={() =>
+                        setPortfolioFolderDetailsModal({
+                          isShowed: true,
+                          portfolioFolder,
+                        })
+                      }
+                    />
+                  </li>
+                ))}
+            </ul>
           </div>
         </Card>
       </PreferencesLayout>

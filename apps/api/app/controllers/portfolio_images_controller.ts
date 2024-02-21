@@ -5,7 +5,9 @@ import PortfolioImage from '#models/portfolio_image';
 
 export default class PortfolioImagesController {
   public async index({ params }: HttpContext) {
-    return await PortfolioImage.query().where('user_id', params.id)
+    return await PortfolioImage.query().where((query) => {
+      query.where('userId', params.userId).whereNull('portfolioFolderId')
+    })
   }
 
   public async show({ params }: HttpContext) {
@@ -16,14 +18,14 @@ export default class PortfolioImagesController {
     const payload = await request.validateUsing(createPortfolioImageValidator)
 
     if (payload.image) {
-      await payload.image.move(app.tmpPath('uploads', 'portfolio-images'))
+      await payload.image.move(app.tmpPath('uploads', 'portfolio', 'images'))
     }
 
     await PortfolioImage.create({...payload, image: payload.image.fileName })
   }
 
   public async destroy({ params }: HttpContext): Promise<void> {
-    const portfolioImage = await PortfolioImage.findOrFail(params.id)
+    const portfolioImage = await PortfolioImage.findOrFail(params.portfolioImageId)
     await portfolioImage.delete()
   }
 }

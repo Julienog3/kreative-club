@@ -1,7 +1,15 @@
-import { Attachment, BaseModel } from ".";
+import { BaseModel } from ".";
 
 export interface PortfolioImage extends BaseModel {
   title: string;
-  image: Attachment;
+  image: string;
   userId: string;
+  portfolioFolderId: string;
+}
+
+export interface PortfolioFolder extends BaseModel {
+  title: string;
+  description?: string;
+  userId: string;
+  portfolioImages?: PortfolioImage[];
 }

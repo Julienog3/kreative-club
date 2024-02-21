@@ -8,26 +8,31 @@ export default class PortfolioImage extends BaseModel {
   public static selfAssignPrimaryKey = true
 
   @column({ isPrimary: true })
-  public id: string
+  declare id: string
 
   @column()
-  public title: string
+  declare title: string
 
   @column()
-  public userId: string
-
+  declare image: string
+  
   @column()
-  public image: string
+  declare userId: string
   
   @belongsTo(() => User)
-  public user: BelongsTo<typeof User>
+  declare user: BelongsTo<typeof User>
+
+  @column()
+  declare portfolioFolderId: string
+
+  @belongsTo(() => User)
+  declare portfolioFolder: BelongsTo<typeof User>
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  declare createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
-
+  declare updatedAt: DateTime
 
   @beforeCreate()
   protected static async createUUID(portfolioImage: PortfolioImage) {
