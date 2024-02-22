@@ -63,16 +63,13 @@ function Page(): JSX.Element {
       payload.append("avatar", profileData.avatar[0]);
     }
 
-    console.log({ profileData });
-    console.log({ payload });
-
     editProfile.mutate({ id: user.id, payload });
   };
 
   return (
     <>
       <PreferencesLayout>
-        <Card css={{ width: "100%", height: "100%" }}>
+        <Card css={{ width: "100%", height: "100%", p: ".5rem" }}>
           <div
             className={vstack({
               w: "100%",

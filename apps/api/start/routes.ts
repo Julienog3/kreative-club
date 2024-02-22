@@ -25,6 +25,7 @@ import UsersController from '#controllers/users_controller'
 import router from '@adonisjs/core/services/router'
 import PortfolioImagesController from '#controllers/portfolio_images_controller'
 import PortfolioFoldersController from '#controllers/portfolio_folders_controller'
+import CategoriesController from '#controllers/categories_controller'
 
 const PATH_TRAVERSAL_REGEX = /(?:^|[\\/])\.\.(?:[\\/]|$)/
 
@@ -60,10 +61,16 @@ router.group(async () => {
 }).prefix('users')
 // .middleware(['auth'])
 
+router.group(async () => {
+  router.get('/', [CategoriesController, 'index'])
+  router.post('/', [CategoriesController, 'store'])
+  router.delete(':id', [CategoriesController, 'destroy'])
+  router.get(':id', [CategoriesController, 'show'])
+}).prefix('categories')
+
 router.get('/uploads/*', ({ request, response }) => {
   const filePath = request.param('*').join(sep)
   const normalizedPath = normalize(filePath)
-
   
   if (PATH_TRAVERSAL_REGEX.test(normalizedPath)) {
     return response.badRequest('Malformed path')

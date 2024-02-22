@@ -34,7 +34,7 @@ export function AdminLayout({ children }: AdminLayoutProps): JSX.Element {
               Général
             </Link>
           </List.Item>
-          <List.Item isLast>
+          <List.Item>
             <Link
               className={css({
                 p: "1rem",
@@ -45,6 +45,19 @@ export function AdminLayout({ children }: AdminLayoutProps): JSX.Element {
               href="/admin/users"
             >
               Utilisateurs
+            </Link>
+          </List.Item>
+          <List.Item isLast>
+            <Link
+              className={css({
+                p: "1rem",
+                w: "100%",
+                h: "100%",
+                display: "block",
+              })}
+              href="/admin/categories"
+            >
+              Catégories
             </Link>
           </List.Item>
         </List>
