@@ -88,7 +88,13 @@ dependencies:
     version: 10.9.2(@types/node@20.11.13)(typescript@5.3.3)
   vike:
     specifier: ^0.4.152
-    version: 0.4.160(vite@4.5.2)
+    version: 0.4.160(react-streaming@0.3.22)(vite@4.5.2)
+  vike-react:
+    specifier: ^0.4.6
+    version: 0.4.6(react-dom@18.2.0)(react@18.2.0)(vike@0.4.160)(vite@4.5.2)
+  vike-react-query:
+    specifier: ^0.0.4
+    version: 0.0.4(@tanstack/react-query@5.18.0)(react-dom@18.2.0)(react-streaming@0.3.22)(react@18.2.0)(vike-react@0.4.6)(vike@0.4.160)(vite@4.5.2)
   zod:
     specifier: ^3.22.4
     version: 3.22.4
@@ -1614,7 +1620,6 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.1
-    dev: true
 
   /@babel/template@7.23.9:
     resolution: {integrity: sha512-+xrD2BWLpvHKNmX2QbpdpsBaWnRxahMwJjO+KZk2JOElj5nSmKezyS1B4u+QbHMTX69t4ukm6hh9lsYQ7GHCKA==}
@@ -6864,7 +6869,6 @@ packages:
 
   /devalue@4.3.2:
     resolution: {integrity: sha512-KqFl6pOgOW+Y6wJgu80rHpo2/3H07vr8ntR9rkkFIRETewbf5GaYYcakYfiKz89K+sLsuPkQIZaXDMjUObZwWg==}
-    dev: true
 
   /diff-sequences@29.6.3:
     resolution: {integrity: sha512-EjePK1srD3P08o2j4f0ExnylqRs5B9tJjcp9t1krH2qRi8CCdsYfwe9JgSLurFBWwq4uOlipzfk5fHNvwFKr8Q==}
@@ -8700,6 +8704,11 @@ packages:
   /isarray@2.0.5:
     resolution: {integrity: sha512-xHjhDr3cNBK0BzdUJSPXZntQUx/mwMS5Rw4A7lPJ90XGAO6ISP/ePDNuo0vhqOZU+UD5JoodwCAAoZQd3FeAKw==}
     dev: true
+
+  /isbot-fast@1.2.0:
+    resolution: {integrity: sha512-twjuQzy2gKMDVfKGQyQqrx6Uy4opu/fiVUTTpdqtFsd7OQijIp5oXvb27n5EemYXaijh5fomndJt/SPRLsEdSg==}
+    engines: {node: '>=6.0.0'}
+    dev: false
 
   /isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
@@ -10719,6 +10728,15 @@ packages:
       react-is: 18.1.0
     dev: true
 
+  /react-error-boundary@4.0.12(react@18.2.0):
+    resolution: {integrity: sha512-kJdxdEYlb7CPC1A0SeUY38cHpjuu6UkvzKiAmqmOFL21VRfMhOcWxTCBgLVCO0VEMh9JhFNcVaXlV4/BTpiwOA==}
+    peerDependencies:
+      react: '>=16.13.1'
+    dependencies:
+      '@babel/runtime': 7.23.9
+      react: 18.2.0
+    dev: false
+
   /react-hook-form@7.49.3(react@18.2.0):
     resolution: {integrity: sha512-foD6r3juidAT1cOZzpmD/gOKt7fRsDhXXZ0y28+Al1CHgX+AY1qIN9VSIIItXRq1dN68QrRwl1ORFlwjBaAqeQ==}
     engines: {node: '>=18', pnpm: '8'}
@@ -10813,6 +10831,19 @@ packages:
     dependencies:
       '@remix-run/router': 1.14.2
       react: 18.2.0
+    dev: false
+
+  /react-streaming@0.3.22(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-8kFMtAZQ1oUVnVKJvBqy/DUl1ZjoaRDe/v6GuYQWN4OX4K8jnmDt1NBuQxcjKob26+9Wx618km4m+/Q7PmAPfw==}
+    peerDependencies:
+      react: '>=18'
+      react-dom: '>=18'
+    dependencies:
+      '@brillout/import': 0.2.3
+      '@brillout/json-serializer': 0.5.8
+      isbot-fast: 1.2.0
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react-style-singleton@2.2.1(@types/react@18.2.48)(react@18.2.0):
@@ -10935,7 +10966,6 @@ packages:
 
   /regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
-    dev: true
 
   /regenerator-transform@0.15.2:
     resolution: {integrity: sha512-hfMp2BoF0qOk3uc5V20ALGDS2ddjQaLrdl7xrGXvAIow7qeWRM2VA2HuCHkUKk9slq3VwEwLNK3DFBqDfPGYtg==}
@@ -12451,7 +12481,44 @@ packages:
       vfile-message: 3.1.4
     dev: true
 
-  /vike@0.4.160(vite@4.5.2):
+  /vike-react-query@0.0.4(@tanstack/react-query@5.18.0)(react-dom@18.2.0)(react-streaming@0.3.22)(react@18.2.0)(vike-react@0.4.6)(vike@0.4.160)(vite@4.5.2):
+    resolution: {integrity: sha512-mlgX4nA6hpoBfqPzejai1v2biG1J372/5oHsTpfg0CbWqJLaghxrMBUwlznzHv1B6AJf75teXJrAvlqggBqfQA==}
+    peerDependencies:
+      '@tanstack/react-query': 5.x.x
+      react: 18.x.x
+      react-dom: 18.x.x
+      react-streaming: ^0.3.19
+      vike: ^0.4.160
+      vike-react: ^0.4.4
+      vite: ^4.3.8 || ^5.0.10
+    dependencies:
+      '@tanstack/react-query': 5.18.0(react@18.2.0)
+      devalue: 4.3.2
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-error-boundary: 4.0.12(react@18.2.0)
+      react-streaming: 0.3.22(react-dom@18.2.0)(react@18.2.0)
+      vike: 0.4.160(react-streaming@0.3.22)(vite@4.5.2)
+      vike-react: 0.4.6(react-dom@18.2.0)(react@18.2.0)(vike@0.4.160)(vite@4.5.2)
+      vite: 4.5.2(@types/node@20.11.13)
+    dev: false
+
+  /vike-react@0.4.6(react-dom@18.2.0)(react@18.2.0)(vike@0.4.160)(vite@4.5.2):
+    resolution: {integrity: sha512-CjfhmPX/OtQhMaFCC8UzPr2O4RlB7FlRX3EDa/EP3q7wRRdb5AGVkkUkx+NNj7bxQiMHlR2+njiKrr0x5ITEUw==}
+    peerDependencies:
+      react: 18.x.x
+      react-dom: 18.x.x
+      vike: ^0.4.160
+      vite: ^4.3.8 || ^5.0.10
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-streaming: 0.3.22(react-dom@18.2.0)(react@18.2.0)
+      vike: 0.4.160(react-streaming@0.3.22)(vite@4.5.2)
+      vite: 4.5.2(@types/node@20.11.13)
+    dev: false
+
+  /vike@0.4.160(react-streaming@0.3.22)(vite@4.5.2):
     resolution: {integrity: sha512-sC+MR1gkY/wgPSbVOlc05PF429CSja3Cc5Ps7+vgccsIH5fhRTm8gS6TwmEK130stK0xauiS2hK9T7BvFTv5rA==}
     engines: {node: '>=16.0.0'}
     hasBin: true
@@ -12472,6 +12539,7 @@ packages:
       es-module-lexer: 1.4.1
       esbuild: 0.19.12
       fast-glob: 3.3.2
+      react-streaming: 0.3.22(react-dom@18.2.0)(react@18.2.0)
       sirv: 2.0.4
       source-map-support: 0.5.21
       vite: 4.5.2(@types/node@20.11.13)

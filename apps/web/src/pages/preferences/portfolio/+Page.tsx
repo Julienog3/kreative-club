@@ -2,7 +2,7 @@ import Card from "../../../components/utils/Card/Card";
 import { PreferencesLayout } from "../../../components/layout/PreferencesLayout/PreferencesLayout";
 import { css } from "../../../../styled-system/css";
 import { gridItem, vstack } from "../../../../styled-system/patterns";
-import { usePageContext } from "#root/src/renderer/usePageContext";
+import { usePageContext } from "vike-react/usePageContext";
 import Modal, {
   modalTransitionConfig,
 } from "#root/src/components/utils/Modal/Modal";

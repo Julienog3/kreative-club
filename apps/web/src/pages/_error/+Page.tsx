@@ -1,17 +1,15 @@
+import { usePageContext } from "vike-react/usePageContext";
+
 export { Page };
 
-interface PageProps {
-  is404: boolean;
-  errorInfo?: string;
-}
+function Page(): JSX.Element {
+  const { is404 } = usePageContext();
 
-function Page({ is404, errorInfo }: PageProps): JSX.Element {
   if (is404) {
     return (
       <>
         <h1>404 Page Not Found</h1>
         <p>This page could not be found.</p>
-        <p>{errorInfo}</p>
       </>
     );
   } else {

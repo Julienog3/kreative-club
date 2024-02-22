@@ -13,10 +13,10 @@ import { BiExit } from "@react-icons/all-files/bi/BiExit";
 import { MdDashboard } from "@react-icons/all-files/md/MdDashboard";
 
 import HeaderProfile from "./HeaderProfile";
-import { Link } from "../../../renderer/Link";
-import { usePageContext } from "../../../renderer/usePageContext";
+import { Link } from "#root/src/components/Link";
 import { reload } from "vike/client/router";
 import { Role } from "#root/src/api/user";
+import { usePageContext } from "vike-react/usePageContext";
 
 const Header = (): JSX.Element => {
   const openModal = useStoreAuthModal(({ openModal }) => openModal);
@@ -24,8 +24,9 @@ const Header = (): JSX.Element => {
   // const navigate = useNavigate();
 
   const { logout } = useAuth();
-
   const { user } = usePageContext();
+
+  console.log({ user });
 
   const handleLogout = (): void => {
     // navigate("/");

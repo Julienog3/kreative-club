@@ -11,8 +11,8 @@ import { CreateCategoryModal } from "./components/CreateCategoryModal";
 export { Page };
 
 function Page() {
-  const { data: categories, isSuccess } = useCategories();
   const { isShowed, closeModal, openModal } = useStoreModal((state) => state);
+  const { data: categories } = useCategories();
 
   return (
     <>
@@ -28,7 +28,7 @@ function Page() {
             })}
           >
             <h2 className={css({ textStyle: "subtitle" })}>Catégories</h2>
-            {isSuccess && <CategoriesTable data={categories} />}
+            {categories && <CategoriesTable data={categories} />}
             <Button variant="success" onClick={() => openModal()}>
               Ajouter une catégorie
             </Button>

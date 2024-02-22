@@ -1,14 +1,14 @@
 import type { Config } from "vike/types";
+import vikeReact from "vike-react/config";
+import vikeReactQuery from "vike-react-query/config";
+import { Layout } from "#root/src/layouts/DefaultLayout";
+import { Head } from "#root/src/layouts/DefaultHead";
 
 export default {
-  meta: {
-    title: {
-      // Make the value of `title` available on both the server- and client-side
-      env: { server: true, client: true },
-    },
-    onBeforeRender: {
-      env: { server: true, client: true },
-    },
-  },
-  passToClient: ["dehydratedState", "user"],
+  Layout,
+  Head,
+  title: "Kreative club app",
+  clientRouting: true,
+  passToClient: ["user", "routeParams"],
+  extends: [vikeReact, vikeReactQuery],
 } satisfies Config;
