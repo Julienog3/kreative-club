@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import Button, { ButtonProps } from "../Button/Button";
-import { Link } from "../../../renderer/Link";
+import { Link } from "#root/src/components/Link";
 
 interface ButtonWithLinkProps extends ButtonProps {
   to: string;

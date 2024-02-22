@@ -1,8 +1,8 @@
 import React from "react";
 import { grid, gridItem, vstack } from "../../../../styled-system/patterns";
-import { Link } from "../../../renderer/Link";
 import List from "../../utils/List/List";
 import { css } from "../../../../styled-system/css";
+import { Link } from "#root/src/components/Link";
 
 interface AdminLayoutProps {
   children: React.ReactNode;

@@ -17,7 +17,7 @@ import Button from "../../../components/utils/Button/Button";
 import Input from "../../../components/utils/Input/Input";
 import { css } from "../../../../styled-system/css";
 import { PreferencesLayout } from "../../../components/layout/PreferencesLayout/PreferencesLayout";
-import { usePageContext } from "../../../renderer/usePageContext";
+import { usePageContext } from "vike-react/usePageContext";
 import { ProfileCard } from "./ProfileCard";
 import { useUpdateUser } from "#root/src/api/user/updateUser";
 import { Dropzone } from "#root/src/components/utils/Dropzone/Dropzone";

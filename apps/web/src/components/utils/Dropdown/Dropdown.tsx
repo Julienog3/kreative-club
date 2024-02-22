@@ -3,7 +3,7 @@ import { css } from "../../../../styled-system/css";
 import { hstack, vstack } from "../../../../styled-system/patterns";
 import { useTransition } from "@react-spring/web";
 import { animated } from "@react-spring/web";
-import { Link } from "../../../renderer/Link";
+import { Link } from "#root/src/components/Link";
 
 type DropdownItem = {
   label: string;

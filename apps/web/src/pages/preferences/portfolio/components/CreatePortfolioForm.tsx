@@ -3,7 +3,7 @@ import Button from "#root/src/components/utils/Button/Button";
 import { Dropzone } from "#root/src/components/utils/Dropzone/Dropzone";
 import Input from "#root/src/components/utils/Input/Input";
 import { useStoreModal } from "#root/src/components/utils/Modal/Modal.store";
-import { usePageContext } from "#root/src/renderer/usePageContext";
+import { usePageContext } from "vike-react/usePageContext";
 import { hstack, vstack } from "#root/styled-system/patterns";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
