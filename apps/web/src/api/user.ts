@@ -15,9 +15,8 @@ export type User = {
   password?: string;
   firstname?: string;
   lastname?: string;
-  avatar?: {
-    url: string;
-  };
+  portfolioEnabled: boolean;
+  avatar?: string;
 };
 
 export type UserPayload = User & {

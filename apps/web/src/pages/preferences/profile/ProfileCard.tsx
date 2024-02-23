@@ -18,11 +18,7 @@ export const ProfileCard = ({ user }: ProfileCardProps) => {
             h: "6rem",
             objectFit: "cover",
           })}
-          src={
-            import.meta.env.VITE_API_URL.slice(0, -1) +
-            "/uploads/avatars/" +
-            user?.avatar
-          }
+          src={import.meta.env.VITE_API_URL.slice(0, -1) + user?.avatar}
           alt="avatar"
         />
         <div

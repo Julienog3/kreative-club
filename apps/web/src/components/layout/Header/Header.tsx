@@ -89,6 +89,12 @@ const Header = (): JSX.Element => {
         />
       </Link>
       <div className={hstack({ gap: "1.5rem" })}>
+        <Link href="/creatives">
+          <p className={css({ textStyle: "body" })}>Découvrir</p>
+        </Link>
+        <Link href="/messages">
+          <p className={css({ textStyle: "body" })}>Messagerie</p>
+        </Link>
         {user ? (
           <>
             <Dropdown items={dropdownItems}>

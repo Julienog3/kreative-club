@@ -64,7 +64,7 @@ const Modal = ({
           borderRadius: "13px",
           bgColor: "#fff",
           padding: "1.5rem",
-          w: "400px",
+          minW: "400px",
         })}
       >
         <div

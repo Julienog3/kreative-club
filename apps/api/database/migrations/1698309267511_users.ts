@@ -14,6 +14,7 @@ export default class extends BaseSchema {
       table.string('last_name').nullable()
       table.string('phone_number').nullable()
       table.string('avatar').nullable()
+      table.boolean('portfolio_enabled').notNullable().defaultTo(false)
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

@@ -9,7 +9,8 @@ export default class extends BaseSeeder {
       password: "admin",
       firstName: "Julien",
       lastName: "Auger",
-      role: Role.Admin
+      role: Role.Admin,
+      portfolioEnabled: true
     })
     // Write your database queries inside the run method
   }

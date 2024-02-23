@@ -6,6 +6,9 @@ import { useState } from "react";
 import { RiDeleteBin5Fill } from "@react-icons/all-files/ri/RiDeleteBin5Fill";
 import { animated, useSpring } from "@react-spring/web";
 import { useDeletePortfolioImage } from "#root/src/api/portfolio/deletePortfolioImage";
+import { FaImage } from "@react-icons/all-files/fa/FaImage";
+import { usePageContext } from "vike-react/usePageContext";
+import { usePortfolioFolderIllustration } from "#root/src/api/portfolio/setPortfolioIllustration";
 
 type PortfolioImageCardProps = {
   portfolioImage: PortfolioImage;
@@ -18,6 +21,13 @@ export const PortfolioImageCard = ({
   const deletePortfolioImage = useDeletePortfolioImage(
     portfolioImage?.portfolioFolderId,
   );
+
+  const { user } = usePageContext();
+
+  const setIllustrationPortfolioFolder = usePortfolioFolderIllustration(
+    user.id,
+  );
+
   const [isCardHovered, setIsCardHovered] = useState<boolean>(false);
 
   const buttonStyle = useSpring({
@@ -31,19 +41,37 @@ export const PortfolioImageCard = ({
       onMouseEnter={() => setIsCardHovered(true)}
       onMouseLeave={() => setIsCardHovered(false)}
     >
-      {isCardHovered && (
-        <animated.div
-          className={css({ pos: "absolute", right: 0, p: ".5rem" })}
-          style={buttonStyle}
-        >
-          <Button
-            variant="danger"
-            onClick={() => deletePortfolioImage.mutate(portfolioImage.id)}
-          >
-            <RiDeleteBin5Fill />
-          </Button>
-        </animated.div>
-      )}
+      <div
+        className={css({
+          pos: "absolute",
+          display: "flex",
+          right: 0,
+          p: ".5rem",
+          gap: ".5rem",
+        })}
+      >
+        <>
+          <animated.div style={buttonStyle}>
+            <Button
+              variant="warning"
+              onClick={() =>
+                setIllustrationPortfolioFolder.mutate(portfolioImage.id)
+              }
+            >
+              <FaImage />
+            </Button>
+          </animated.div>
+
+          <animated.div style={buttonStyle}>
+            <Button
+              variant="danger"
+              onClick={() => deletePortfolioImage.mutate(portfolioImage.id)}
+            >
+              <RiDeleteBin5Fill />
+            </Button>
+          </animated.div>
+        </>
+      </div>
       <img
         className={css({
           objectFit: "cover",

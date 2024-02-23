@@ -28,6 +28,9 @@ export default class PortfolioImage extends BaseModel {
   @belongsTo(() => User)
   declare portfolioFolder: BelongsTo<typeof User>
 
+  @column()
+  declare isIllustration: boolean
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

@@ -4,6 +4,10 @@ export const card = cva({
   base: {
     layerStyle: "container",
     overflow: "hidden",
+    // transition: "all .5s",
+    // _hover: {
+    //   boxShadow: "5px 5px 0px black",
+    // },
   },
   variants: {
     shadow: {

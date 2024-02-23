@@ -2,6 +2,7 @@ import app from '@adonisjs/core/services/app';
 import type { HttpContext } from '@adonisjs/core/http'
 import { createPortfolioImageValidator } from '#validators/portfolio_image';
 import PortfolioImage from '#models/portfolio_image';
+import User from '#models/user';
 
 export default class PortfolioImagesController {
   public async index({ params }: HttpContext) {
@@ -27,5 +28,12 @@ export default class PortfolioImagesController {
   public async destroy({ params }: HttpContext): Promise<void> {
     const portfolioImage = await PortfolioImage.findOrFail(params.portfolioImageId)
     await portfolioImage.delete()
+  }
+
+   public async setIsIllustration({ params }: HttpContext): Promise<void> {
+    await PortfolioImage.query().where('user_id', params.userId).update({ isIllustration: false })
+
+    const portfolioImage = await PortfolioImage.findOrFail(params.portfolioImageId)
+    await portfolioImage.merge({ isIllustration: true }).save()
   }
 }

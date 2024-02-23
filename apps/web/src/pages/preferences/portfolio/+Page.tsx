@@ -10,7 +10,6 @@ import { useTransition } from "@react-spring/web";
 import { PortfolioImageCard } from "./components/PortfolioImageCard";
 import { useStoreModal } from "#root/src/components/utils/Modal/Modal.store";
 import { useState } from "react";
-// import { PortfolioFolderCard } from "./components/PortfolioFolderCard";
 import { PortfolioFolderDetails } from "./components/PortfolioFolderDetails";
 import { PortfolioFolder } from "#root/types/portfolio";
 import { CreatePortfolioItemModal } from "./components/modals/CreatePortfolioItemModal";
@@ -26,11 +25,6 @@ function Page(): JSX.Element {
 
   const { data: portfolioImages } = usePortfolioImages(user.id);
   const { data: portfolioFolders } = usePortfolioFolders(user.id);
-
-  // const { data: portfolioFolders } = useQuery({
-  //   queryKey: ["portfolio-folders"],
-  //   queryFn: () => getUserPortfolioFolders(user.id),
-  // });
 
   const { isShowed, closeModal, openModal } = useStoreModal((state) => state);
 

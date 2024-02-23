@@ -4,6 +4,7 @@ import { randomUUID } from 'node:crypto'
 import PortfolioImage from '#models/portfolio_image'
 import User from '#models/user'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
+import Category from '#models/category'
 
 export default class PortfolioFolder extends BaseModel {
   public static selfAssignPrimaryKey = true
@@ -25,6 +26,9 @@ export default class PortfolioFolder extends BaseModel {
   
   @hasMany(() => PortfolioImage)
   public portfolioImages: HasMany<typeof PortfolioImage>
+
+  // @hasMany(() => Category)
+  // public categories: HasMany<typeof Category>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

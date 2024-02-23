@@ -47,6 +47,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column()
   declare avatar: string | null
 
+  @column()
+  declare portfolioEnabled: boolean
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

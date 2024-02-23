@@ -4,7 +4,8 @@ export interface PortfolioImage extends BaseModel {
   title: string;
   image: string;
   userId: string;
-  portfolioFolderId: string;
+  isIllustration: boolean;
+  portfolioFolderId?: string;
 }
 
 export interface PortfolioFolder extends BaseModel {

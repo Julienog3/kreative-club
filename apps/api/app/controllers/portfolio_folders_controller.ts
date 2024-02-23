@@ -1,7 +1,7 @@
 // import type { HttpContext } from '@adonisjs/core/http'
 
 import PortfolioFolder from "#models/portfolio_folder"
-import { createPortfolioFolderValidator } from "#validators/portfolio_folder"
+import { createPortfolioFolderValidator, setIllustrationImageValidator } from "#validators/portfolio_folder"
 import { HttpContext } from "@adonisjs/core/http"
 
 export default class PortfolioFoldersController {

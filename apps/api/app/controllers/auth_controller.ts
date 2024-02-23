@@ -29,7 +29,7 @@ export default class AuthController {
   }
 
   public async getMe({ auth }: HttpContext) {
-    const user =  await auth.authenticate()
+    const user = await auth.authenticate()
     return user
   }
 }

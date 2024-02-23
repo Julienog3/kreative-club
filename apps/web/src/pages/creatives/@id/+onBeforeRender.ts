@@ -1,8 +1,4 @@
-import { PageContextBuiltInServer } from "vike/types";
-
-export default async function onBeforeRender(
-  pageContext: PageContextBuiltInServer,
-) {
+export default async function onBeforeRender(pageContext) {
   const id = pageContext.routeParams!.id;
 
   return {

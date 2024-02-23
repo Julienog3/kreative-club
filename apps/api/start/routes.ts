@@ -52,11 +52,16 @@ router.group(async () => {
       router.get(':portfolioImageId', [PortfolioImagesController, 'show'])
       router.post('/', [PortfolioImagesController, 'store'])
       router.delete(':portfolioImageId', [PortfolioImagesController, 'destroy'])
+      router.post(':portfolioImageId/illustration', [PortfolioImagesController, 'setIsIllustration'])
     }).prefix('images')
+
     router.group(async () => {
       router.get('/', [PortfolioFoldersController, 'index'])
       router.post('/', [PortfolioFoldersController, 'store'])
     }).prefix('folders')
+
+    router.post('enable', [UsersController, 'enablePortfolio'])
+    router.get('illustration', [UsersController, 'getPortfolioIllustration'])
   }).prefix(':userId/portfolio')
 }).prefix('users')
 // .middleware(['auth'])

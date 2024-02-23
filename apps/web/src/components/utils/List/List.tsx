@@ -14,7 +14,11 @@ interface ListItemProps {
 }
 
 const List = ({ children }: ListProps & PropsWithChildren): JSX.Element => {
-  return <Card css={{ h: "fit-content" }}>{children}</Card>;
+  return (
+    <Card css={{ h: "fit-content", position: "sticky", top: "1rem" }}>
+      {children}
+    </Card>
+  );
 };
 
 const Header = ({ children, bgColor = "yellow" }: ListHeaderProps) => {

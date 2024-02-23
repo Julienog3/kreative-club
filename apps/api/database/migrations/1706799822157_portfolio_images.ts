@@ -8,6 +8,7 @@ export default class extends BaseSchema {
       table.string('id').unique()
       table.string('title').notNullable()
       table.string('image').notNullable()
+      table.boolean('is_illustration').notNullable().defaultTo(false)
       table
         .string('user_id')
         .references('users.id')
