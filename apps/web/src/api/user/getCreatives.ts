@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { api } from "..";
 import { User } from "../user";
 
@@ -7,7 +7,7 @@ export const getCreatives = async (): Promise<User[]> => {
 };
 
 export const useCreativesQuery = () => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ["creatives"],
     queryFn: () => getCreatives(),
   });
