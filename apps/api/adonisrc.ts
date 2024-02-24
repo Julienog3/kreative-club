@@ -1,4 +1,4 @@
-import { defineConfig } from "@adonisjs/core/app";
+import { defineConfig } from "@adonisjs/core/app"
 
 export default defineConfig({
   /*
@@ -10,7 +10,12 @@ export default defineConfig({
   | will be scanned automatically from the "./commands" directory.
   |
   */
-  commands: [() => import('@adonisjs/core/commands'), () => import('@adonisjs/lucid/commands'), () => import('@adonisjs/bouncer/commands')],
+  commands: [
+    () => import('@adonisjs/core/commands'), 
+    () => import('@adonisjs/lucid/commands'), 
+    () => import('@adonisjs/bouncer/commands'), 
+    () => import('adonis-sail/commands')
+  ],
   /*
   |--------------------------------------------------------------------------
   | Preloads
@@ -35,8 +40,8 @@ export default defineConfig({
   providers: [
     () => import('@adonisjs/core/providers/app_provider'),
     () => import('@adonisjs/core/providers/hash_provider'),
-    { 
-      "file": () => import('@adonisjs/core/providers/repl_provider'), 
+    {
+      "file": () => import('@adonisjs/core/providers/repl_provider'),
       "environment": ["repl", "test"]
     },
     () => import('@adonisjs/lucid/database_provider'),
@@ -65,4 +70,4 @@ export default defineConfig({
       }
     ]
   }
-});
+})

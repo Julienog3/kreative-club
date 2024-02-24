@@ -53,7 +53,7 @@ export default class UsersController {
   public async getPortfolioIllustration({ params }: HttpContext) {
     const user = await User.findOrFail(params.userId)
     return await PortfolioImage.query().where((query) => {
-      query.where('userId', user.id).andWhere('isIllustration', true).firstOrFail()
+      query.where('userId', user.id).andWhere('isIllustration', true).first()
     })
   }
 }

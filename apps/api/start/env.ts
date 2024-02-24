@@ -11,7 +11,7 @@
 | and hence do not rename or move this file to a different location.
 |
 */
-import { Env } from "@adonisjs/core/env";
+import { Env } from "@adonisjs/core/env"
 
 export default await Env.create(new URL("../", import.meta.url), {
   HOST: Env.schema.string({ format: 'host' }),
@@ -20,5 +20,16 @@ export default await Env.create(new URL("../", import.meta.url), {
   APP_NAME: Env.schema.string(),
   DRIVE_DISK: Env.schema.enum(['local'] as const),
   NODE_ENV: Env.schema.enum(['development', 'production', 'test'] as const),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring database connection
+  |----------------------------------------------------------
+  */
+  DB_HOST: Env.schema.string({ format: 'host' }),
+  DB_PORT: Env.schema.number(),
+  DB_USER: Env.schema.string(),
+  DB_PASSWORD: Env.schema.string.optional(),
+  DB_DATABASE: Env.schema.string()
 })
 
