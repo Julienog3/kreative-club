@@ -1,20 +1,20 @@
 import User from '../models/user.js'
 import app from '@adonisjs/core/services/app'
-import { schema } from '@adonisjs/validator'
 import type { HttpContext } from '@adonisjs/core/http'
-import { enablePortfolioValidator } from '#validators/user';
+import { editUserValidator, enablePortfolioValidator, uploadUserAvatarValidator } from '#validators/user';
 import PortfolioImage from '#models/portfolio_image';
 import { cuid } from '@adonisjs/core/helpers';
+import logger from '@adonisjs/core/services/logger';
 
 export default class UsersController {
   public async index({ request }: HttpContext) {
     const { portfolio_enabled } = request.qs()
 
     if (portfolio_enabled) {
-      return await User.query().where('portfolioEnabled', portfolio_enabled)
+      return await User.query().where('portfolioEnabled', portfolio_enabled).preload('categories')
     }
 
-    return await User.query();
+    return await User.query().preload('categories')
   }
 
   public async show({ params }: HttpContext) {
@@ -22,25 +22,28 @@ export default class UsersController {
   }
 
   public async edit({ request, params }: HttpContext) {
-    const userSchema = schema.create({
-      firstName: schema.string.optional(),
-      lastName: schema.string.optional(),
-      phoneNumber: schema.string.optional(),
-      avatar: schema.file.optional({ size: '2mb', extnames: ['jpg', 'png'] }),
-    })
-
     const user = await User.findOrFail(params.id)
-    const { avatar, ...payload } = await request.validate({ schema: userSchema })
+    const payload = await request.validateUsing(editUserValidator)
 
-    if (avatar) {
-      const fileUrl = `${cuid()}.${avatar.extname}`
-      await avatar.move(app.tmpPath('uploads', 'avatars'), {
-        name: fileUrl
-      })
-      await user.merge({...payload, avatar: '/uploads/avatars/' + fileUrl }).save()
+    const { categories } = payload
+
+    if (categories) {
+      await user.related('categories').sync(categories)
     }
     
-    await user.merge(payload).save()
+    return await user.merge(payload).save()
+  }
+
+  public async uploadUserAvatar({ request, params }: HttpContext) {
+    const user = await User.findOrFail(params.id)
+    const { avatar } = await request.validateUsing(uploadUserAvatarValidator)
+
+    const fileUrl = `${cuid()}.${avatar.extname}`
+    await avatar.move(app.tmpPath('uploads', 'avatars'), {
+      name: fileUrl
+    })
+      
+    return await user.merge({ avatar: '/uploads/avatars/' + fileUrl }).save()
   }
 
   public async enablePortfolio({ params, request }: HttpContext) {

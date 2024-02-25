@@ -11,8 +11,6 @@ const route: RouteSync = (pageContext): ReturnType<RouteSync> => {
 
   const id = pageContext.urlPathname.split("/")[2];
 
-  console.log(pageContext.urlPathname.split("/")[2]);
-
   return {
     routeParams: {
       id: id,

@@ -1,3 +1,4 @@
+import { Category } from "#root/types/category";
 import { PortfolioFolder, PortfolioImage } from "#root/types/portfolio";
 import { api } from ".";
 // import { parseCamelToSnakeCase } from "../helpers/format";
@@ -13,10 +14,11 @@ export type User = {
   username: string;
   email: string;
   password?: string;
-  firstname?: string;
-  lastname?: string;
+  firstName?: string;
+  lastName?: string;
   portfolioEnabled: boolean;
   avatar?: string;
+  categories: Category[];
 };
 
 export type UserPayload = User & {

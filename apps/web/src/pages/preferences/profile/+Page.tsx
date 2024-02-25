@@ -19,12 +19,15 @@ import { css } from "../../../../styled-system/css";
 import { PreferencesLayout } from "../../../components/layout/PreferencesLayout/PreferencesLayout";
 import { usePageContext } from "vike-react/usePageContext";
 import { ProfileCard } from "./ProfileCard";
-import { useUpdateUser } from "#root/src/api/user/updateUser";
+import {
+  useUpdateUser,
+  useUpdateUserAvatar,
+} from "#root/src/api/user/updateUser";
 import { Dropzone } from "#root/src/components/utils/Dropzone/Dropzone";
 
 const profileSchema = z.object({
-  firstname: z.string().optional(),
-  lastname: z.string().optional(),
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
   avatar: z.any().optional(),
 });
 
@@ -33,7 +36,8 @@ export { Page };
 function Page(): JSX.Element {
   const { user } = usePageContext();
 
-  const editProfile = useUpdateUser();
+  const editProfile = useUpdateUser(user.id);
+  const uploadAvatarProfile = useUpdateUserAvatar(user.id);
 
   const methods = useForm<FieldValues>({
     resolver: zodResolver(profileSchema),
@@ -49,21 +53,15 @@ function Page(): JSX.Element {
   } = methods;
 
   const onSubmit: SubmitHandler<FieldValues> = (profileData) => {
-    const payload = new FormData();
+    const { avatar, ...payload } = profileData;
 
-    if (profileData.firstname) {
-      payload.append("firstName", profileData.firstname);
+    if (avatar[0]) {
+      const avatarPayload = new FormData();
+      avatarPayload.append("avatar", profileData.avatar[0]);
+      uploadAvatarProfile.mutate(avatarPayload);
     }
 
-    if (profileData.lastname) {
-      payload.append("lastName", profileData.lastname);
-    }
-
-    if (profileData.avatar[0]) {
-      payload.append("avatar", profileData.avatar[0]);
-    }
-
-    editProfile.mutate({ id: user.id, payload });
+    editProfile.mutate(payload);
   };
 
   return (
@@ -87,7 +85,7 @@ function Page(): JSX.Element {
               >
                 <div className={gridItem()}>
                   <Input
-                    label="firstname"
+                    label="firstName"
                     control={control}
                     register={register}
                   />
@@ -100,7 +98,7 @@ function Page(): JSX.Element {
                 </div>
                 <div className={gridItem()}>
                   <Input
-                    label="lastname"
+                    label="lastName"
                     control={control}
                     register={register}
                   />

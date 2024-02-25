@@ -67,29 +67,20 @@ async function buildServer() {
   app.addHook("preHandler", async (request, reply) => {
     const { token } = request.cookies;
 
-    let user: any = null;
-
     if (token) {
       try {
-        const response = await ky
+        const user = await ky
           .get("http://127.0.0.1:3333/auth/me", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           })
           .json();
-
-        user = keysToCamel(
-          response as {
-            [key: string]: unknown;
-          },
-        );
+        request.user = user;
       } catch (error) {
         reply.clearCookie("token");
       }
     }
-
-    request.user = user;
   });
 
   app.post("/_auth/login", async (request, reply) => {

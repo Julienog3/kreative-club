@@ -2,7 +2,6 @@ import app from '@adonisjs/core/services/app';
 import type { HttpContext } from '@adonisjs/core/http'
 import { createPortfolioImageValidator } from '#validators/portfolio_image';
 import PortfolioImage from '#models/portfolio_image';
-import User from '#models/user';
 
 export default class PortfolioImagesController {
   public async index({ params }: HttpContext) {

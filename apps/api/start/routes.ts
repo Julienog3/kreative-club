@@ -45,6 +45,7 @@ router.group(async () => {
   router.get('/', [UsersController, 'index'])
   router.get(':id', [UsersController, 'show'])
   router.put(':id', [UsersController, 'edit'])
+  router.post(':id/avatar', [UsersController, 'uploadUserAvatar'])
 
   router.group(async () => {
     router.group(async () => {
@@ -66,12 +67,8 @@ router.group(async () => {
 }).prefix('users')
 // .middleware(['auth'])
 
-router.group(async () => {
-  router.get('/', [CategoriesController, 'index'])
-  router.post('/', [CategoriesController, 'store'])
-  router.delete(':id', [CategoriesController, 'destroy'])
-  router.get(':id', [CategoriesController, 'show'])
-}).prefix('categories')
+router.resource('categories', CategoriesController).apiOnly()
+
 
 router.get('/uploads/*', ({ request, response }) => {
   const filePath = request.param('*').join(sep)

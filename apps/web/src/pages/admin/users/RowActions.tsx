@@ -8,7 +8,6 @@ interface RowActionsProps {
 }
 
 export const RowActions = ({ row }: RowActionsProps) => {
-  console.log(row);
   return (
     <div className={hstack()}>
       <Button>Editer</Button>

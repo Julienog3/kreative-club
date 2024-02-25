@@ -26,8 +26,6 @@ const Header = (): JSX.Element => {
   const { logout } = useAuth();
   const { user } = usePageContext();
 
-  console.log({ user });
-
   const handleLogout = (): void => {
     // navigate("/");
     reload();

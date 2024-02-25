@@ -18,11 +18,11 @@ const columns = [
     header: () => "Nom d'utilisateur",
     cell: (info) => info.getValue(),
   }),
-  columnHelper.accessor("firstname", {
+  columnHelper.accessor("firstName", {
     header: () => "Prénom",
     cell: (info) => info.getValue(),
   }),
-  columnHelper.accessor("lastname", {
+  columnHelper.accessor("lastName", {
     header: () => "Nom",
     cell: (info) => info.getValue(),
   }),

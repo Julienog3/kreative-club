@@ -40,7 +40,7 @@ const HeaderProfile = ({ user }: HeaderProfileProps): JSX.Element => {
             fontWeight: "bold",
           })}
         >
-          {user?.firstname} {user?.lastname}
+          {user?.firstName} {user?.lastName}
         </span>
       </p>
     </div>

@@ -16,8 +16,6 @@ const CreativeCard = (props: CreativeCardProps) => {
   const getIllustrationUrl = () => {
     if (!portfolioImage) return;
 
-    console.log({ portfolioImage });
-
     return (
       import.meta.env.VITE_API_URL.slice(0, -1) +
       "/uploads/portfolio/images/" +
@@ -58,9 +56,10 @@ const CreativeCard = (props: CreativeCardProps) => {
           </div>
           <div className={vstack({ alignItems: "start" })}>
             <div className={hstack({ gap: ".25rem" })}>
-              <Chip>3D</Chip>
-              <Chip>Typographie</Chip>
-              <Chip>Illustration</Chip>
+              {props.categories.length &&
+                props.categories.map(({ id, title }) => (
+                  <Chip key={id}>{title}</Chip>
+                ))}
             </div>
             <p className={css({ textStyle: "body" })}>
               Nullam convallis lorem et leo elementum tempor. Curabitur a est
