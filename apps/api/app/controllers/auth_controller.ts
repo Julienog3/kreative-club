@@ -25,7 +25,7 @@ export default class AuthController {
     const payload = await request.validateUsing(registerUserValidator)
     const user = await User.create(payload)
 
-    return user
+    return user.preload('categories')
   }
 
   public async getMe({ auth }: HttpContext) {

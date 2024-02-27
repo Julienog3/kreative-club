@@ -1,4 +1,5 @@
 import {
+  Controller,
   FieldValues,
   FormProvider,
   SubmitHandler,
@@ -24,11 +25,18 @@ import {
   useUpdateUserAvatar,
 } from "#root/src/api/user/updateUser";
 import { Dropzone } from "#root/src/components/utils/Dropzone/Dropzone";
+import { Autocomplete } from "#root/src/components/utils/Autocomplete/Autocomplete";
 
 const profileSchema = z.object({
   firstName: z.string().optional(),
   lastName: z.string().optional(),
   avatar: z.any().optional(),
+  categories: z
+    .object({
+      id: z.number(),
+      title: z.string(),
+    })
+    .array(),
 });
 
 export { Page };
@@ -41,7 +49,7 @@ function Page(): JSX.Element {
 
   const methods = useForm<FieldValues>({
     resolver: zodResolver(profileSchema),
-    defaultValues: user,
+    defaultValues: { ...user, categories: [1, 2] },
   });
 
   const {
@@ -105,6 +113,13 @@ function Page(): JSX.Element {
                 </div>
                 <div className={gridItem({ colSpan: 2 })}>
                   <Dropzone label="avatar" />
+                </div>
+                <div className={gridItem({ colSpan: 2 })}>
+                  <Controller
+                    control={control}
+                    name="categories"
+                    render={({ field }) => <Autocomplete {...field} />}
+                  />
                 </div>
                 <div className={hstack()}>
                   <Button

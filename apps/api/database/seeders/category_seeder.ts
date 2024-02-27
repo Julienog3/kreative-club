@@ -12,6 +12,27 @@ export default class extends BaseSeeder {
       },
       {
         title: "Photographie"
+      },
+      {
+        title: "Design graphique"
+      },
+      {
+        title: "Illustration"
+      },
+      {
+        title: "Animation"
+      },
+      {
+        title: "Typographie"
+      },
+      {
+        title: "Photomanipulation"
+      },
+      {
+        title: "Art conceptuel"
+      },
+      {
+        title: "Infographie"
       }
     ])
     // Write your database queries inside the run method
