@@ -26,6 +26,7 @@ import {
 } from "#root/src/api/user/updateUser";
 import { Dropzone } from "#root/src/components/utils/Dropzone/Dropzone";
 import { Autocomplete } from "#root/src/components/utils/Autocomplete/Autocomplete";
+import { useUserQuery } from "#root/src/api/user/getUser";
 
 const profileSchema = z.object({
   firstName: z.string().optional(),
@@ -36,7 +37,8 @@ const profileSchema = z.object({
       id: z.number(),
       title: z.string(),
     })
-    .array(),
+    .array()
+    .optional(),
 });
 
 export { Page };
@@ -44,12 +46,14 @@ export { Page };
 function Page(): JSX.Element {
   const { user } = usePageContext();
 
+  const { data: profile } = useUserQuery(user.id);
+
   const editProfile = useUpdateUser(user.id);
   const uploadAvatarProfile = useUpdateUserAvatar(user.id);
 
   const methods = useForm<FieldValues>({
     resolver: zodResolver(profileSchema),
-    defaultValues: { ...user, categories: [1, 2] },
+    defaultValues: async () => profile,
   });
 
   const {

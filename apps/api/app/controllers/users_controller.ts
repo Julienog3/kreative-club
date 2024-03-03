@@ -18,7 +18,8 @@ export default class UsersController {
   }
 
   public async show({ params }: HttpContext) {
-    return await User.findOrFail(params.id);
+    return await User.query().where('id', params.id).preload('categories').firstOrFail()
+    // const user = await User.findOrFail(params.id);
   }
 
   public async edit({ request, params }: HttpContext) {
