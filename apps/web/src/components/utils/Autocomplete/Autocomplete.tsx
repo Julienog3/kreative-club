@@ -17,7 +17,11 @@ export const Autocomplete = forwardRef<
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [selectedValues, setSelectedValues] = useState<Category[]>([]);
 
-  // if (!categories) return;
+  useEffect(() => {
+    if (value) {
+      setSelectedValues(value);
+    }
+  }, []);
 
   const filteredCategories = categories?.filter((category) => {
     if (selectedValues.includes(category)) {
@@ -35,19 +39,15 @@ export const Autocomplete = forwardRef<
     setSelectedValues(newSelectedValues);
   };
 
+  const formattedSelectedValue = (values: number[]) => {
+    return values.map((categoryValue) => categories?.find());
+  };
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setIsExpanded(true);
     setSuggestionValue(e.target.value);
   };
-
-  useEffect(() => {
-    if (categories) {
-      setSelectedValues(
-        categories?.filter((category) => value.includes(category.id)),
-      );
-    }
-  }, []);
 
   return (
     <>
@@ -72,12 +72,61 @@ export const Autocomplete = forwardRef<
           {isExpanded ? "toggled" : "not toggled"}
         </Button>
       </div>
+
+      {isExpanded &&
+        categories &&
+        filteredCategories &&
+        filteredCategories?.length > 0 && (
+          <ul
+            className={vstack({
+              pos: "absolute",
+              border: "solid 2px black",
+              rounded: "10px",
+              gap: "0",
+              overflow: "hidden",
+              bgColor: "white",
+            })}
+          >
+            {filteredCategories.map((category, index) => (
+              <li
+                key={category.id}
+                className={hstack({
+                  textStyle: "body",
+                  p: ".5rem",
+                  justifyContent: "space-between",
+                  borderBottom:
+                    index === filteredCategories.length - 1
+                      ? ""
+                      : "solid 2px black",
+                  width: "100%",
+                  cursor: "pointer",
+                  _hover: {
+                    backgroundColor: "gray",
+                  },
+                })}
+                onClick={(): void => {
+                  setSelectedValues((selectedValues) => [
+                    ...selectedValues,
+                    category,
+                  ]);
+                  onChange([...value, category.id]);
+                  setIsExpanded(false);
+                }}
+              >
+                {category.title}
+              </li>
+            ))}
+          </ul>
+        )}
       {selectedValues && (
         <ul
           id="categorytypes"
           role="listbox"
           aria-label="Categories"
-          className={hstack({ alignItems: "start", mb: "1rem" })}
+          className={hstack({
+            alignItems: "start",
+            mb: "1rem",
+          })}
         >
           {selectedValues.map((selectedValue) => (
             <li role="option" key={selectedValue.id}>
@@ -89,46 +138,6 @@ export const Autocomplete = forwardRef<
                   x
                 </button>
               </Chip>
-            </li>
-          ))}
-        </ul>
-      )}
-      {isExpanded && filteredCategories && filteredCategories?.length > 0 && (
-        <ul
-          className={vstack({
-            border: "solid 2px black",
-            rounded: "10px",
-            gap: "0",
-            overflow: "hidden",
-          })}
-        >
-          {filteredCategories.map((category, index) => (
-            <li
-              key={category.id}
-              className={hstack({
-                textStyle: "body",
-                p: ".5rem",
-                justifyContent: "space-between",
-                borderBottom:
-                  index === filteredCategories.length - 1
-                    ? ""
-                    : "solid 2px black",
-                width: "100%",
-                cursor: "pointer",
-                _hover: {
-                  backgroundColor: "gray",
-                },
-              })}
-              onClick={(): void => {
-                setSelectedValues((selectedValues) => [
-                  ...selectedValues,
-                  category,
-                ]);
-                onChange([...value, category.id]);
-                setIsExpanded(false);
-              }}
-            >
-              {category.title}
             </li>
           ))}
         </ul>

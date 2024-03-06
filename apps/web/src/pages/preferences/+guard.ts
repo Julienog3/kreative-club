@@ -6,7 +6,7 @@ export { guard };
 const guard: GuardAsync = async (
   pageContext: PageContext,
 ): ReturnType<GuardAsync> => {
-  if (!pageContext.user) {
-    throw render("/");
-  }
+  // if (!pageContext.user) {
+  //   throw render("/");
+  // }
 };

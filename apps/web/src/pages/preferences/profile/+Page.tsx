@@ -27,18 +27,13 @@ import {
 import { Dropzone } from "#root/src/components/utils/Dropzone/Dropzone";
 import { Autocomplete } from "#root/src/components/utils/Autocomplete/Autocomplete";
 import { useUserQuery } from "#root/src/api/user/getUser";
+import { useEffect } from "react";
 
 const profileSchema = z.object({
   firstName: z.string().optional(),
   lastName: z.string().optional(),
   avatar: z.any().optional(),
-  categories: z
-    .object({
-      id: z.number(),
-      title: z.string(),
-    })
-    .array()
-    .optional(),
+  categories: z.number().array().optional(),
 });
 
 export { Page };
@@ -65,6 +60,8 @@ function Page(): JSX.Element {
   } = methods;
 
   const onSubmit: SubmitHandler<FieldValues> = (profileData) => {
+    console.log({ profileData });
+
     const { avatar, ...payload } = profileData;
 
     if (avatar[0]) {
@@ -75,6 +72,10 @@ function Page(): JSX.Element {
 
     editProfile.mutate(payload);
   };
+
+  useEffect(() => {
+    console.log("profilo", profile);
+  }, [profile]);
 
   return (
     <>
@@ -128,7 +129,7 @@ function Page(): JSX.Element {
                 <div className={hstack()}>
                   <Button
                     type="submit"
-                    disabled={!isDirty || editProfile.isPending}
+                    // disabled={!isDirty || editProfile.isPending}
                   >
                     Enregistrer
                   </Button>

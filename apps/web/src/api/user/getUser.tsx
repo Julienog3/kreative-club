@@ -10,5 +10,6 @@ export const useUserQuery = (userId: string) => {
   return useQuery({
     queryKey: ["user"],
     queryFn: () => getUser(userId),
+    enabled: !!userId,
   });
 };

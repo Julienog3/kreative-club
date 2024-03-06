@@ -4,7 +4,8 @@ import type { HttpContext } from '@adonisjs/core/http'
 import { editUserValidator, enablePortfolioValidator, uploadUserAvatarValidator } from '#validators/user';
 import PortfolioImage from '#models/portfolio_image';
 import { cuid } from '@adonisjs/core/helpers';
-import logger from '@adonisjs/core/services/logger';
+import Category from '#models/category';
+
 
 export default class UsersController {
   public async index({ request }: HttpContext) {
