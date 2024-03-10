@@ -28,6 +28,7 @@ import { Dropzone } from "#root/src/components/utils/Dropzone/Dropzone";
 import { Autocomplete } from "#root/src/components/utils/Autocomplete/Autocomplete";
 import { useUserQuery } from "#root/src/api/user/getUser";
 import { useEffect } from "react";
+import { ProfileForm } from "./components/ProfileForm";
 
 const profileSchema = z.object({
   firstName: z.string().optional(),
@@ -43,40 +44,6 @@ function Page(): JSX.Element {
 
   const { data: profile } = useUserQuery(user.id);
 
-  const editProfile = useUpdateUser(user.id);
-  const uploadAvatarProfile = useUpdateUserAvatar(user.id);
-
-  const methods = useForm<FieldValues>({
-    resolver: zodResolver(profileSchema),
-    defaultValues: async () => profile,
-  });
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    control,
-    formState: { isDirty },
-  } = methods;
-
-  const onSubmit: SubmitHandler<FieldValues> = (profileData) => {
-    console.log({ profileData });
-
-    const { avatar, ...payload } = profileData;
-
-    if (avatar[0]) {
-      const avatarPayload = new FormData();
-      avatarPayload.append("avatar", profileData.avatar[0]);
-      uploadAvatarProfile.mutate(avatarPayload);
-    }
-
-    editProfile.mutate(payload);
-  };
-
-  useEffect(() => {
-    console.log("profilo", profile);
-  }, [profile]);
-
   return (
     <>
       <PreferencesLayout>
@@ -91,52 +58,7 @@ function Page(): JSX.Element {
           >
             <h2 className={css({ textStyle: "title" })}>Profil</h2>
             <ProfileCard user={user} />
-            <FormProvider {...methods}>
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className={grid({ gap: "1rem", columns: 2, w: "100%" })}
-              >
-                <div className={gridItem()}>
-                  <Input
-                    label="firstName"
-                    control={control}
-                    register={register}
-                  />
-                </div>
-                <div className={gridItem()}>
-                  <Input label="phone" control={control} register={register} />
-                </div>
-                <div className={gridItem()}>
-                  <Input label="email" control={control} register={register} />
-                </div>
-                <div className={gridItem()}>
-                  <Input
-                    label="lastName"
-                    control={control}
-                    register={register}
-                  />
-                </div>
-                <div className={gridItem({ colSpan: 2 })}>
-                  <Dropzone label="avatar" />
-                </div>
-                <div className={gridItem({ colSpan: 2 })}>
-                  <Controller
-                    control={control}
-                    name="categories"
-                    render={({ field }) => <Autocomplete {...field} />}
-                  />
-                </div>
-                <div className={hstack()}>
-                  <Button
-                    type="submit"
-                    // disabled={!isDirty || editProfile.isPending}
-                  >
-                    Enregistrer
-                  </Button>
-                  <Button onClick={(): void => reset()}>Annuler</Button>
-                </div>
-              </form>
-            </FormProvider>
+            {profile && <ProfileForm user={profile} />}
           </div>
         </Card>
       </PreferencesLayout>

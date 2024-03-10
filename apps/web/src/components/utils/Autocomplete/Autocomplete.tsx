@@ -4,8 +4,9 @@ import { hstack, vstack } from "#root/styled-system/patterns";
 import { ChangeEvent, forwardRef, useEffect, useState } from "react";
 import { Category } from "#root/types/category";
 import Chip from "../Chip/Chip";
-import Button from "../Button/Button";
 import { ControllerRenderProps, FieldValues } from "react-hook-form";
+import { IoIosArrowDown } from "@react-icons/all-files/io/IoIosArrowDown";
+import { IoIosArrowUp } from "@react-icons/all-files/io/IoIosArrowUp";
 
 export const Autocomplete = forwardRef<
   HTMLInputElement,
@@ -18,10 +19,10 @@ export const Autocomplete = forwardRef<
   const [selectedValues, setSelectedValues] = useState<Category[]>([]);
 
   useEffect(() => {
-    if (value) {
-      setSelectedValues(value);
+    if (value && categories) {
+      setSelectedValues(formattedSelectedValue);
     }
-  }, []);
+  }, [categories]);
 
   const filteredCategories = categories?.filter((category) => {
     if (selectedValues.includes(category)) {
@@ -35,13 +36,16 @@ export const Autocomplete = forwardRef<
 
   const removeSelectedValue = (valueId: number) => {
     const newSelectedValues = selectedValues.filter(({ id }) => valueId !== id);
-    onChange(newSelectedValues);
+    console.log(newSelectedValues);
+    onChange(newSelectedValues.map(({ id }) => id));
+    console.log(value);
     setSelectedValues(newSelectedValues);
   };
 
-  const formattedSelectedValue = (values: number[]) => {
-    return values.map((categoryValue) => categories?.find());
-  };
+  const formattedSelectedValue: Category[] = value.map(
+    (categoryValue: number) =>
+      categories?.find((category) => category.id === categoryValue),
+  );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -51,7 +55,17 @@ export const Autocomplete = forwardRef<
 
   return (
     <>
-      <div className={hstack({ alignItems: "center", mb: ".5rem" })}>
+      <div
+        className={hstack({
+          alignItems: "center",
+          mb: ".5rem",
+          p: ".5rem",
+          border: "solid 2px black",
+          rounded: "10px",
+          w: "fit-content",
+          cursor: "pointer",
+        })}
+      >
         <input
           type="text"
           role="combobox"
@@ -59,18 +73,24 @@ export const Autocomplete = forwardRef<
           ref={ref}
           className={css({
             textStyle: "body",
-            p: ".5rem",
-            border: "solid 2px black",
-            rounded: "10px",
+            _focus: {
+              outline: "none",
+            },
           })}
           aria-expanded="false"
           tabIndex={0}
           value={suggestionValue}
           onChange={(e) => handleChange(e)}
         />
-        <Button onClick={(): void => setIsExpanded((value) => !value)}>
+        <button
+          type="button"
+          onClick={(): void => setIsExpanded((value) => !value)}
+        >
+          {isExpanded ? <IoIosArrowUp /> : <IoIosArrowDown />}
+        </button>
+        {/* <Button onClick={(): void => setIsExpanded((value) => !value)}>
           {isExpanded ? "toggled" : "not toggled"}
-        </Button>
+        </Button> */}
       </div>
 
       {isExpanded &&
