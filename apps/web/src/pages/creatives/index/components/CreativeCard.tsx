@@ -24,7 +24,10 @@ const CreativeCard = (props: CreativeCardProps) => {
   };
 
   return (
-    <Link href={`/creatives/${props.username}`}>
+    <Link
+      href={`/creatives/${props.username}`}
+      className={css({ borderRadius: "13px" })}
+    >
       <Card css={{ p: "1rem" }}>
         <div className={vstack({ alignItems: "start" })}>
           <div className={css({ position: "relative", width: "100%" })}>
@@ -46,7 +49,7 @@ const CreativeCard = (props: CreativeCardProps) => {
                 borderRadius: "15px",
                 border: "solid 2px #000",
                 w: "100%",
-                maxH: "14rem",
+                h: "14rem",
                 objectFit: "cover",
                 zIndex: "3",
               })}
@@ -55,12 +58,13 @@ const CreativeCard = (props: CreativeCardProps) => {
             />
           </div>
           <div className={vstack({ alignItems: "start" })}>
-            <div className={hstack({ gap: ".25rem" })}>
-              {props.categories.length &&
-                props.categories.map(({ id, title }) => (
+            {props.categories.length > 0 && (
+              <div className={hstack({ gap: ".25rem", flexWrap: "wrap" })}>
+                {props.categories.map(({ id, title }) => (
                   <Chip key={id}>{title}</Chip>
                 ))}
-            </div>
+              </div>
+            )}
             <p className={css({ textStyle: "body" })}>
               Nullam convallis lorem et leo elementum tempor. Curabitur a est
               risus.
@@ -78,6 +82,7 @@ const CreativeCard = (props: CreativeCardProps) => {
                   border: "solid 2px #000",
                   borderRadius: "12px",
                   width: "3rem",
+                  height: "3rem",
                 })}
                 src={import.meta.env.VITE_API_URL.slice(0, -1) + props?.avatar}
                 alt=""

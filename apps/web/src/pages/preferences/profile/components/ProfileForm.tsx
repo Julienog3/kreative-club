@@ -42,15 +42,11 @@ export const ProfileForm = ({ user }: ProfileFormProps) => {
   ) => {
     const { avatar, ...payload } = profileData;
 
-    console.log("onSubmit");
-
     if (avatar[0]) {
       const avatarPayload = new FormData();
       avatarPayload.append("avatar", profileData.avatar[0]);
       uploadAvatarProfile.mutate(avatarPayload);
     }
-
-    console.log("submited sa mère");
 
     editProfile.mutate(payload);
   };
@@ -60,7 +56,7 @@ export const ProfileForm = ({ user }: ProfileFormProps) => {
     register,
     handleSubmit,
     reset,
-    formState: { isDirty },
+    // formState: { isDirty },
   } = form;
 
   return (

@@ -13,7 +13,8 @@ export const getPortfolioIllustration = async (
 
 export const usePortfolioIllustrationQuery = (userId: string) => {
   return useQuery({
-    queryKey: ["portfolio", userId, "images"],
+    queryKey: ["portfolio-illustration", userId],
     queryFn: () => getPortfolioIllustration(userId),
+    enabled: !!userId,
   });
 };

@@ -36,9 +36,7 @@ export const Autocomplete = forwardRef<
 
   const removeSelectedValue = (valueId: number) => {
     const newSelectedValues = selectedValues.filter(({ id }) => valueId !== id);
-    console.log(newSelectedValues);
     onChange(newSelectedValues.map(({ id }) => id));
-    console.log(value);
     setSelectedValues(newSelectedValues);
   };
 
@@ -56,6 +54,7 @@ export const Autocomplete = forwardRef<
   return (
     <>
       <div
+        onClick={(): void => setIsExpanded((value) => !value)}
         className={hstack({
           alignItems: "center",
           mb: ".5rem",
@@ -64,12 +63,15 @@ export const Autocomplete = forwardRef<
           rounded: "10px",
           w: "fit-content",
           cursor: "pointer",
+          bgColor: "white",
         })}
       >
         <input
           type="text"
           role="combobox"
           id="categories"
+          placeholder="Entrez une catégorie"
+          autoComplete="off"
           ref={ref}
           className={css({
             textStyle: "body",
@@ -82,12 +84,7 @@ export const Autocomplete = forwardRef<
           value={suggestionValue}
           onChange={(e) => handleChange(e)}
         />
-        <button
-          type="button"
-          onClick={(): void => setIsExpanded((value) => !value)}
-        >
-          {isExpanded ? <IoIosArrowUp /> : <IoIosArrowDown />}
-        </button>
+        {isExpanded ? <IoIosArrowUp /> : <IoIosArrowDown />}
         {/* <Button onClick={(): void => setIsExpanded((value) => !value)}>
           {isExpanded ? "toggled" : "not toggled"}
         </Button> */}
@@ -105,6 +102,7 @@ export const Autocomplete = forwardRef<
               gap: "0",
               overflow: "hidden",
               bgColor: "white",
+              zIndex: "999",
             })}
           >
             {filteredCategories.map((category, index) => (
