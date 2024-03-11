@@ -1,4 +1,4 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { api } from "..";
 import { Category } from "#root/types/category";
 
@@ -7,7 +7,7 @@ export const getCategories = async (): Promise<Category[]> => {
 };
 
 export const useCategories = () => {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ["categories"],
     queryFn: () => getCategories(),
   });

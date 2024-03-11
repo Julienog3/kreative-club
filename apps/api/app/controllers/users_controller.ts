@@ -4,12 +4,15 @@ import type { HttpContext } from '@adonisjs/core/http'
 import { editUserValidator, enablePortfolioValidator, uploadUserAvatarValidator } from '#validators/user';
 import PortfolioImage from '#models/portfolio_image';
 import { cuid } from '@adonisjs/core/helpers';
-import logger from '@adonisjs/core/services/logger';
 
 
 export default class UsersController {
   public async index({ request }: HttpContext) {
-    const { portfolio_enabled, categories } = request.qs()
+    const { portfolio_enabled, categories, username } = request.qs()
+
+    if (username) {
+     return await User.query().where('username', username).preload('categories').firstOrFail()
+    }
 
     if (categories) {
       return await User.query().whereHas('categories', (categoriesQuery) => {
