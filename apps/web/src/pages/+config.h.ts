@@ -9,6 +9,6 @@ export default {
   Head,
   title: "Kreative club app",
   clientRouting: true,
-  passToClient: ["user", "routeParams"],
+  passToClient: ["user", "userToken", "routeParams"],
   extends: [vikeReact, vikeReactQuery],
 } satisfies Config;

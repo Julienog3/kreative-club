@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, beforeCreate, column, manyToMany } from '@adonisjs/lucid/orm'
+import { BaseModel, beforeCreate, belongsTo, column, manyToMany } from '@adonisjs/lucid/orm'
 import hash from '@adonisjs/core/services/hash'
 import { randomUUID } from 'node:crypto'
 import { compose } from '@adonisjs/core/helpers'
@@ -56,6 +56,15 @@ export default class User extends compose(BaseModel, AuthFinder) {
     pivotTable: 'user_categories'
   })
   declare categories: ManyToMany<typeof Category>
+
+  @manyToMany(() => User, {
+    localKey: 'id',
+    pivotForeignKey: 'user_id',
+    pivotTable: 'user_bookmarks',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'creative_id',
+  })
+  declare bookmarks: ManyToMany<typeof User>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

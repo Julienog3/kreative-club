@@ -50,27 +50,29 @@ export const PortfolioImageCard = ({
           gap: ".5rem",
         })}
       >
-        <>
-          <animated.div style={buttonStyle}>
-            <Button
-              variant="warning"
-              onClick={() =>
-                setIllustrationPortfolioFolder.mutate(portfolioImage.id)
-              }
-            >
-              <FaImage />
-            </Button>
-          </animated.div>
+        {user.id === portfolioImage.userId && (
+          <>
+            <animated.div style={buttonStyle}>
+              <Button
+                variant="warning"
+                onClick={() =>
+                  setIllustrationPortfolioFolder.mutate(portfolioImage.id)
+                }
+              >
+                <FaImage />
+              </Button>
+            </animated.div>
 
-          <animated.div style={buttonStyle}>
-            <Button
-              variant="danger"
-              onClick={() => deletePortfolioImage.mutate(portfolioImage.id)}
-            >
-              <RiDeleteBin5Fill />
-            </Button>
-          </animated.div>
-        </>
+            <animated.div style={buttonStyle}>
+              <Button
+                variant="danger"
+                onClick={() => deletePortfolioImage.mutate(portfolioImage.id)}
+              >
+                <RiDeleteBin5Fill />
+              </Button>
+            </animated.div>
+          </>
+        )}
       </div>
       <img
         className={css({

@@ -2,11 +2,9 @@ import { PropsWithChildren } from "react";
 import { State } from "..";
 import { button } from "./Button.style";
 
-export interface ButtonProps {
-  type?: "button" | "submit" | "reset";
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: State;
-  disabled?: boolean;
-  onClick?: () => void;
 }
 
 const Button = ({

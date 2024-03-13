@@ -12,6 +12,7 @@ export const chip = cva({
     transition: "background",
     rounded: "999px",
     color: "black",
+    whiteSpace: "nowrap",
   },
   variants: {},
 });

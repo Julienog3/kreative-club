@@ -12,7 +12,8 @@ const HeaderProfile = ({ user }: HeaderProfileProps): JSX.Element => {
       className={hstack({
         border: "2px solid black",
         rounded: "10px",
-        padding: ".5rem",
+        h: "3.25rem",
+        paddingX: ".5rem",
         backgroundColor: "gray",
       })}
     >

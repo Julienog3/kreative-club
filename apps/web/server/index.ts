@@ -1,8 +1,6 @@
 import Fastify from "fastify";
 import { renderPage } from "vike/server";
 import { root } from "./root.js";
-// import { api } from "../src/api";
-import { keysToCamel } from "../src/helpers/format.ts";
 import ky from "ky";
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -58,7 +56,6 @@ async function buildServer() {
   }
 
   app.addHook("onError", (request, reply, error, done) => {
-    console.log({ error });
     // Some code
     // reply.clearCookie("token");
     done();
@@ -108,7 +105,6 @@ async function buildServer() {
 
   app.post("/_auth/logout", async (request, reply) => {
     const { token } = request.cookies;
-    console.log("logout");
 
     await ky
       .post("http://127.0.0.1:3333/auth/logout", {
@@ -124,12 +120,12 @@ async function buildServer() {
 
   app.get("*", async (request, reply) => {
     const user = request.user;
-
-    // console.log({ request });
+    const { token } = request.cookies;
 
     const pageContextInit = {
       urlOriginal: request.raw.url || "",
       user,
+      userToken: token,
     };
     const pageContext = await renderPage(pageContextInit);
     const { httpResponse } = pageContext;

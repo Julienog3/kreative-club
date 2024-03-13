@@ -1,5 +1,5 @@
 import { css } from "../../../../styled-system/css";
-import { hstack, vstack } from "../../../../styled-system/patterns";
+import { center, hstack, vstack } from "../../../../styled-system/patterns";
 import Button from "../../utils/Button/Button";
 import { useAuth } from "../../../hooks/useAuth";
 import { useStoreAuthModal } from "../../modals/AuthModal/AuthModal.store";
@@ -11,6 +11,7 @@ import { BsFillGearFill } from "@react-icons/all-files/bs/BsFillGearFill";
 import { IoHelpBuoySharp } from "@react-icons/all-files/io5/IoHelpBuoySharp";
 import { BiExit } from "@react-icons/all-files/bi/BiExit";
 import { MdDashboard } from "@react-icons/all-files/md/MdDashboard";
+import { IoBookmark } from "@react-icons/all-files/io5/IoBookmark";
 
 import HeaderProfile from "./HeaderProfile";
 import { Link } from "#root/src/components/Link";
@@ -21,13 +22,11 @@ import { usePageContext } from "vike-react/usePageContext";
 const Header = (): JSX.Element => {
   const openModal = useStoreAuthModal(({ openModal }) => openModal);
   const addItem = useSnackbarStore(({ addItem }) => addItem);
-  // const navigate = useNavigate();
 
   const { logout } = useAuth();
   const { user } = usePageContext();
 
   const handleLogout = (): void => {
-    // navigate("/");
     reload();
     addItem({ type: "success", message: "vous etes bien déconnecté" });
   };
@@ -86,12 +85,28 @@ const Header = (): JSX.Element => {
           alt="Logo Kreative club"
         />
       </Link>
-      <div className={hstack({ gap: "1.5rem" })}>
+      <div className={hstack({ gap: "1rem" })}>
         <Link href="/creatives">
           <p className={css({ textStyle: "body" })}>Découvrir</p>
         </Link>
         <Link href="/messages">
           <p className={css({ textStyle: "body" })}>Messagerie</p>
+        </Link>
+
+        <Link href="/bookmarks">
+          <button
+            className={center({
+              border: "2px solid black",
+              rounded: "10px",
+              padding: ".5rem",
+              h: "3.25rem",
+              w: "3.25rem",
+              backgroundColor: "gray",
+              cursor: "pointer",
+            })}
+          >
+            <IoBookmark />
+          </button>
         </Link>
         {user ? (
           <>

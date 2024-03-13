@@ -7,11 +7,16 @@ import Chip from "../../../../components/utils/Chip/Chip";
 import { User } from "#root/src/api/user";
 import { Link } from "#root/src/components/Link";
 import { usePortfolioIllustrationQuery } from "#root/src/api/portfolio/getPortfolioIllustration";
+import React from "react";
+import { usePageContext } from "vike-react/usePageContext";
+import { useAddBoomarkQuery } from "#root/src/api/bookmarks/addBookmark";
 
 interface CreativeCardProps extends User {}
 
 const CreativeCard = (props: CreativeCardProps) => {
   const { data: portfolioImage } = usePortfolioIllustrationQuery(props.id);
+  const { userToken } = usePageContext();
+  const addBookmark = useAddBoomarkQuery(userToken);
 
   const getIllustrationUrl = () => {
     if (!portfolioImage) return;
@@ -21,6 +26,12 @@ const CreativeCard = (props: CreativeCardProps) => {
       "/uploads/portfolio/images/" +
       portfolioImage.image
     );
+  };
+
+  const handleAddBookmark = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    addBookmark.mutate(props.id);
   };
 
   return (
@@ -34,12 +45,12 @@ const CreativeCard = (props: CreativeCardProps) => {
             <div
               className={css({
                 position: "absolute",
-                zIndex: 4,
+                zIndex: 999,
                 top: "1rem",
                 right: "1rem",
               })}
             >
-              <Button variant="danger">
+              <Button variant="danger" onClick={(e) => handleAddBookmark(e)}>
                 <IoBookmark />
               </Button>
             </div>
@@ -58,7 +69,7 @@ const CreativeCard = (props: CreativeCardProps) => {
             />
           </div>
           <div className={vstack({ alignItems: "start" })}>
-            {props.categories.length > 0 && (
+            {props.categories && props.categories.length > 0 && (
               <div className={hstack({ gap: ".25rem", flexWrap: "wrap" })}>
                 {props.categories.map(({ id, title }) => (
                   <Chip key={id}>{title}</Chip>

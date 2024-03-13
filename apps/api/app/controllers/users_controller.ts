@@ -28,7 +28,11 @@ export default class UsersController {
   }
 
   public async show({ params }: HttpContext) {
-    return await User.query().where('id', params.id).preload('categories').firstOrFail()
+    return await User.query()
+      .where('id', params.id)
+      .preload('categories')
+      .preload('bookmarks')
+      .firstOrFail()
     // const user = await User.findOrFail(params.id);
   }
 
@@ -69,5 +73,20 @@ export default class UsersController {
     return await PortfolioImage.query().where((query) => {
       query.where('userId', user.id).andWhere('isIllustration', true).first()
     })
+  }
+
+  public async addBookmark({ auth, params }: HttpContext) {
+    const user: User = await auth.getUserOrFail()
+    await user.related('bookmarks').attach([params.creativeId])
+  }
+
+  public async removeBookmark({ auth, params }: HttpContext) {
+    const user: User = await auth.getUserOrFail()
+    await user.related('bookmarks').detach([params.creativeId])
+  }
+
+  public async showBookmarks({ auth }: HttpContext) {
+    const user: User = auth.getUserOrFail()
+    return await user.related('bookmarks').query()
   }
 }
