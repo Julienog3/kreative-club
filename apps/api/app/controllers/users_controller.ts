@@ -5,7 +5,6 @@ import { editUserValidator, enablePortfolioValidator, uploadUserAvatarValidator 
 import PortfolioImage from '#models/portfolio_image';
 import { cuid } from '@adonisjs/core/helpers';
 
-
 export default class UsersController {
   public async index({ request }: HttpContext) {
     const { portfolio_enabled, categories, username } = request.qs()
@@ -87,6 +86,6 @@ export default class UsersController {
 
   public async showBookmarks({ auth }: HttpContext) {
     const user: User = auth.getUserOrFail()
-    return await user.related('bookmarks').query()
+    return await user.related('bookmarks').query().preload('categories')
   }
 }

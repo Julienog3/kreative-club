@@ -7,6 +7,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { RowActions } from "./RowActions";
+import Chip from "#root/src/components/utils/Chip/Chip";
 
 interface UsersTableProps {
   data: User[];
@@ -32,7 +33,7 @@ const columns = [
   }),
   columnHelper.accessor("role", {
     header: () => "Rôle",
-    cell: (info) => info.getValue(),
+    cell: (info) => <Chip>{info.getValue()}</Chip>,
   }),
   columnHelper.display({
     id: "actions",
@@ -51,7 +52,7 @@ export const UsersTable = ({ data }: UsersTableProps) => {
     <div>
       <table
         className={css({
-          border: "solid 3px black",
+          // border: "solid 3px black",
           borderRadius: "10px",
           textStyle: "body",
           // borderSpacing: 0,

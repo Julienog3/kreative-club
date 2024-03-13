@@ -1,5 +1,4 @@
 import { getUsers } from "#root/src/api/user";
-import { AdminLayout } from "#root/src/components/layout/AdminLayout/AdminLayout";
 import Card from "#root/src/components/utils/Card/Card";
 import { css } from "#root/styled-system/css";
 import { vstack } from "#root/styled-system/patterns";
@@ -15,20 +14,18 @@ function Page() {
   });
 
   return (
-    <AdminLayout>
-      <Card css={{ width: "100%", height: "100%" }}>
-        <div
-          className={vstack({
-            w: "100%",
-            alignItems: "flex-start",
-            p: "1rem",
-            height: "100%",
-          })}
-        >
-          <h2 className={css({ textStyle: "subtitle" })}>Utilisateurs</h2>
-          {users && <UsersTable data={users} />}
-        </div>
-      </Card>
-    </AdminLayout>
+    <Card css={{ width: "100%", height: "100%" }}>
+      <div
+        className={vstack({
+          w: "100%",
+          alignItems: "flex-start",
+          p: "1rem",
+          height: "100%",
+        })}
+      >
+        <h2 className={css({ textStyle: "subtitle" })}>Utilisateurs</h2>
+        {users && <UsersTable data={users} />}
+      </div>
+    </Card>
   );
 }

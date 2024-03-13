@@ -20,9 +20,11 @@ function Page() {
         width: "100%",
         maxWidth: "breakpoint-xl",
         margin: "0 auto",
+        alignItems: "start",
+        pt: "2rem",
       })}
     >
-      <h2 className={css({ textStyle: "subtitle" })}>Mes signets</h2>
+      <h2 className={css({ textStyle: "title", mb: "1rem" })}>Mes signets</h2>
       <ul className={grid({ columns: 3, h: "100%", gap: "1.5rem" })}>
         {creatives &&
           creatives.map((creative) => (

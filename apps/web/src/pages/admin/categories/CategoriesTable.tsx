@@ -43,7 +43,6 @@ export const CategoriesTable = ({ data }: CategoriesTableProps) => {
     <div>
       <table
         className={css({
-          border: "solid 3px black",
           borderRadius: "10px",
           textStyle: "body",
           // borderSpacing: 0,
@@ -51,7 +50,7 @@ export const CategoriesTable = ({ data }: CategoriesTableProps) => {
           // overflow: "hidden",
         })}
       >
-        <thead className={css({ borderBottom: "3px solid black" })}>
+        <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id} className={css({ p: "1rem" })}>
               {headerGroup.headers.map((header) => (
