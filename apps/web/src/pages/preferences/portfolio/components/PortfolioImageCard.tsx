@@ -12,11 +12,13 @@ import { usePortfolioFolderIllustration } from "#root/src/api/portfolio/setPortf
 
 type PortfolioImageCardProps = {
   portfolioImage: PortfolioImage;
+  isEditionMode?: boolean;
   // onDelete: (portfolioImageId: string) => void;
 };
 
 export const PortfolioImageCard = ({
   portfolioImage, // onDelete,
+  isEditionMode = false,
 }: PortfolioImageCardProps) => {
   const deletePortfolioImage = useDeletePortfolioImage(
     portfolioImage?.portfolioFolderId,
@@ -50,7 +52,7 @@ export const PortfolioImageCard = ({
           gap: ".5rem",
         })}
       >
-        {user.id === portfolioImage.userId && (
+        {isEditionMode && user.id === portfolioImage.userId && (
           <>
             <animated.div style={buttonStyle}>
               <Button

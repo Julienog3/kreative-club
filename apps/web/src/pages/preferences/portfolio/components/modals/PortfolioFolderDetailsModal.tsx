@@ -2,8 +2,10 @@ import Modal, {
   modalTransitionConfig,
 } from "#root/src/components/utils/Modal/Modal";
 import { useTransition } from "@react-spring/web";
-import { PortfolioFolderDetails } from "../PortfolioFolderDetails";
 import { PortfolioFolder } from "#root/types/portfolio";
+import { PortfolioList } from "../PortfolioList";
+import { css } from "#root/styled-system/css";
+import { vstack } from "#root/styled-system/patterns";
 
 interface PortfolioFolderDetailsModalProps {
   isShowed: boolean;
@@ -27,9 +29,18 @@ export const PortfolioFolderDetailsModal = ({
               style={{ ...style }}
               onClose={() => closeModal()}
             >
-              {portfolioFolder && (
-                <PortfolioFolderDetails portfolioFolder={portfolioFolder} />
-              )}
+              <div className={vstack({ alignItems: "start" })}>
+                <p className={css({ textStyle: "body", mb: "1.5rem" })}>
+                  {portfolioFolder?.description}
+                </p>
+                {portfolioFolder && portfolioFolder.portfolioImages && (
+                  <PortfolioList
+                    mode="preview"
+                    elements={portfolioFolder.portfolioImages}
+                    portfolioFolderId={portfolioFolder.id}
+                  />
+                )}
+              </div>
             </Modal>
           )}
         </>

@@ -5,17 +5,32 @@ import { useCreativeQuery } from "#root/src/api/user/getCreative";
 import Card from "#root/src/components/utils/Card/Card";
 import Chip from "#root/src/components/utils/Chip/Chip";
 import Button from "#root/src/components/utils/Button/Button";
-import { PortfolioImageCard } from "../../preferences/portfolio/components/PortfolioImageCard";
 import { usePortfolioImages } from "#root/src/api/portfolio/getPortfolioImages";
 import { useAddBoomarkQuery } from "#root/src/api/bookmarks/addBookmark";
+import { usePortfolioFolders } from "#root/src/api/portfolio/getPortflioFolders";
+import { useMemo } from "react";
+import { PortfolioList } from "../../preferences/portfolio/components/PortfolioList";
 
 export { Page };
 
 function Page(): JSX.Element {
   const { userToken, routeParams } = usePageContext();
   const { data: creative } = useCreativeQuery(routeParams!.id);
-  const { data: portfolioImages } = usePortfolioImages(creative.id);
   const addBookmark = useAddBoomarkQuery(userToken);
+
+  const { data: portfolioImages } = usePortfolioImages(creative.id);
+  const { data: portfolioFolders } = usePortfolioFolders(creative.id);
+
+  const portfolioElements = useMemo(
+    () =>
+      portfolioImages && portfolioFolders
+        ? [...portfolioImages, ...portfolioFolders].sort(
+            (a, b) =>
+              new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
+          )
+        : [],
+    [portfolioImages, portfolioFolders],
+  );
 
   return (
     <div
@@ -32,18 +47,7 @@ function Page(): JSX.Element {
         <div className={gridItem({ colSpan: 4 })}>
           <Card css={{ p: "1rem" }}>
             <h3 className={css({ textStyle: "subtitle" })}>Portfolio</h3>
-            <ul>
-              {portfolioImages &&
-                portfolioImages.map((portfolioImage) => (
-                  <li
-                    className={(gridItem(), vstack({ textStyle: "body" }))}
-                    key={portfolioImage.id}
-                  >
-                    <PortfolioImageCard portfolioImage={portfolioImage} />
-                    <p>{portfolioImage.title}</p>
-                  </li>
-                ))}
-            </ul>
+            <PortfolioList mode="preview" elements={portfolioElements} />
           </Card>
         </div>
         <div
@@ -79,7 +83,7 @@ function Page(): JSX.Element {
             </div>
             <div>
               <h3 className={css({ textStyle: "subtitle" })}>A propos</h3>
-              <p>
+              <p className={css({ textStyle: "body" })}>
                 Nullam convallis lorem et leo elementum tempor. Curabitur a est
                 risus. Proin eleifend elit luctus lorem porta, sit amet
                 vulputate diam varius. Donec ultrices viverra urna, rhoncus

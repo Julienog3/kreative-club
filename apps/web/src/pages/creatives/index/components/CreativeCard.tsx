@@ -2,7 +2,7 @@ import { css } from "../../../../../styled-system/css";
 import { hstack, vstack } from "../../../../../styled-system/patterns";
 import Button from "../../../../components/utils/Button/Button";
 import Card from "../../../../components/utils/Card/Card";
-import { IoBookmark } from "@react-icons/all-files/io5/IoBookmark";
+import { IoBookmarkOutline } from "@react-icons/all-files/io5/IoBookmarkOutline";
 import Chip from "../../../../components/utils/Chip/Chip";
 import { User } from "#root/src/api/user";
 import { Link } from "#root/src/components/Link";
@@ -51,7 +51,7 @@ const CreativeCard = (props: CreativeCardProps) => {
               })}
             >
               <Button variant="danger" onClick={(e) => handleAddBookmark(e)}>
-                <IoBookmark />
+                <IoBookmarkOutline />
               </Button>
             </div>
             <img

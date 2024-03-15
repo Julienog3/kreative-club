@@ -65,6 +65,7 @@ const Modal = ({
           bgColor: "#fff",
           padding: "1.5rem",
           minW: "400px",
+          maxW: "1000px",
         })}
       >
         <div

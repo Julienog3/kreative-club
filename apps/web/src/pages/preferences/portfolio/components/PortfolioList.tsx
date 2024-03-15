@@ -7,19 +7,38 @@ import { PortfolioImageCard } from "./PortfolioImageCard";
 import { gridItem, vstack } from "#root/styled-system/patterns";
 import { useStoreModal } from "#root/src/components/utils/Modal/Modal.store";
 import { CreatePortfolioItemModal } from "./modals/CreatePortfolioItemModal";
+import { PortfolioFolderDetailsModal } from "./modals/PortfolioFolderDetailsModal";
+import { useState } from "react";
 
 interface PortfolioListProps {
+  mode?: "preview" | "edition";
   elements: (PortfolioFolder | PortfolioImage)[];
   onPortfolioFolderSelect?: (id: string) => void;
   portfolioFolderId?: string;
 }
 
 export const PortfolioList = ({
+  mode = "preview",
   elements,
   onPortfolioFolderSelect,
   portfolioFolderId,
 }: PortfolioListProps) => {
   const { isShowed, closeModal, openModal } = useStoreModal((state) => state);
+  const [portfolioFolderSelected, setPortfolioFolderSelected] =
+    useState<PortfolioFolder>();
+  const [isPortfolioFolderModalShowed, setIsPortfolioFolderModalShowed] =
+    useState(false);
+
+  const onPortfolioFolderClick = (portfolioFolder: PortfolioFolder) => {
+    if (mode === "edition" && onPortfolioFolderSelect) {
+      onPortfolioFolderSelect(portfolioFolder.id);
+    }
+
+    if (mode === "preview") {
+      setPortfolioFolderSelected(portfolioFolder);
+      setIsPortfolioFolderModalShowed(true);
+    }
+  };
 
   const renderPortfolioElement = (
     element: PortfolioFolder | PortfolioImage,
@@ -28,16 +47,17 @@ export const PortfolioList = ({
       return (
         <PortfolioFolderCard
           portfolioFolder={element}
-          onClick={() =>
-            onPortfolioFolderSelect ? onPortfolioFolderSelect(element.id) : null
-          }
+          onClick={() => onPortfolioFolderClick(element as PortfolioFolder)}
         />
       );
     }
 
     return (
       <>
-        <PortfolioImageCard portfolioImage={element as PortfolioImage} />
+        <PortfolioImageCard
+          isEditionMode={mode === "edition"}
+          portfolioImage={element as PortfolioImage}
+        />
         <p>{element.title}</p>
       </>
     );
@@ -50,6 +70,11 @@ export const PortfolioList = ({
         portfolioFolderId={portfolioFolderId}
         closeModal={closeModal}
       />
+      <PortfolioFolderDetailsModal
+        isShowed={isPortfolioFolderModalShowed}
+        portfolioFolder={portfolioFolderSelected}
+        closeModal={() => setIsPortfolioFolderModalShowed(false)}
+      />
       <ul
         className={css({
           display: "grid",
@@ -59,40 +84,42 @@ export const PortfolioList = ({
           gap: "1rem",
         })}
       >
-        <li>
-          <Card
-            css={{
-              h: "18rem",
-              pos: "relative",
-              cursor: "pointer",
-              w: "100%",
-              p: "1rem",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "1rem",
-              zIndex: 3,
-              // borderStyle: "dashed",
-            }}
-            onClick={openModal}
-          >
+        {mode === "edition" && (
+          <li>
             <Card
               css={{
-                h: "12rem",
+                h: "18rem",
+                pos: "relative",
+                cursor: "pointer",
                 w: "100%",
-                backgroundColor: "gray",
+                p: "1rem",
                 display: "flex",
+                flexDirection: "column",
                 alignItems: "center",
-                justifyContent: "center",
-                borderStyle: "dashed",
-                fontSize: "1.5rem",
+                gap: "1rem",
+                zIndex: 3,
+                // borderStyle: "dashed",
               }}
+              onClick={openModal}
             >
-              <FaPlus />
+              <Card
+                css={{
+                  h: "12rem",
+                  w: "100%",
+                  backgroundColor: "gray",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderStyle: "dashed",
+                  fontSize: "1.5rem",
+                }}
+              >
+                <FaPlus />
+              </Card>
+              <h3 className={css({ textStyle: "body" })}>Ajouter un élément</h3>
             </Card>
-            <h3 className={css({ textStyle: "body" })}>Ajouter un élément</h3>
-          </Card>
-        </li>
+          </li>
+        )}
         {elements &&
           elements.map((element) => {
             return (

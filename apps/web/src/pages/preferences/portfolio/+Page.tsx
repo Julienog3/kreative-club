@@ -64,6 +64,7 @@ function Page(): JSX.Element {
                   Praesent at quam nulla. Nam id leo mauris.
                 </p>
                 <PortfolioList
+                  mode="edition"
                   elements={portfolioElements}
                   onPortfolioFolderSelect={(id) =>
                     setSelectedPortfolioFolderId(id)

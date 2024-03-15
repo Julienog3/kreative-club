@@ -63,6 +63,7 @@ export const PortfolioFolderDetails = ({
       </p>
       {portfolioFolder.portfolioImages && (
         <PortfolioList
+          mode="edition"
           elements={portfolioFolder.portfolioImages}
           portfolioFolderId={portfolioFolder.id}
         />
