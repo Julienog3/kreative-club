@@ -10,6 +10,7 @@ import AuthModal from "../components/modals/AuthModal/AuthModal";
 import { useTransition } from "@react-spring/web";
 import { useStoreAuthModal } from "../components/modals/AuthModal/AuthModal.store";
 import "#root/src/index.css";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 function Layout({ children }: PropsWithChildren) {
   const isShowed = useStoreAuthModal(({ isShowed }) => isShowed);
@@ -27,6 +28,7 @@ function Layout({ children }: PropsWithChildren) {
         {children}
         <Footer />
       </div>
+      <ReactQueryDevtools initialIsOpen={true} />
     </>
   );
 }

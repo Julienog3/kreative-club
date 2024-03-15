@@ -13,4 +13,9 @@ export default class PortfolioFoldersController {
     const payload = await request.validateUsing(createPortfolioFolderValidator)
     await PortfolioFolder.create(payload)
   }
+
+  public async destroy({ params }: HttpContext): Promise<void> {
+    const portfolioFolder = await PortfolioFolder.findOrFail(params.portfolioFolderId)
+    await portfolioFolder.delete()
+  }
 }

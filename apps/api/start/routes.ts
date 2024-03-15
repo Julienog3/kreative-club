@@ -60,13 +60,13 @@ router.group(async () => {
     router.group(async () => {
       router.get('/', [PortfolioFoldersController, 'index'])
       router.post('/', [PortfolioFoldersController, 'store'])
+      router.delete(':portfolioFolderId', [PortfolioFoldersController, 'destroy'])
     }).prefix('folders')
 
     router.post('enable', [UsersController, 'enablePortfolio'])
     router.get('illustration', [UsersController, 'getPortfolioIllustration'])
   }).prefix(':userId/portfolio')
 }).prefix('users')
-// .middleware(['auth'])
 
 router.group(async () => {
   router.get('/', [UsersController, 'showBookmarks'])
@@ -77,7 +77,6 @@ router.group(async () => {
 .use(middleware.auth({ guards: ['api'] }))
 
 router.resource('categories', CategoriesController).apiOnly()
-
 
 router.get('/uploads/*', ({ request, response }) => {
   const filePath = request.param('*').join(sep)

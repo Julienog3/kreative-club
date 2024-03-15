@@ -24,21 +24,19 @@ export const useCreatePortfolioImage = ({
   const { addItem } = useSnackbarStore();
 
   const queryKey = portfolioFolderId
-    ? ["portfolio", "folders"]
-    : ["portfolio", "images"];
+    ? ["portfolio", "folders", portfolioFolderId]
+    : ["portfolio"];
 
   return useMutation({
     mutationFn: (newPortfolioImage: FormData) => {
       return createPortfolioImage(userId, newPortfolioImage);
     },
-    onSuccess: () => {
+    onSuccess: (newPortfolioImage) => {
       addItem({
         type: "success",
         message: "L'image de portfolio a correctement été ajouté.",
       });
-      queryClient.invalidateQueries({
-        queryKey,
-      });
+      queryClient.setQueryData(queryKey, newPortfolioImage);
     },
     onError: () => {
       addItem({

@@ -74,7 +74,7 @@ const Modal = ({
             mb: "1rem",
           })}
         >
-          <h2 className={css({ textStyle: "title" })}>{title}</h2>
+          <h2 className={css({ textStyle: "subtitle" })}>{title}</h2>
           <Button variant="danger" onClick={onClose}>
             <AiOutlineClose />
           </Button>

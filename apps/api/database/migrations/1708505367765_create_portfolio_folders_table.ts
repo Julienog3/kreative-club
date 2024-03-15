@@ -7,7 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.string('id').unique()
       table.string('title').notNullable()
-      table.string('description')
+      table.text('description')
       table
         .string('user_id')
         .references('users.id')

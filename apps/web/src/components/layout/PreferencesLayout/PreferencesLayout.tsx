@@ -81,7 +81,7 @@ export function PreferencesLayout({
                   h: "100%",
                   display: "block",
                 })}
-                href="/preferences/profile"
+                href="/preferences/creative-profile"
               >
                 Mon profil créatif
               </Link>

@@ -12,11 +12,13 @@ type PortfolioType = "folder" | "image";
 interface CreatePortfolioItemModalProps {
   isShowed: boolean;
   closeModal: () => void;
+  portfolioFolderId?: string;
 }
 
 export const CreatePortfolioItemModal = ({
   isShowed,
   closeModal,
+  portfolioFolderId,
 }: CreatePortfolioItemModalProps) => {
   const modalTransition = useTransition(isShowed, modalTransitionConfig);
   const [createPortfolioType, setCreatePortfolioType] =
@@ -27,7 +29,7 @@ export const CreatePortfolioItemModal = ({
       case "folder":
         return <CreatePortfolioFolderForm />;
       case "image":
-        return <CreatePortfolioForm />;
+        return <CreatePortfolioForm portfolioFolderId={portfolioFolderId} />;
       default:
         return null;
     }
@@ -53,10 +55,12 @@ export const CreatePortfolioItemModal = ({
                 closeModal();
               }}
             >
-              <div className={hstack()}>
-                <Button onClick={() => selectType("image")}>Image</Button>
-                <Button onClick={() => selectType("folder")}>Dossier</Button>
-              </div>
+              {!portfolioFolderId && (
+                <div className={hstack()}>
+                  <Button onClick={() => selectType("image")}>Image</Button>
+                  <Button onClick={() => selectType("folder")}>Dossier</Button>
+                </div>
+              )}
               {renderModalForm()}
             </Modal>
           )}

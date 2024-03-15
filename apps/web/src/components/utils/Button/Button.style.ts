@@ -10,6 +10,8 @@ export const button = cva({
     transition: "background",
     rounded: ".5rem",
     color: "black",
+    alignItems: "center",
+    gap: ".5rem",
   },
   variants: {
     size: {
