@@ -5,7 +5,8 @@ import { PreferencesLayout } from "../../../components/layout/PreferencesLayout/
 import { usePageContext } from "vike-react/usePageContext";
 import { ProfileCard } from "./ProfileCard";
 import { useUserQuery } from "#root/src/api/user/getUser";
-import { ProfileForm } from "./components/ProfileForm";
+import { ProfileForm } from "./components/CreativeProfileForm";
+import Button from "#root/src/components/utils/Button/Button";
 
 export { Page };
 
@@ -27,6 +28,7 @@ function Page(): JSX.Element {
           >
             <h2 className={css({ textStyle: "title" })}>Profil créatif</h2>
             <ProfileCard user={user} />
+            <Button>Activer mon portfolio</Button>
             {/* {profile && <ProfileForm user={profile} />} */}
           </div>
         </Card>

@@ -28,27 +28,18 @@ const profileSchema = z.object({
   categories: z.number().array().optional(),
 });
 
-export const ProfileForm = ({ user }: ProfileFormProps) => {
+export const CreativeProfileForm = ({ user }: ProfileFormProps) => {
   const form = useForm<z.infer<typeof profileSchema>>({
     resolver: zodResolver(profileSchema),
-    defaultValues: { ...user, categories: user.categories.map(({ id }) => id) },
+    defaultValues: user,
   });
 
   const editProfile = useUpdateUser(user.id);
-  const uploadAvatarProfile = useUpdateUserAvatar(user.id);
 
   const onSubmit: SubmitHandler<z.infer<typeof profileSchema>> = (
     profileData,
   ) => {
-    const { avatar, ...payload } = profileData;
-
-    if (avatar[0]) {
-      const avatarPayload = new FormData();
-      avatarPayload.append("avatar", profileData.avatar[0]);
-      uploadAvatarProfile.mutate(avatarPayload);
-    }
-
-    editProfile.mutate(payload);
+    editProfile.mutate(profileData);
   };
 
   const {

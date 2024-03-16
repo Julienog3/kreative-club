@@ -19,6 +19,7 @@ export type User = {
   portfolioEnabled: boolean;
   avatar?: string;
   categories: Category[];
+  description?: string;
 };
 
 export type UserPayload = User & {
