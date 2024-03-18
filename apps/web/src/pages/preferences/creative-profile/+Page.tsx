@@ -7,12 +7,17 @@ import { ProfileCard } from "./ProfileCard";
 import { useUserQuery } from "#root/src/api/user/getUser";
 import { ProfileForm } from "./components/CreativeProfileForm";
 import Button from "#root/src/components/utils/Button/Button";
+import { useEnablePortfolioQuery } from "#root/src/api/user/enablePortfolio";
 
 export { Page };
 
 function Page(): JSX.Element {
-  const { user } = usePageContext();
+  const { user, userToken } = usePageContext();
   const { data: profile } = useUserQuery(user.id);
+
+  console.log(user);
+
+  const enablePortfolio = useEnablePortfolioQuery(userToken);
 
   return (
     <>
@@ -28,7 +33,13 @@ function Page(): JSX.Element {
           >
             <h2 className={css({ textStyle: "title" })}>Profil créatif</h2>
             <ProfileCard user={user} />
-            <Button>Activer mon portfolio</Button>
+            <Button
+              onClick={() => enablePortfolio.mutate(!user.portfolioEnabled)}
+            >
+              {user.portfolioEnabled
+                ? "Désactiver mon portfolio"
+                : "Activer mon portfolio"}
+            </Button>
             {/* {profile && <ProfileForm user={profile} />} */}
           </div>
         </Card>

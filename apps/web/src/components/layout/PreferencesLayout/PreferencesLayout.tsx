@@ -3,6 +3,7 @@ import { grid, gridItem, vstack } from "../../../../styled-system/patterns";
 import { Link } from "#root/src/components/Link";
 import List from "../../utils/List/List";
 import { css } from "../../../../styled-system/css";
+import { usePageContext } from "vike-react/usePageContext";
 
 interface PreferencesLayoutProps {
   children: React.ReactNode;
@@ -11,6 +12,8 @@ interface PreferencesLayoutProps {
 export function PreferencesLayout({
   children,
 }: PreferencesLayoutProps): JSX.Element {
+  const { user } = usePageContext();
+
   return (
     <div
       className={vstack({
@@ -57,7 +60,7 @@ export function PreferencesLayout({
                 Sécurité
               </Link>
             </List.Item>
-            <List.Item isLast>
+            <List.Item>
               <Link
                 className={css({
                   p: "1rem",
@@ -86,19 +89,21 @@ export function PreferencesLayout({
                 Mon profil créatif
               </Link>
             </List.Item>
-            <List.Item isLast>
-              <Link
-                className={css({
-                  p: "1rem",
-                  w: "100%",
-                  h: "100%",
-                  display: "block",
-                })}
-                href="/preferences/portfolio"
-              >
-                Mon portfolio
-              </Link>
-            </List.Item>
+            {user.portfolioEnabled && (
+              <List.Item>
+                <Link
+                  className={css({
+                    p: "1rem",
+                    w: "100%",
+                    h: "100%",
+                    display: "block",
+                  })}
+                  href="/preferences/portfolio"
+                >
+                  Mon portfolio
+                </Link>
+              </List.Item>
+            )}
           </List>
         </div>
         <div className={gridItem({ colSpan: 3 })}>{children}</div>

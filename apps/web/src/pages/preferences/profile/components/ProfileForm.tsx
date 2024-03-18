@@ -72,7 +72,7 @@ export const ProfileForm = ({ user }: ProfileFormProps) => {
           <Input label="phone" control={control} register={register} />
         </div>
         <div className={gridItem()}>
-          <Input label="email" control={control} register={register} />
+          <Input label="email" control={control} register={register} disabled />
         </div>
         <div className={gridItem()}>
           <Input label="lastName" control={control} register={register} />

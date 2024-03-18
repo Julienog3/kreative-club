@@ -47,7 +47,7 @@ export function AdminLayout({ children }: AdminLayoutProps): JSX.Element {
               Utilisateurs
             </Link>
           </List.Item>
-          <List.Item isLast>
+          <List.Item>
             <Link
               className={css({
                 p: "1rem",

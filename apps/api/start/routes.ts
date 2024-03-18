@@ -69,6 +69,14 @@ router.group(async () => {
 }).prefix('users')
 
 router.group(async () => {
+  router.post('enable', [UsersController, 'enablePortfolio'])
+  router.get('illustration', [UsersController, 'getPortfolioIllustration'])
+})
+.prefix('portfolio')
+.use(middleware.auth({ guards: ['api'] }))
+
+
+router.group(async () => {
   router.get('/', [UsersController, 'showBookmarks'])
   router.post(':creativeId', [UsersController, 'addBookmark'])
   router.delete(':creativeId', [UsersController, 'removeBookmark'])

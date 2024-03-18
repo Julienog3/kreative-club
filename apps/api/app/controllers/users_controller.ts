@@ -60,8 +60,8 @@ export default class UsersController {
     return await user.merge({ avatar: '/uploads/avatars/' + fileUrl }).save()
   }
 
-  public async enablePortfolio({ params, request }: HttpContext) {
-    const user = await User.findOrFail(params.userId)
+  public async enablePortfolio({ auth, request }: HttpContext) {
+    const user: User = await auth.getUserOrFail()
     const { isEnabled } = await request.validateUsing(enablePortfolioValidator)
 
     await user.merge({ portfolioEnabled: isEnabled }).save()

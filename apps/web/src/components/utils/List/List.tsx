@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from "react";
 import Card from "../Card/Card";
 import { hstack, vstack } from "../../../../styled-system/patterns";
+import { css } from "#root/styled-system/css";
 
 interface ListHeaderProps {
   children: React.ReactNode;
@@ -8,10 +9,6 @@ interface ListHeaderProps {
 }
 
 interface ListProps {}
-
-interface ListItemProps {
-  isLast?: boolean;
-}
 
 const List = ({ children }: ListProps & PropsWithChildren): JSX.Element => {
   return <Card css={{ h: "fit-content", width: "100%" }}>{children}</Card>;
@@ -36,24 +33,32 @@ const Header = ({ children, bgColor = "yellow" }: ListHeaderProps) => {
 List.Header = Header;
 
 const Body = ({ children }: PropsWithChildren) => {
-  return <ul className={vstack()}>{children}</ul>;
+  return (
+    <ul
+      className={css({
+        "& li": { backgroundColor: "red" },
+      })}
+    >
+      {children}
+    </ul>
+  );
 };
 
 List.Body = Body;
 
-const Item = ({
-  children,
-  isLast = false,
-}: ListItemProps & PropsWithChildren): JSX.Element => {
+const Item = ({ children }: PropsWithChildren): JSX.Element => {
   return (
     <li
       className={vstack({
         alignItems: "start",
         textStyle: "body",
-        borderBottom: !isLast ? "solid 2px black" : undefined,
         transition: "all",
+        borderBottom: "2px solid black",
         _hover: {
           bgColor: "gray",
+        },
+        _lastOfType: {
+          borderBottom: 0,
         },
       })}
     >
