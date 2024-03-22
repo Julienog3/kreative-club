@@ -1,24 +1,20 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import User from '../models/user.js'
 import { registerUserValidator } from '#validators/auth'
+import logger from '@adonisjs/core/services/logger'
 
 export default class AuthController {
-  public async login({ request }: HttpContext) {
+  public async login({ auth, request }: HttpContext) {
     const { email, password } = request.only(['email', 'password'])
     
     const user = await User.verifyCredentials(email, password)
-    const token = await User.accessTokens.create(user)
+    logger.info('user', user)
 
-    return token
+    await auth.use('web').login(user)
   }
 
   public async logout({ auth }: HttpContext) {
-    // const { user } = auth
-    // await User.accessTokens.delete(user.id, currentAccessToken.id)
-    
-    return {
-      revoked: true,
-    }
+    await auth.use('web').logout()
   }
 
   public async register({ request }: HttpContext) {

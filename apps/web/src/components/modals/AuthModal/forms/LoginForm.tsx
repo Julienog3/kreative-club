@@ -32,6 +32,7 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
+    console.log("isSuccess", isSuccess);
     if (isSuccess) {
       addItem({
         type: "success",

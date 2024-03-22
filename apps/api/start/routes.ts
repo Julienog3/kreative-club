@@ -36,9 +36,9 @@ router.get('/', async () => {
 
 router.group(async () => {
   router.post('login', [AuthController, 'login'])
-  router.post('logout', [AuthController, 'logout'])
   router.post('register', [AuthController, 'register'])
-  router.get('me', [AuthController, 'getMe'])
+  router.post('logout', [AuthController, 'logout']).use(middleware.auth())
+  router.get('me', [AuthController, 'getMe']).use(middleware.auth())
 }).prefix('auth')
 
 
@@ -73,7 +73,7 @@ router.group(async () => {
   router.get('illustration', [UsersController, 'getPortfolioIllustration'])
 })
 .prefix('portfolio')
-.use(middleware.auth({ guards: ['api'] }))
+.use(middleware.auth())
 
 
 router.group(async () => {
@@ -82,7 +82,7 @@ router.group(async () => {
   router.delete(':creativeId', [UsersController, 'removeBookmark'])
 })
 .prefix('bookmarks')
-.use(middleware.auth({ guards: ['api'] }))
+.use(middleware.auth())
 
 router.resource('categories', CategoriesController).apiOnly()
 

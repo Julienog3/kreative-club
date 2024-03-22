@@ -1,15 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { loginUser, logoutUser } from "../api/auth";
-import { saveToken } from "../helpers/localStorage";
 
 export function useAuth() {
   const queryClient = useQueryClient();
 
   const signIn = useMutation({
     mutationFn: loginUser,
-    onSuccess: ({ token }) => {
-      saveToken(token);
+    onSuccess: () => {
+      // saveToken(token);
       // setHasToken(true);
+      console.log("signed in");
       queryClient.invalidateQueries({ queryKey: ["user"] });
     },
   });

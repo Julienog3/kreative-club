@@ -2,19 +2,17 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { api } from "..";
 import { User } from "../user";
 
-export const getBookmarks = async (token: string): Promise<User[]> => {
+export const getBookmarks = async (): Promise<User[]> => {
   return await api
     .get("bookmarks", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      credentials: "include",
     })
     .json();
 };
 
-export const useBookmarksQuery = (token: string) => {
+export const useBookmarksQuery = () => {
   return useSuspenseQuery({
     queryKey: ["bookmarks"],
-    queryFn: () => getBookmarks(token),
+    queryFn: () => getBookmarks(),
   });
 };

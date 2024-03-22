@@ -5,7 +5,7 @@ export const layerStyles = defineLayerStyles({
     description: "container styles",
     value: {
       backgroundColor: "white",
-      border: "3px solid black",
+      border: "2px solid black",
       borderRadius: "13px",
     },
   },

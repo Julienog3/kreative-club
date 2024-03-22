@@ -9,8 +9,8 @@ import { useRemoveBoomarkQuery } from "#root/src/api/bookmarks/removeBookmark";
 export { Page };
 
 function Page() {
-  const { userToken } = usePageContext();
-  const { data: creatives } = useBookmarksQuery(userToken);
+  // const { userToken } = usePageContext();
+  const { data: creatives } = useBookmarksQuery();
   const removeBookmark = useRemoveBoomarkQuery(userToken);
 
   return (

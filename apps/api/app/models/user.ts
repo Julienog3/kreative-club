@@ -1,10 +1,10 @@
 import { DateTime } from 'luxon'
-import { BaseModel, beforeCreate, belongsTo, column, manyToMany } from '@adonisjs/lucid/orm'
+import { BaseModel, beforeCreate, column, manyToMany } from '@adonisjs/lucid/orm'
 import hash from '@adonisjs/core/services/hash'
 import { randomUUID } from 'node:crypto'
 import { compose } from '@adonisjs/core/helpers'
 import { withAuthFinder } from '@adonisjs/auth'
-import { AccessToken, DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
+import {  DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
 import Category from '#models/category'
 import type { ManyToMany } from '@adonisjs/lucid/types/relations'
 
@@ -20,7 +20,6 @@ export enum Role {
 
 export default class User extends compose(BaseModel, AuthFinder) {
   public static selfAssignPrimaryKey = true
-  public static currentAccessToken?: AccessToken
 
   @column({ isPrimary: true })
   declare id: string

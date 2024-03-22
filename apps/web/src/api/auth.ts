@@ -29,17 +29,8 @@ const registerUser = async (user: UserPayload): Promise<void> => {
 const loginUser = async ({
   email,
   password,
-}: Credentials): Promise<LoginResponse> => {
-  const loginResponseSchema = z.object({
-    token: z.string(),
-    type: z.string(),
-  });
-
-  const response = await ky
-    .post("/_auth/login", { json: { email, password } })
-    .json();
-
-  return loginResponseSchema.parse(response);
+}: Credentials): Promise<boolean> => {
+  return await ky.post("/_auth/login", { json: { email, password } }).json();
 };
 
 const logoutUser = async (): Promise<void> => {

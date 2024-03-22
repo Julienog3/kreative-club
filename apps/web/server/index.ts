@@ -56,27 +56,28 @@ async function buildServer() {
   }
 
   app.addHook("onError", (request, reply, error, done) => {
-    // Some code
-    // reply.clearCookie("token");
     done();
   });
 
-  app.addHook("preHandler", async (request, reply) => {
-    const { token } = request.cookies;
+  app.addHook("preHandler", async (request) => {
+    // if (!request.originalUrl.endsWith("pageContext.json")) {
+    //   return;
+    // }
 
-    if (token) {
-      try {
-        const user = await ky
-          .get("http://127.0.0.1:3333/auth/me", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .json();
-        request.user = user;
-      } catch (error) {
-        reply.clearCookie("token");
-      }
+    try {
+      const user = await ky
+        .get("http://127.0.0.1:3333/auth/me", {
+          headers: {
+            Cookie: Object.entries(request.cookies)
+              .map(([name, value]) => `${name}=${value}`)
+              .join(";"),
+          },
+        })
+        .json();
+
+      request.user = user;
+    } catch (error) {
+      console.log(error);
     }
   });
 
@@ -86,46 +87,36 @@ async function buildServer() {
       password: string;
     };
 
-    const response = await ky
-      .post("http://127.0.0.1:3333/auth/login", {
-        json: { email, password },
-      })
-      .json();
+    const response = await ky.post("http://127.0.0.1:3333/auth/login", {
+      json: { email, password },
+      credentials: "same-origin",
+    });
 
-    if (response) {
-      reply.setCookie("token", response.token, {
-        maxAge: 24 * 60 * 60 * 1000,
-        httpOnly: true,
-        path: "/",
-      });
-    }
-
-    reply.send(response);
+    response.headers.getSetCookie().forEach((setCookie) => {
+      reply.header("Set-Cookie", setCookie);
+    });
   });
 
   app.post("/_auth/logout", async (request, reply) => {
-    const { token } = request.cookies;
+    const response = await ky.post("http://127.0.0.1:3333/auth/logout", {
+      headers: {
+        Cookie: Object.entries(request.cookies)
+          .map(([name, value]) => `${name}=${value}`)
+          .join(";"),
+      },
+    });
 
-    await ky
-      .post("http://127.0.0.1:3333/auth/logout", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .json();
-
-    reply.clearCookie("token", { path: "/" });
-    reply.send();
+    response.headers.getSetCookie().forEach((setCookie) => {
+      reply.clearCookie(setCookie.split("=")[0]);
+    });
   });
 
   app.get("*", async (request, reply) => {
     const user = request.user;
-    const { token } = request.cookies;
 
     const pageContextInit = {
       urlOriginal: request.raw.url || "",
       user,
-      userToken: token,
     };
     const pageContext = await renderPage(pageContextInit);
     const { httpResponse } = pageContext;
@@ -148,7 +139,7 @@ async function main() {
   const fastify = await buildServer();
 
   const port = process.env.PORT || 3000;
-  fastify.listen({ port: +port }, function (err, address) {
+  fastify.listen({ port: +port, host: "127.0.0.1" }, function (err, address) {
     if (err) {
       fastify.log.error(err);
       process.exit(1);

@@ -5,7 +5,8 @@ router.use([
   () => import('@adonisjs/core/bodyparser_middleware'),
   () => import('@adonisjs/auth/initialize_auth_middleware'),
   () => import('#middleware/initialize_bouncer_middleware'),
-  () => import('@adonisjs/cors/cors_middleware')
+  () => import('@adonisjs/cors/cors_middleware'),
+  () => import('@adonisjs/session/session_middleware')
 ])
 
 server.use([

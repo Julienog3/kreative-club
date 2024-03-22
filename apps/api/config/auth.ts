@@ -1,15 +1,15 @@
 import { defineConfig } from '@adonisjs/auth'
-import { tokensGuard, tokensUserProvider } from '@adonisjs/auth/access_tokens'
+import { sessionGuard, sessionUserProvider } from '@adonisjs/auth/session'
 
 const authConfig = defineConfig({
-  default: 'api',
+  default: 'web',
   guards: {
-    api: tokensGuard({
-      provider: tokensUserProvider({
-        tokens: 'accessTokens',
+    web: sessionGuard({
+      useRememberMeTokens: false,
+      provider: sessionUserProvider({
         model: () => import('#models/user'),
-      })
-    }),
+      }),
+    })
   },
 })
 

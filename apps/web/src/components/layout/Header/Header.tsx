@@ -70,7 +70,7 @@ const Header = (): JSX.Element => {
     <header
       className={vstack({
         width: "100%",
-        height: "10vh",
+        height: "5rem",
         paddingX: "1rem",
         justifyContent: "space-between",
         flexDirection: "row",
@@ -78,56 +78,65 @@ const Header = (): JSX.Element => {
         borderBottom: "solid #000 2px",
       })}
     >
-      <Link href="/">
-        <img
-          className={css({ width: "5rem" })}
-          src="/images/kreative-club.svg"
-          alt="Logo Kreative club"
-        />
-      </Link>
-      <div className={hstack({ gap: "1rem" })}>
-        <Link href="/creatives">
-          <p className={css({ textStyle: "body" })}>Découvrir</p>
+      <div
+        className={hstack({
+          width: "100%",
+          maxWidth: "breakpoint-xl",
+          margin: "0 auto",
+          justifyContent: "space-between",
+        })}
+      >
+        <Link href="/">
+          <img
+            className={css({ width: "5rem" })}
+            src="/images/kreative-club.svg"
+            alt="Logo Kreative club"
+          />
         </Link>
-        <Link href="/messages">
-          <p className={css({ textStyle: "body" })}>Messagerie</p>
-        </Link>
+        <div className={hstack({ gap: "1rem" })}>
+          <Link href="/creatives">
+            <p className={css({ textStyle: "body" })}>Découvrir</p>
+          </Link>
+          <Link href="/messages">
+            <p className={css({ textStyle: "body" })}>Messagerie</p>
+          </Link>
 
-        <Link href="/bookmarks">
-          <button
-            className={center({
-              border: "2px solid black",
-              rounded: "10px",
-              padding: ".5rem",
-              h: "3.25rem",
-              w: "3.25rem",
-              backgroundColor: "gray",
-              cursor: "pointer",
-            })}
-          >
-            <IoBookmark />
-          </button>
-        </Link>
-        {user ? (
-          <>
-            <Dropdown items={dropdownItems}>
-              <HeaderProfile user={user} />
-            </Dropdown>
-          </>
-        ) : (
-          <>
-            <span
-              role="button"
-              className={css({ textStyle: "body", cursor: "pointer" })}
-              onClick={(): void => openModal(AuthModalType.LOGIN)}
+          <Link href="/bookmarks">
+            <button
+              className={center({
+                border: "2px solid black",
+                rounded: "10px",
+                padding: ".5rem",
+                h: "3.25rem",
+                w: "3.25rem",
+                backgroundColor: "gray",
+                cursor: "pointer",
+              })}
             >
-              Se connecter
-            </span>
-            <Button onClick={(): void => openModal(AuthModalType.SIGNUP)}>
-              Rejoindre le club
-            </Button>
-          </>
-        )}
+              <IoBookmark />
+            </button>
+          </Link>
+          {user ? (
+            <>
+              <Dropdown items={dropdownItems}>
+                <HeaderProfile user={user} />
+              </Dropdown>
+            </>
+          ) : (
+            <>
+              <span
+                role="button"
+                className={css({ textStyle: "body", cursor: "pointer" })}
+                onClick={(): void => openModal(AuthModalType.LOGIN)}
+              >
+                Se connecter
+              </span>
+              <Button onClick={(): void => openModal(AuthModalType.SIGNUP)}>
+                Rejoindre le club
+              </Button>
+            </>
+          )}
+        </div>
       </div>
     </header>
   );
